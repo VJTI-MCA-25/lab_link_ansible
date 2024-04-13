@@ -1,0 +1,68 @@
+:root {
+	--bg1: #0b0c10;
+	--bg2: #1f2833;
+	--border: #c5c6c7;
+	--accent1: #66fcf1;
+	--accent2: #45a29e;
+	--text-color:  #ffffff;
+	--success: green;
+	--error: red;
+}
+
+body {
+	background-color: var(--bg2);
+	color: var(--text-color)
+}
+
+nav {
+    background-color: var(--accent2);
+}
+
+.preloader {
+	width: 100%;
+	margin-top: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	flex-direction: column;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.hosts-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1rem;
+	padding: 3rem;
+}
+
+.host {
+	width: 75px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+.host-status {
+	height: 50px;
+	width: 50px;
+	border-radius: 1px;
+}
+
+.host-status.success {
+	background-color: var(--success);
+}
+
+.host-status.failed {
+	background-color: var(--error);
+}
+
+main {
+	margin-top: 2rem;
+}

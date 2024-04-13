@@ -1,0 +1,13 @@
+# Ansible ignore entries
+ansible/artifacts/
+ssh_key
+*.pub
+.ssh/
+hosts.yml
+# Django project ignore entries
+*.pyc
+*.pyo
+__pycache__/
+*.sqlite3
+/static/
+/media/
