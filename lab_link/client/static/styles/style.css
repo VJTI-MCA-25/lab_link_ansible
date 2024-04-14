@@ -1,21 +1,22 @@
 :root {
 	--bg1: #0b0c10;
 	--bg2: #1f2833;
+	--bg3: #181818;
 	--border: #c5c6c7;
 	--accent1: #66fcf1;
 	--accent2: #45a29e;
-	--text-color:  #ffffff;
+	--text-color: #ffffff;
 	--success: green;
 	--error: red;
 }
 
 body {
-	background-color: var(--bg2);
-	color: var(--text-color)
+	background-color: var(--bg3);
+	color: var(--text-color);
 }
 
 nav {
-    background-color: var(--accent2);
+	background-color: var(--accent2);
 }
 
 .preloader {
@@ -29,7 +30,7 @@ nav {
 }
 
 .menu-icon {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .hosts-container {
@@ -42,13 +43,23 @@ nav {
 }
 
 .host {
-	width: 75px;
+	background-color: var(--bg2);
+	width: 90px;
+	padding: 5px;
+	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 20px;
+	transform: scale(1);
+	transition: transform 0.1s ease-out;
 }
+
+.host:hover {
+	transform: scale(1.05);
+}
+
 .host-status {
 	height: 50px;
 	width: 50px;
@@ -66,3 +77,9 @@ nav {
 main {
 	margin-top: 2rem;
 }
+
+.host-link {
+	text-decoration: none;
+	color: var(--text-color);
+}
+

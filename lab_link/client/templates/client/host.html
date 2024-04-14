@@ -1,0 +1,14 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<div>Host: {{ host_id }}</div>
+
+<script type="module" defer>
+	import { getHostDetails } from "{% static 'scripts/fetch.js' %}";
+
+	async function getHost() {
+		const data = await getHostDetails("{{ host_id }}");
+		console.log(data);
+	}
+
+	getHost();
+</script>
+{% endblock content %}
