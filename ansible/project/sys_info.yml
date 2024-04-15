@@ -1,61 +1,61 @@
+#! Change in the keys here will need to be reflected in the 'static/scripts/host.js' file
 ---
 - name: Collect system information from all hosts in the inventory
   hosts: all
   tasks:
- 
-    - name: Get IP address
-      shell: hostname -I | cut -d' ' -f1
-      register: ip_address
-      tags: platform_info
+      - name: Get IP address
+        shell: hostname -I | cut -d' ' -f1
+        register: ip_address
+        tags: platform_info
 
-    - name: Get system uptime
-      command: uptime
-      register: uptime_output
-      tags: platform_info
+      - name: Get system uptime
+        command: uptime
+        register: uptime_output
+        tags: platform_info
 
-    - name: Get platform information
-      tags: platform_info
-      set_fact:
-        platform_info:
-          system: "{{ ansible_system }}"
-          release: "{{ ansible_distribution_release }}"
-          type: "{{ ansible_machine }}"
-          version: "{{ ansible_distribution_version }}"
-          hostname: "{{ ansible_hostname }}"
-          architecture: "{{ ansible_architecture }}"
-          cpus: "{{ ansible_processor }}"
-          memory: "{{ ansible_memtotal_mb }} MB"
-          disk_usage: "{{ ansible_mounts[0].size_total | human_readable }}"
-          ip_address: "{{ ip_address.stdout }}"
-          users: "{{ ansible_user_id | default([]) }}"
-          uptime: "{{ uptime_output.stdout }}"
-          network_interfaces: "{{ ansible_interfaces }}"
-          mac_addresses: "{{ ansible_facts | dict2items | selectattr('value.macaddress', 'defined') | map(attribute='value.macaddress') | list }}"
-          ipv4_addresses: "{{ ansible_all_ipv4_addresses }}"
-          ipv6_addresses: "{{ ansible_all_ipv6_addresses }}"
-          dns_servers: "{{ ansible_dns.nameservers }}"
-          gateway: "{{ ansible_default_ipv4.gateway }}"
-          domain: "{{ ansible_domain }}"
-          timezone: "{{ ansible_date_time.tz }}"
-          locale: "{{ ansible_env.LANG }}"
-          python_version: "{{ ansible_python.version }}"
+      - name: Get platform information
+        tags: platform_info
+        set_fact:
+            platform_info:
+                system: "{{ ansible_system }}"
+                release: "{{ ansible_distribution_release }}"
+                type: "{{ ansible_machine }}"
+                version: "{{ ansible_distribution_version }}"
+                hostname: "{{ ansible_hostname }}"
+                architecture: "{{ ansible_architecture }}"
+                cpus: "{{ ansible_processor }}"
+                memory: "{{ ansible_memtotal_mb }} MB"
+                disk_usage: "{{ ansible_mounts[0].size_total | human_readable }}"
+                ip_address: "{{ ip_address.stdout }}"
+                users: "{{ ansible_user_id | default([]) }}"
+                uptime: "{{ uptime_output.stdout }}"
+                network_interfaces: "{{ ansible_interfaces }}"
+                mac_addresses: "{{ ansible_facts | dict2items | selectattr('value.macaddress', 'defined') | map(attribute='value.macaddress') | list }}"
+                ipv4_addresses: "{{ ansible_all_ipv4_addresses }}"
+                ipv6_addresses: "{{ ansible_all_ipv6_addresses }}"
+                dns_servers: "{{ ansible_dns.nameservers }}"
+                gateway: "{{ ansible_default_ipv4.gateway }}"
+                domain: "{{ ansible_domain }}"
+                timezone: "{{ ansible_date_time.tz }}"
+                locale: "{{ ansible_env.LANG }}"
+                python_version: "{{ ansible_python.version }}"
 
-    - name: Get connected peripherals on Linux
-      shell: lsusb
-      register: peripherals_output
-      when: ansible_system | lower == 'linux'
+      - name: Get connected peripherals on Linux
+        shell: lsusb
+        register: peripherals_output
+        when: ansible_system | lower == 'linux'
 
-    - name: Get peripherals on Windows
-      win_shell: wmic path Win32_PnPEntity get caption
-      register: peripherals_output
-      when: ansible_system | lower == 'windows'
+      - name: Get peripherals on Windows
+        win_shell: wmic path Win32_PnPEntity get caption
+        register: peripherals_output
+        when: ansible_system | lower == 'windows'
 
-    - name: Print peripherals
-      debug:
-        var: peripherals_output
+      - name: Print peripherals
+        debug:
+            var: peripherals_output
 
-    - name: Print collected information
-      tags: platform_info
-      debug:
-        var: platform_info
+      - name: Print collected information
+        tags: platform_info
+        debug:
+            var: platform_info
 

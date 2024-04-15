@@ -1,0 +1,28 @@
+{
+	"system": "Linux",
+	"release": "jammy",
+	"type": "x86_64",
+	"version": "22.04",
+	"hostname": "Ubuntu",
+	"architecture": "x86_64",
+	"cpus": [
+		"GenuineIntel Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz",
+		"GenuineIntel Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz"
+	],
+	"memory": "3907 MB",
+	"disk_usage": "23.94 GB",
+	"ip_address": "192.168.1.9",
+	"users": "aashay",
+	"uptime": " 23:44:19 up  3:29,  2 users,  load average: 0.00, 0.01, 0.00",
+	"network_interfaces": ["enp0s3", "lo"],
+	"mac_addresses": ["08:00:27:c7:b2:89", "08:00:27:c7:b2:89"],
+	"ipv4_addresses": ["192.168.1.9"],
+	"ipv6_addresses": ["fe80::f058:5af0:fbe2:ebeb"],
+	"dns_servers": ["127.0.0.53"],
+	"gateway": "192.168.1.1",
+	"domain": "myguest.virtualbox.org",
+	"timezone": "IST",
+	"locale": "en_IN",
+	"python_version": "3.10.12 final 0"
+}
+

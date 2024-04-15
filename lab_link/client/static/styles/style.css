@@ -83,3 +83,47 @@ main {
 	color: var(--text-color);
 }
 
+.key-value-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 1rem;
+}
+
+.key-value-container > ul {
+	margin: 0;
+}
+
+.key-value-container.list {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.key {
+	width: 110px;
+}
+
+.host-container {
+	margin-bottom: 5rem;
+}
+
+.host-container > section > .section-title {
+	position: relative;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	width: max-content;
+}
+.host-container > section > .section-title::before {
+	content: "";
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 5px;
+	background-color: var(--accent2);
+	left: -20px;
+	top: 0;
+}
+.host-container > section > .section-data {
+	margin-left: 1rem;
+}
+

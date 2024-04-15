@@ -1,14 +1,9 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
-<div>Host: {{ host_id }}</div>
-
-<script type="module" defer>
-	import { getHostDetails } from "{% static 'scripts/fetch.js' %}";
-
-	async function getHost() {
-		const data = await getHostDetails("{{ host_id }}");
-		console.log(data);
-	}
-
-	getHost();
+<div class="host-container container"></div>
+<script src="{% static 'scripts/host.js' %}" type="module" defer></script>
+<script>
+	const hostId = "{{ host_id }}";
+	const preloaderHtml = `{% include 'preloader.html' with subtext=True %}`;
 </script>
 {% endblock content %}
+

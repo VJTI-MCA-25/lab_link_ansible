@@ -16,13 +16,13 @@
 	const container = document.querySelector(".hosts-container");
 
 	async function getHosts() {
-		updateLoadingState(true);
+		setLoading(true);
 		const data = await pingHosts();
-		updateLoadingState(false);
+		setLoading(false);
 		populateHosts(data);
 	}
 
-	function updateLoadingState(isLoading = False) {
+	function setLoading(isLoading = False) {
 		if (isLoading) {
 			container.innerHTML = `{% include 'preloader.html' with subtext=True %}`;
 		} else {
