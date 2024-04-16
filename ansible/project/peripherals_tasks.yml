@@ -1,0 +1,22 @@
+---
+- name: Get connected peripherals on Linux
+  when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+  ansible.builtin.shell: |
+      lspci | cut -d' ' -f2- | sed 's/^/PCI /'
+      lsusb
+  register: linux_peripherals
+  changed_when: false
+  ignore_errors: true
+
+- name: Get peripherals on Windows
+  when: ansible_os_family == "Windows"
+  ansible.windows.win_command: |
+      Get-WmiObject -Class Win32_PnPEntity | Select-Object Name, DeviceID
+  register: windows_peripherals
+  changed_when: false
+  ignore_errors: true
+
+- name: Set peripheral information
+  set_fact:
+      peripherals: "{{ linux_peripherals.stdout_lines | default([]) if ansible_os_family == 'RedHat' or ansible_os_family == 'Debian' else windows_peripherals.stdout_lines | default([]) }}"
+

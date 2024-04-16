@@ -1,0 +1,26 @@
+{
+	"vm_01": [
+		"PCI Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)",
+		"PCI ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]",
+		"PCI IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)",
+		"PCI VGA compatible controller: VMware SVGA II Adapter",
+		"PCI Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 02)",
+		"PCI System peripheral: InnoTek Systemberatung GmbH VirtualBox Guest Service",
+		"PCI Multimedia audio controller: Intel Corporation 82801AA AC'97 Audio Controller (rev 01)",
+		"PCI USB controller: Apple Inc. KeyLargo/Intrepid USB",
+		"PCI Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)",
+		"PCI USB controller: Intel Corporation 82801FB/FBM/FR/FW/FRW (ICH6 Family) USB2 EHCI Controller",
+		"PCI SATA controller: Intel Corporation 82801HM/HEM (ICH8M/ICH8M-E) SATA Controller [AHCI mode] (rev 02)",
+		"Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+		"Bus 001 Device 002: ID 80ee:0021 VirtualBox USB Tablet",
+		"Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub"
+	],
+	"wsl_01": [
+		"PCI SCSI storage controller: Red Hat, Inc. Virtio console (rev 01)",
+		"PCI System peripheral: Red Hat, Inc. Virtio file system (rev 01)",
+		"PCI 3D controller: Microsoft Corporation Device 008e",
+		"PCI 3D controller: Microsoft Corporation Device 008e",
+		"Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+		"Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub"
+	]
+}

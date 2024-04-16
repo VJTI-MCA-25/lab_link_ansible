@@ -2,7 +2,7 @@ import { getHostDetails } from "./fetch.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
-	specification: ["cpus", "memory", "disk_usage"],
+	specification: ["cpus", "cores", "memory", "disk_usage"],
 	network_details: [
 		"ip_address",
 		"network_interfaces",
@@ -48,12 +48,11 @@ function populateHostData(data) {
 	}
 
 	function snakeToTitleCase(str) {
-		console.log(str);
 		return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 	}
 
 	for (let [keySet, keysList] of Object.entries(keys)) {
-		const section = createElem("section");
+		const section = createElem("section", "", { class: `host-section ${keySet}` });
 		let h3 = createElem("h3", snakeToTitleCase(keySet), { class: "section-title" });
 		section.appendChild(h3);
 		const sectionData = createElem("div", "", { class: "section-data" });

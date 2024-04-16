@@ -6,15 +6,15 @@
       - name: Get IP address
         shell: hostname -I | cut -d' ' -f1
         register: ip_address
-        tags: platform_info
 
       - name: Get system uptime
         command: uptime
         register: uptime_output
-        tags: platform_info
+
+      - name: Get peripheral information
+        include_tasks: peripherals_tasks.yml
 
       - name: Get platform information
-        tags: platform_info
         set_fact:
             platform_info:
                 system: "{{ ansible_system }}"
@@ -39,23 +39,9 @@
                 timezone: "{{ ansible_date_time.tz }}"
                 locale: "{{ ansible_env.LANG }}"
                 python_version: "{{ ansible_python.version }}"
-
-      - name: Get connected peripherals on Linux
-        shell: lsusb
-        register: peripherals_output
-        when: ansible_system | lower == 'linux'
-
-      - name: Get peripherals on Windows
-        win_shell: wmic path Win32_PnPEntity get caption
-        register: peripherals_output
-        when: ansible_system | lower == 'windows'
-
-      - name: Print peripherals
-        debug:
-            var: peripherals_output
+                peripherals: "{{ peripherals }}"
 
       - name: Print collected information
-        tags: platform_info
         debug:
             var: platform_info
 

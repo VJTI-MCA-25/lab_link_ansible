@@ -9,6 +9,7 @@
 		"GenuineIntel Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz",
 		"GenuineIntel Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz"
 	],
+	"cores": 2,
 	"memory": "3907 MB",
 	"disk_usage": "23.94 GB",
 	"ip_address": "192.168.1.9",

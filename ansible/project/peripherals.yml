@@ -1,0 +1,11 @@
+- name: Gather peripheral device information
+  hosts: all
+  gather_facts: true
+  tasks:
+      - name: Execute peripheral tasks
+        include_tasks: peripherals_tasks.yml
+
+      - name: Print peripheral information
+        debug:
+            var: peripherals
+

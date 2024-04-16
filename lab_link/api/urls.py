@@ -5,4 +5,5 @@ urlpatterns = [
     path('ping', views.ping_hosts),
     path('inventory', views.inventory),
     path('host/<str:host_id>', views.host_details),
+    path('peripherals', views.peripherals),
 ]

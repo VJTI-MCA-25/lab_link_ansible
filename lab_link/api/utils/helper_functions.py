@@ -147,6 +147,20 @@ def load_dummy_sys_info():
     return dummy_sys_info
 
 
+def load_dummy_peripherals():
+    """
+    Load dummy peripherals information from a JSON file.
+
+    Returns:
+        dict: A dictionary containing the dummy peripherals information.
+    """
+    dummy_peripherals_path = os.path.join(
+        settings.BASE_DIR, 'api', 'utils', 'dummy_peripherals.json')
+    with open(dummy_peripherals_path, 'r') as f:
+        dummy_peripherals = json.load(f)
+    return dummy_peripherals
+
+
 def transform_sys_info(data):
     """
     Transforms the system information data by formatting the Python version and CPUs.
@@ -171,5 +185,7 @@ def transform_sys_info(data):
     cpus_str = ["{} {}".format(cpus[i+1], cpus[i+2])
                 for i in range(0, len(cpus), 3)]
     data['cpus'] = cpus_str
+
+    data['cores'] = len(data['cpus'])
 
     return data
