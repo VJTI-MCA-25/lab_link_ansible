@@ -24,6 +24,14 @@
 	"domain": "myguest.virtualbox.org",
 	"timezone": "IST",
 	"locale": "en_IN",
-	"python_version": "3.10.12 final 0"
+	"python_version": "3.10.12 final 0",
+	"peripherals": [
+		"PCI SCSI storage controller: Red Hat, Inc. Virtio console (rev 01)",
+		"PCI System peripheral: Red Hat, Inc. Virtio file system (rev 01)",
+		"PCI 3D controller: Microsoft Corporation Device 008e",
+		"PCI 3D controller: Microsoft Corporation Device 008e",
+		"Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+		"Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub"
+	]
 }
 

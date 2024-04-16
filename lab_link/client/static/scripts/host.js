@@ -15,6 +15,7 @@ const keys = {
 		"timezone",
 	],
 	other_details: ["locale", "python_version"],
+	peripherals_devices: ["peripherals"],
 };
 
 async function getHostData() {
