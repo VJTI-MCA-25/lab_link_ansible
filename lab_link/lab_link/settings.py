@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     'client.apps.ClientConfig',
     'api.apps.ApiConfig',
-    'ws_ssh.apps.WsSshConfig',
 
     'rest_framework',
     'corsheaders',

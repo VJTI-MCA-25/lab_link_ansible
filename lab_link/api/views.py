@@ -1,8 +1,13 @@
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
+import websockets
+from django.http import JsonResponse
+import ansible_runner
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 import api.utils.helper_functions as utils
-import ansible_runner
 
 
 @api_view(['GET'])
@@ -73,5 +78,25 @@ def peripherals(request):
     return Response(dummy_data, status=status.HTTP_200_OK)
 
 
-def ssh(request):
-    pass
+def ssh(request, host_id):
+    hostname = '192.168.1.9'
+    username = 'aashay'
+    password = 'admin'
+    uri = f"ws://localhost:8000/ws/ssh/{hostname}/{username}/{password}/"
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    with ThreadPoolExecutor() as executor:
+        future = executor.submit(
+            loop.run_until_complete, connect_and_send_command(uri))
+        response = future.result()
+
+    return JsonResponse(response, status=200)
+
+
+async def connect_and_send_command(uri):
+    async with websockets.connect(uri) as websocket:
+        await websocket.send("ls")
+        response = await websocket.recv()
+    return response
