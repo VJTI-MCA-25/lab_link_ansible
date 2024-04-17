@@ -6,4 +6,5 @@ urlpatterns = [
     path('inventory', views.inventory),
     path('host/<str:host_id>', views.host_details),
     path('peripherals', views.peripherals),
+    path('ssh/<str:host_id>', views.ssh),
 ]

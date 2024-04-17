@@ -71,3 +71,7 @@ def peripherals(request):
 
     dummy_data = utils.load_dummy_peripherals()
     return Response(dummy_data, status=status.HTTP_200_OK)
+
+
+def ssh(request):
+    pass

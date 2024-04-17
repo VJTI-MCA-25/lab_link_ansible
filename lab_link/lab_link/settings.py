@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,9 +41,11 @@ INSTALLED_APPS = [
 
     'client.apps.ClientConfig',
     'api.apps.ApiConfig',
+    'ws_ssh.apps.WsSshConfig',
 
     'rest_framework',
     'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lab_link.wsgi.application'
+ASGI_APPLICATION = 'lab_link.asgi.application'
 
 
 # Database
