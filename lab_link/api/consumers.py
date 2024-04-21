@@ -7,6 +7,9 @@ from threading import Lock
 import time  # Import time module for sleep
 
 # TODO Handle Exit command
+# TODO Handle Concurrent SSH Operations
+# TODO Create a Session Management System
+
 
 # Setup logging
 logging.basicConfig(level=logging.ERROR)

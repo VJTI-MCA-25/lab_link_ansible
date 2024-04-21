@@ -1,0 +1,54 @@
+<!--  prettier-ignore  -->
+{% extends 'main.html' %} 
+{% load static %} 
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<h3 class="table-title title-marker">Shutdown Details</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12 table-container">
+			<table id="shutdown-table" class="centered responsive-table">
+				<thead id="shutdown-table-head">
+					<th>Host ID</th>
+					<th>Host IP</th>
+					<th>Status</th>
+					<th>Shutdown Time</th>
+				</thead>
+				<tbody id="shutdown-table-body"></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="module" defer>
+	let shutdownData = sessionStorage.getItem("shutdownData");
+	sessionStorage.removeItem("shutdownData");
+
+	if (shutdownData) {
+		const data = JSON.parse(shutdownData);
+		let tableBody = document.getElementById("shutdown-table-body");
+
+		function formatDate(date) {
+			let d = new Date(date);
+			return d.toLocaleTimeString();
+		}
+
+		Object.keys(data).forEach((hostId) => {
+			let host = data[hostId];
+			let row = document.createElement("tr");
+			row.innerHTML = `
+                <td>${hostId.toLocaleUpperCase()}</td>
+                <td>${host?.ip || "NA"}</td>
+                <td>${host.shutdown ? "Success" : "Failed"}</td>
+                <td>${formatDate(host.time)}</td>
+            `;
+			tableBody.appendChild(row);
+		});
+	} else {
+		window.location.href = "{% url 'index' %}";
+	}
+</script>
+{% endblock content %}
+

@@ -133,20 +133,6 @@ def get_inventory():
         return transformed_output
 
 
-def load_dummy_sys_info():
-    """
-    Load dummy system information from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the dummy system information.
-    """
-    dummy_sys_info_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_sys_info.json')
-    with open(dummy_sys_info_path, 'r') as f:
-        dummy_sys_info = json.load(f)
-    return dummy_sys_info
-
-
 def load_dummy_peripherals():
     """
     Load dummy peripherals information from a JSON file.
@@ -161,7 +147,41 @@ def load_dummy_peripherals():
     return dummy_peripherals
 
 
-def transform_sys_info(data):
+def transform_peripherals_output(events):
+    """
+    Transforms the output of events into a dictionary of peripherals.
+
+    Args:
+        events (list): A list of events.
+
+    Returns:
+        dict: A dictionary containing the peripherals information.
+
+    """
+    peripherals_dict = {}
+    for event in events:
+        if event['event'] == 'runner_on_ok':
+            if event['event_data']['task'] == "Print peripheral information":
+                peripherals_dict[event['event_data']['host']
+                                 ] = event['event_data']['res']["peripherals"]
+    return peripherals_dict
+
+
+def load_dummy_sys_info():
+    """
+    Load dummy system information from a JSON file.
+
+    Returns:
+        dict: A dictionary containing the dummy system information.
+    """
+    dummy_sys_info_path = os.path.join(
+        settings.BASE_DIR, 'api', 'utils', 'dummy_sys_info.json')
+    with open(dummy_sys_info_path, 'r') as f:
+        dummy_sys_info = json.load(f)
+    return dummy_sys_info
+
+
+def transform_sys_info(events):
     """
     Transforms the system information data by formatting the Python version and CPUs.
 
@@ -171,6 +191,11 @@ def transform_sys_info(data):
     Returns:
         dict: The transformed system information data.
     """
+    for event in events:
+        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Print collected information":
+            data = event['event_data']['res']['platform_info']
+            break
+
     python_version = data['python_version']
     python_version_str = "{}.{}.{} {} {}".format(
         python_version["major"],
@@ -189,3 +214,52 @@ def transform_sys_info(data):
     data['cores'] = len(data['cpus'])
 
     return data
+
+
+def load_dummy_shutdown():
+    """
+    Load dummy shutdown information from a JSON file.
+
+    Returns:
+        dict: A dictionary containing the dummy shutdown information.
+    """
+    dummy_shutdown_path = os.path.join(
+        settings.BASE_DIR, 'api', 'utils', 'dummy_shutdown.json')
+    with open(dummy_shutdown_path, 'r') as f:
+        dummy_shutdown = json.load(f)
+    return dummy_shutdown
+
+
+def transform_shutdown_output(events):
+    """
+    Transforms the given data into a dictionary with host, status, and time information.
+
+    Args:
+        data (list): A list of events.
+
+    Returns:
+        dict: A dictionary containing transformed data with host, status, and time information.
+    """
+    try:
+        inventory = get_inventory()
+    except Exception:
+        inventory = None
+
+    transformed_data = {}
+    for event in events:
+        event_data = event.get('event_data', {})
+
+        if event.get('event') == 'runner_on_ok' and event_data.get('task') == "Shutdown host(s)":
+            host = event_data.get('host')
+            shutdown = event_data.get('res', {}).get('shutdown')
+            time = event_data.get('end')
+
+            data = {"shutdown": shutdown, "time": time}
+
+            if inventory and host in inventory:
+                data.update(
+                    {"ip": inventory[host]["ip"], "user": inventory[host]["user"]})
+
+            transformed_data[host] = data
+
+    return transformed_data

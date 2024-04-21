@@ -1,4 +1,4 @@
-import { getHostDetails } from "./fetch.js";
+import { getHostDetails, shutdownHost } from "./fetch.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -20,20 +20,38 @@ const keys = {
 
 async function getHostData() {
 	setLoading(true);
-	const data = await getHostDetails(hostId);
-	console.log(data);
-	setLoading(false);
-	populateHostData(data);
+	try {
+		const data = await getHostDetails(hostId);
+		setLoading(false);
+		populateHostData(data);
+	} catch (error) {
+		setLoading(false);
+		setError(error);
+	}
 }
 
-function setLoading(isLoading = false) {
-	const container = document.querySelector(".host-container");
+function setLoading(isLoading) {
+	const mainContainer = document.querySelector(".host-page");
+	const dataContainer = document.querySelector(".host-container");
+	const optionsContainer = document.querySelector(".options-container");
 
 	if (isLoading) {
-		container.innerHTML = preloaderHtml;
+		dataContainer.innerHTML = "";
+		optionsContainer.classList.add("hide");
+		mainContainer.innerHTML += preloaderHtml;
 	} else {
-		container.innerHTML = "";
+		document.querySelector(".preloader").remove();
+		optionsContainer.classList.remove("hide");
 	}
+}
+
+function setError(error) {
+	const container = document.querySelector(".host-page");
+	container.innerHTML = `
+							<div class="error">
+								<div class="error-status">${error.status}</div>
+								<div class="error-status-text">${error.statusText}</div>
+							</div>`;
 }
 
 function populateHostData(data) {
@@ -54,14 +72,14 @@ function populateHostData(data) {
 
 	for (let [keySet, keysList] of Object.entries(keys)) {
 		const section = createElem("section", "", { class: `host-section ${keySet}` });
-		let h3 = createElem("h3", snakeToTitleCase(keySet), { class: "section-title" });
+		let h3 = createElem("h3", snakeToTitleCase(keySet), { class: "section-title title-marker" });
 		section.appendChild(h3);
 		const sectionData = createElem("div", "", { class: "section-data" });
 
 		for (let key of keysList) {
 			const value = data[key];
 
-			let keyTextSelector = (key) => {
+			let keyTextFormatter = (key) => {
 				switch (key) {
 					case "system":
 						return "OS";
@@ -88,17 +106,18 @@ function populateHostData(data) {
 				let div = createElem("div", "", { class: `key-value-container ${key}` });
 				if (Array.isArray(value)) {
 					div.classList.add("list");
-					let listKey = createElem("span", `${keyTextSelector(key)}:`, { class: "key" });
+					let listKey = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
 					div.appendChild(listKey);
 					let ul = createElem("ul");
 					for (let item of value) {
+						if (key === "mac_addresses") item = item.toUpperCase();
 						let li = createElem("li", item);
 						ul.appendChild(li);
 					}
 					div.appendChild(ul);
 					sectionData.appendChild(div);
 				} else if (typeof value === "string" || typeof value === "number") {
-					let keySpan = createElem("span", `${keyTextSelector(key)}:`, { class: "key" });
+					let keySpan = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
 					let valueSpan = createElem("span", value, { class: "value" });
 					div.appendChild(keySpan);
 					div.appendChild(valueSpan);
@@ -113,5 +132,23 @@ function populateHostData(data) {
 
 document.addEventListener("DOMContentLoaded", () => {
 	getHostData();
+	const shutdownBtn = document.querySelector(".shutdown-host");
+	shutdownBtn.addEventListener("click", async () => {
+		if (confirm(`Are you sure you want to switch off ${hostId}?`)) {
+			try {
+				const result = await shutdownHost(hostId);
+				if (result.hasOwnProperty(hostId)) {
+					let alertText = result[hostId].shutdown ? "has been switched off." : "could not be switched off.";
+					alert(`${hostId} ${alertText}`);
+				} else {
+					alert("An error occurred while trying to switch off the host.");
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		}
+	});
+
+	document.querySelector(".refresh-host").addEventListener("click", getHostData);
 });
 

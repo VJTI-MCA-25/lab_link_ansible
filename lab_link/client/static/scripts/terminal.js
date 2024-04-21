@@ -8,7 +8,6 @@ const webLinksAddon = new WebLinksAddon();
 
 const uri = `ws://localhost:8000/ws/ssh/${hostId}/`;
 
-const openTerminalButton = document.querySelector(".open-terminal");
 let terminalWindow = null;
 
 function createTerminalWindow() {
@@ -65,10 +64,13 @@ function setupTerminalWindow(terminal) {
 	});
 }
 
-openTerminalButton.addEventListener("click", () => {
-	if (terminalWindow && !terminalWindow.closed) {
-		terminalWindow.focus();
-	} else {
-		createTerminalWindow();
-	}
+document.addEventListener("DOMContentLoaded", () => {
+	document.querySelector(".open-terminal").addEventListener("click", () => {
+		if (terminalWindow && !terminalWindow.closed) {
+			terminalWindow.focus();
+		} else {
+			createTerminalWindow();
+		}
+	});
 });
+

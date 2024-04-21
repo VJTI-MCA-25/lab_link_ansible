@@ -2,15 +2,27 @@
 {% extends 'main.html' %} 
 {% load static %} 
 {% block content %}
-<div class="container">
-	<div class="row">
-		<div class="col s8">
-			<div class="host-container"></div>
-			<div class="terminal"></div>
-		</div>
-		<div class="col s4">
-			<div class="options-container">
-				<a class="open-terminal waves-effect waves-light btn">Open a terminal</a>
+<div class="host-page">
+	<div class="options-container hide">
+		<span class="options-title left-align">Options</span>
+		<a class="open-terminal waves-effect btn"
+			>Open a terminal
+			<i class="material-icons left">web_asset</i>
+		</a>
+		<a class="shutdown-host waves-effect btn"
+			>Shutdown this PC
+			<i class="material-icons left">power_settings_new</i>
+		</a>
+		<a class="refresh-host waves-effect btn"
+			>Refresh List
+			<i class="material-icons left">refresh</i>
+		</a>
+	</div>
+	<div>
+		<div class="row">
+			<div class="col s8 offset-s1">
+				<div class="host-container"></div>
+				<div class="terminal"></div>
 			</div>
 		</div>
 	</div>

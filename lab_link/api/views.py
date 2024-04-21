@@ -1,30 +1,32 @@
-from concurrent.futures import ThreadPoolExecutor
-import asyncio
-import websockets
-from django.http import JsonResponse
+import api.utils.helper as helper
 import ansible_runner
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-import api.utils.helper_functions as utils
+DUMMY = True
 
 
 @api_view(['GET'])
 def ping_hosts(request):
-    # r = ansible_runner.run(
-    #     private_data_dir='/home/aashay/lab_link_ansible/ansible', playbook='ping.yml')
-    # transformed_output = utils.transform_ping_output(r.stats)
-    # return Response(transformed_output, status=status.HTTP_200_OK)
+    if DUMMY:
+        dummy_data = helper.generate_dummy_data()
+        return Response(dummy_data, status=200)
 
-    dummy_data = utils.generate_dummy_data()
-    return Response(dummy_data, status=200)
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='ping.yml',
+        rotate_artifacts=1,
+        quiet=True
+    )
+    transformed_output = helper.transform_ping_output(r.stats)
+    return Response(transformed_output, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def inventory(request):
     try:
-        inventory = utils.get_inventory()
+        inventory = helper.get_inventory()
         return Response(inventory, status=status.HTTP_200_OK)
     except Exception as e:
         return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -32,71 +34,63 @@ def inventory(request):
 
 @api_view(['GET'])
 def host_details(request, host_id):
-    # r = ansible_runner.run(
-    #     private_data_dir='/home/aashay/lab_link_ansible/ansible',
-    #     playbook='sys_info.yml',
-    #     limit=host_id,
-    #     rotate_artifacts=1,
-    #     quiet=True
-    # )
+    if DUMMY:
+        dummy_data = helper.load_dummy_sys_info()
+        return Response(dummy_data, status=status.HTTP_200_OK)
 
-    # if not r.stats:
-    #     return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
-    # for event in r.events:
-    #     if event['event'] == 'runner_on_ok':
-    #         if event['event_data']['task'] == "Print collected information":
-    #             data = event['event_data']['res']['platform_info']
-    #             transformer_data = utils.transform_sys_info(data)
-    #             return Response(transformer_data, status=status.HTTP_200_OK)
-    # return Response("Host was unreachable", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='sys_info.yml',
+        limit=host_id,
+        rotate_artifacts=1,
+        quiet=True
+    )
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
 
-    dummy_data = utils.load_dummy_sys_info()
-    return Response(dummy_data, status=status.HTTP_200_OK)
+    if r.rc != 0:
+        return Response("Host was unreachable", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    transformed_data = helper.transform_sys_info(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def peripherals(request):
-    # r = ansible_runner.run(
-    #     private_data_dir='/home/aashay/lab_link_ansible/ansible',
-    #     playbook='peripherals.yml',
-    #     rotate_artifacts=1,
-    # )
+    if DUMMY:
+        dummy_data = helper.load_dummy_peripherals()
+        return Response(dummy_data, status=status.HTTP_200_OK)
 
-    # if not r.stats:
-    #     return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='peripherals.yml',
+        rotate_artifacts=1,
+        quiet=True
+    )
 
-    # peripherals_dict = {}
-    # for event in r.events:
-    #     if event['event'] == 'runner_on_ok':
-    #         if event['event_data']['task'] == "Print peripheral information":
-    #             peripherals_dict[event['event_data']['host']
-    #                              ] = event['event_data']['res']["peripherals"]
+    if r.rc != 0:
+        return Response("Host not found", status=status.HTTP_408_REQUEST_TIMEOUT)
 
-    # return Response(peripherals_dict, status=status.HTTP_200_OK)
-
-    dummy_data = utils.load_dummy_peripherals()
-    return Response(dummy_data, status=status.HTTP_200_OK)
+    transformed_data = helper.transform_peripherals_output(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
-def ssh(request, host_id):
-    hostname = '192.168.1.9'
-    username = 'aashay'
-    password = 'admin'
-    uri = f"ws://localhost:8000/ws/ssh/{hostname}/{username}/{password}/"
+@api_view(['GET'])
+def shutdown(request, host_id='all'):
+    if DUMMY:
+        dummy_data = helper.load_dummy_shutdown()
+        return Response(dummy_data, status=status.HTTP_200_OK)
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='shutdown.yml',
+        limit=host_id,
+        rotate_artifacts=1,
+        quiet=True,
+    )
 
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(
-            loop.run_until_complete, connect_and_send_command(uri))
-        response = future.result()
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
 
-    return JsonResponse(response, status=200)
-
-
-async def connect_and_send_command(uri):
-    async with websockets.connect(uri) as websocket:
-        await websocket.send("ls")
-        response = await websocket.recv()
-    return response
+    transformed_data = helper.transform_shutdown_output(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
