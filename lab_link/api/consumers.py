@@ -1,17 +1,11 @@
 import paramiko
 from channels.generic.websocket import WebsocketConsumer
 from ansible_runner import get_inventory
-from concurrent.futures import ThreadPoolExecutor
 import logging
-from threading import Lock
-import time  # Import time module for sleep
+from threading import Thread, Lock
+import time
+from queue import Queue, Empty
 
-# TODO Handle Exit command
-# TODO Handle Concurrent SSH Operations
-# TODO Create a Session Management System
-
-
-# Setup logging
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
@@ -58,14 +52,18 @@ class SSHConsumer(WebsocketConsumer):
                 password=password,
             )
 
+            self.command_queue = Queue()
+
             self.channel = self.ssh.invoke_shell()
 
-            # Create a thread pool executor with a maximum of 5 threads
-            self.executor = ThreadPoolExecutor(
-                max_workers=4,
-                thread_name_prefix="SSHOperation",
-            )
+            self.command_thread = Thread(target=self.handle_commands)
+            self.command_thread.start()
+
+            self.output_thread = Thread(target=self.listen_to_output)
+            self.output_thread.start()
+
         except Exception as e:
+            logger.error(f"Connection error: {e}")
             self.close(code=4000)
 
     def disconnect(self, close_code):
@@ -73,42 +71,38 @@ class SSHConsumer(WebsocketConsumer):
             self.channel.close()
         if hasattr(self, 'ssh') and self.ssh:
             self.ssh.close()
-
-        # Shutdown the thread pool executor
-        if hasattr(self, 'executor') and self.executor:
-            self.executor.shutdown(wait=False)
+        if hasattr(self, 'command_thread') and self.command_thread.is_alive():
+            self.command_queue.put(None)  # Signal command thread to exit
+            self.command_thread.join()
+        if hasattr(self, 'output_thread') and self.output_thread.is_alive():
+            self.output_thread.join()
 
     def receive(self, text_data):
-        try:
-            # Submit the SSH operation to the thread pool executor
-            self.executor.submit(self.handle_ssh_operations, text_data)
-        except Exception as e:
-            logger.error(
-                "Error submitting SSH operation to thread pool: %s", e)
+        self.command_queue.put(text_data)
 
-    def handle_ssh_operations(self, text_data):
-        try:
-            self.channel.send(text_data)
+    def handle_commands(self):
+        while True:
+            try:
+                command = self.command_queue.get(
+                    timeout=1)  # Check every 1 second
+                if command is None:  # Exit signal received
+                    break
+                self.channel.send(command)
+            except Empty:
+                pass  # Queue is empty, continue waiting
+            except Exception as e:
+                logger.error(f"Error sending command: {e}")
+                break
 
-            start_time = time.time()  # Get the start time
-
-            while True:
-                # Check if data is available to be received
+    def listen_to_output(self):
+        while True:
+            try:
                 if self.channel.recv_ready():
                     data = self.channel.recv(1024)
                     with self.lock:
                         self.send(text_data=data.decode())
-                    start_time = time.time()  # Reset the timer
-                elif self.channel.exit_status_ready():
-                    self.close(code=4000)
-                    break
-
-                # Check if the elapsed time exceeds 0.1 seconds
-                if time.time() - start_time >= 0.1:
-                    break  # Break the loop if 0.1 seconds have elapsed
-
-                # Introduce a short sleep to reduce CPU usage
-                time.sleep(0.01)
-        except Exception as e:
-            logger.error("Error handling SSH operations: %s", e)
-            self.close(code=4000)
+                else:
+                    time.sleep(0.1)  # Wait before checking again
+            except Exception as e:
+                logger.error(f"Error receiving output: {e}")
+                break

@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 DUMMY = True
+DUMMY = not DUMMY  # Comment This for Dummy Data
 
 
 @api_view(['GET'])
