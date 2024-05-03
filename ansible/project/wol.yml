@@ -1,9 +1,10 @@
 ---
 - name: Wake on Lan
-  hosts: localhost
+  hosts: all
   gather_facts: no
   tasks:
-    - name: Send WoL packet
-      community.general.wakeonlan:
-        mac: "{{ mac_address }}"
-        broadcast: "{{ broadcast_address }}"
+      - name: Send WoL packet
+        community.general.wakeonlan:
+            mac: "{{ mac_address }}"
+            broadcast: "{{ broadcast_address }}"
+

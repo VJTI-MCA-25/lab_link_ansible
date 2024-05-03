@@ -80,7 +80,8 @@ def transform_inventory_output(out):
         ...         "hostvars": {
         ...             "host1": {
         ...                 "ansible_host": "192.168.1.100",
-        ...                 "ansible_user": "admin"
+        ...                 "ansible_user": "admin",
+        ...                 "mac_address": "00:11:22:33:44:55"
         ...             },
         ...             "host2": {
         ...                 "ansible_host": "192.168.1.101",
@@ -93,7 +94,8 @@ def transform_inventory_output(out):
         {
             "host1": {
                 "ip": "192.168.1.100",
-                "user": "admin"
+                "user": "admin",
+                "mac": "00:11:22:33:44:55"
             },
             "host2": {
                 "ip": "192.168.1.101",
@@ -104,9 +106,11 @@ def transform_inventory_output(out):
     output = {}
     hosts = out["_meta"]["hostvars"]
     for host, details in hosts.items():
-        output[host] = {"ip": details["ansible_host"],
-                        "user": details["ansible_user"]}
-
+        host_info = {"ip": details["ansible_host"],
+                     "user": details["ansible_user"]}
+        if "mac_address" in details:
+            host_info["mac_address"] = details["mac_address"]
+        output[host] = host_info
     return output
 
 
@@ -263,3 +267,63 @@ def transform_shutdown_output(events):
             transformed_data[host] = data
 
     return transformed_data
+
+
+def ip_to_subnet_mask(ip_address):
+    """
+    Convert an IP address to its corresponding subnet mask.
+
+    Args:
+        ip_address (str): The IP address in the format 'xxx.xxx.xxx.xxx'.
+
+    Returns:
+        str: The subnet mask corresponding to the given IP address.
+
+    Example:
+        >>> ip_to_subnet_mask('192.168.0.120')
+        '255.255.255.0'
+    """
+    # Split the IP address into octets
+    ip_octets = list(map(int, ip_address.split('.')))
+
+    # Determine the network class based on the first octet
+    first_octet = ip_octets[0]
+    if first_octet <= 127:
+        # Class A network
+        return '255.0.0.0'
+    elif first_octet <= 191:
+        # Class B network
+        return '255.255.0.0'
+    elif first_octet <= 223:
+        # Class C network
+        return '255.255.255.0'
+    else:
+        # Not within the range of known classes
+        return None
+
+
+def ip_to_broadcast(ip_address):
+    """
+    Convert an IP address to its broadcast address.
+
+    Args:
+        ip_address (str): The IP address in the format 'xxx.xxx.xxx.xxx'.
+
+    Returns:
+        str: The broadcast address corresponding to the given IP address and subnet mask.
+
+    Example:
+        >>> ip_to_broadcast('192.168.0.120', '255.255.255.0')
+        '192.168.0.255'
+    """
+    subnet_mask = ip_to_subnet_mask(ip_address)
+
+    # Split the IP address and subnet mask into octets
+    ip_octets = list(map(int, ip_address.split('.')))
+    subnet_octets = list(map(int, subnet_mask.split('.')))
+
+    # Calculate the broadcast address
+    broadcast_octets = [(ip_octets[i] | ~subnet_octets[i])
+                        & 255 for i in range(4)]
+
+    return '.'.join(map(str, broadcast_octets))

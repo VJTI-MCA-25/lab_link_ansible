@@ -95,3 +95,40 @@ def shutdown(request, host_id='all'):
 
     transformed_data = helper.transform_shutdown_output(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def wol(request, host_id):
+
+    if DUMMY:
+        return Response("Wake on LAN not supported in dummy mode", status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    try:
+        inventory = helper.get_inventory()
+    except Exception as e:
+        return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    if host_id not in inventory:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+
+    mac_address = inventory[host_id]['mac_address']
+    broadcast_address = helper.ip_to_broadcast(inventory[host_id]['ip'])
+
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='wol.yml',
+        extravars={
+            'mac_address': mac_address,
+            'broadcast_address': broadcast_address
+        },
+        limit=host_id,
+        rotate_artifacts=1,
+    )
+
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+
+    events = []
+    for event in r.events:
+        events.append(event['event'])
+    return Response(events, status=status.HTTP_200_OK)

@@ -8,4 +8,5 @@ urlpatterns = [
     path('peripherals', views.peripherals),
     path('shutdown', views.shutdown),
     path('shutdown/<str:host_id>', views.shutdown),
+    path('wol/<str:host_id>', views.wol),
 ]
