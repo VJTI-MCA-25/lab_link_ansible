@@ -193,3 +193,15 @@ tbody#shutdown-table-body > tr {
 	border-color: var(--border-dark);
 }
 
+div.collapsible-header {
+	background-color: var(--bg2);
+}
+
+div.collapsible-body {
+	background-color: var(--bg2);
+}
+
+.highlight {
+	color: var(--accent1);
+}
+

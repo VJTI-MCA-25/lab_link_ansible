@@ -1,0 +1,9 @@
+- name: Uninstall an application
+  become: yes
+  hosts: all
+  tasks:
+      - name: Uninstall app
+        apt:
+            name: "{{ app_name }}"
+            state: absent
+

@@ -121,8 +121,8 @@ def wol(request, host_id):
             'mac_address': mac_address,
             'broadcast_address': broadcast_address
         },
-        limit=host_id,
         rotate_artifacts=1,
+        limit=host_id
     )
 
     if not r.stats:
@@ -131,4 +131,59 @@ def wol(request, host_id):
     events = []
     for event in r.events:
         events.append(event['event'])
+    return Response(events, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def install_app(request, host_id):
+    app_name = request.query_params.get('app_name')
+
+    if not app_name:
+        return Response("app_name query parameter is required", status=status.HTTP_400_BAD_REQUEST)
+
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='install_app.yml',
+        extravars={
+            'app_name': app_name
+        },
+        rotate_artifacts=1,
+        limit=host_id,
+    )
+
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+
+    if 'failed' in r.stats and r.stats['failed'] > 0:
+        return Response("Installation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    events = [event['event'] for event in r.events]
+    return Response(events, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def uninstall_app(request, host_id):
+    app_name = request.query_params.get('app_name')
+
+    if not app_name:
+        return Response("app_name query parameter is required", status=status.HTTP_400_BAD_REQUEST)
+
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='uninstall_app.yml',
+        extravars={
+            'app_name': app_name
+        },
+        rotate_artifacts=1,
+        limit=host_id,
+    )
+
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+
+    failures = r.stats.get('failures', {})
+    if any(count > 0 for count in failures.values()):
+        return Response("Uninstallation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    events = [event['event'] for event in r.events]
     return Response(events, status=status.HTTP_200_OK)
