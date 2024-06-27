@@ -4,7 +4,7 @@
 
 > Note: This is already been done on the local machine. Both the private and public SSH keys can be found in `$project_root/.ssh/ directory`
 
-> Follow this command to generate a new SSH key pair
+> Follow this command to generate a new SSH key pair, replace `"email"` with your email.
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "email"
@@ -16,7 +16,7 @@ ssh-keygen -t rsa -b 4096 -C "email"
 
 > Note: This command will prompt for the remote machine's password
 
-> Note: This command is to be run on the local machine too
+> Note: This command is to be run on the local machine
 
 > Note: Make sure that the remote machine has an ssh server running
 
@@ -68,5 +68,5 @@ To uninstall OpenSSH using Windows Settings:
 -   `rest_framework`
 -   `django-cors-headers`
 
-> TODO: Need to make a virtual environment for the project and make a requirements.txt file
+> TODO: Need to make a virtual environment for the project and make a `requirements.txt` file
 
