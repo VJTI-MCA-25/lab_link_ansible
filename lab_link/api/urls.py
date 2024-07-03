@@ -10,5 +10,7 @@ urlpatterns = [
     path('shutdown/<str:host_id>', views.shutdown),
     path('wol/<str:host_id>', views.wol),
     path('install/<str:host_id>/', views.install_app),
-    path('uninstall/<str:host_id>/', views.uninstall_app)
+    path('uninstall/<str:host_id>/', views.uninstall_app),
+    path('logs', views.check_logs),
+    path('logs/<str:host_id>', views.check_logs),
 ]

@@ -1,12 +1,19 @@
 <ul id="slide-out" class="sidenav">
+	<li>
+		<div class="user-view">
+			<div class="background">
+				<img src="https://materializecss.com/images/office.jpg" />
+			</div>
+			<img class="circle" src="https://materializecss.com/images/yuna.jpg" />
+			<span class="white-text name">John Doe</span>
+			<span class="white-text email">jdandturk@gmail.com</span>
+		</div>
+	</li>
 	<li class="">
 		<a href="{% url 'index' %}" class="link"> Dashboard </a>
 	</li>
 	<li class="">
-		<a href="#" class="link" to="/applications"> Applications </a>
-	</li>
-	<li>
-		<a href="#" class="link shutdown-all">Shutdown All PCs</a>
+		<a href="{% url 'all_apps' %}" class="link"> Applications </a>
 	</li>
 </ul>
 

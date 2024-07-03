@@ -1,0 +1,57 @@
+.hosts-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1rem;
+}
+
+.host {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	transition: transform 0.1s ease-out;
+	width: 100px;
+}
+
+.host:hover {
+	transform: scale(1.05);
+}
+
+.host-status {
+	font-size: 32px;
+}
+
+i.host-status.success,
+i.host-status.failed {
+	position: relative;
+	z-index: 1;
+}
+
+i.host-status.success::before,
+i.host-status.failed::before {
+	position: absolute;
+	content: "";
+	display: block;
+	height: 52%;
+	width: calc(100% - 8px);
+	left: 4px;
+	top: 5px;
+	z-index: -1;
+}
+
+i.host-status.success::before {
+	background-color: var(--success);
+}
+
+i.host-status.failed::before {
+	background-color: var(--error);
+}
+
+.shutdown-all-hosts {
+	background-color: var(--error) !important;
+	color: white !important;
+}
+

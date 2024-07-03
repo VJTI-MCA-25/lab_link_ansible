@@ -1,0 +1,9 @@
+- name: Collect system logs
+  hosts: all
+  become: yes
+  tasks:
+      - name: Fetch logs
+        fetch:
+            src: /var/log/syslog
+            dest: /tmp/logs/{{ inventory_hostname }}/
+            flat: yes

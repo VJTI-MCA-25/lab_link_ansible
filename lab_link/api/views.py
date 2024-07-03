@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 DUMMY = True
-DUMMY = not DUMMY  # Comment This for Dummy Data
+# DUMMY = not DUMMY  # Comment This for Dummy Data
 
 
 @api_view(['GET'])
@@ -187,3 +187,18 @@ def uninstall_app(request, host_id):
 
     events = [event['event'] for event in r.events]
     return Response(events, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def check_logs(request, host_id='all'):
+    r = ansible_runner.run(
+        private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        playbook='collect_logs.yml',
+        rotate_artifacts=1,
+        limit=host_id,
+    )
+
+    if not r.stats:
+        return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
+
+    return Response({}, status=status.HTTP_200_OK)

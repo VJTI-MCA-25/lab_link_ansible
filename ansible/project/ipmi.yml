@@ -1,0 +1,15 @@
+- name: Check IPMI power status
+  hosts: ipmi_hosts
+  gather_facts: no
+  tasks:
+      - name: Get power status
+        ipmi_power:
+            user: "mca"
+            password: "mca@123"
+            name: "status"
+        register: ipmi_result
+
+      - name: Print result
+        debug:
+            var: ipmi_result
+

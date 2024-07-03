@@ -1,0 +1,105 @@
+.key-value-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 1rem;
+	width: 90%;
+}
+
+.key-value-container:hover {
+	background-color: var(--sbc);
+	cursor: default;
+}
+
+.key-value-container > ul {
+	margin: 0;
+}
+
+.key-value-container.list {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.key {
+	width: 110px;
+}
+
+.host-container {
+	margin-bottom: 5rem;
+}
+
+.section-title,
+.options-title {
+	border-bottom: 1px solid var(--stc);
+}
+.host-container > section > .section-data {
+	margin-left: 1rem;
+}
+
+.options-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: max-content;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.options-container > a {
+	width: 100%;
+}
+
+.options-container > .options-title {
+	width: 100%;
+}
+
+.error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.error > .error-status {
+	font-size: 3rem;
+}
+
+.error > .error-status-text {
+	font-size: 1.5rem;
+}
+
+.table-title {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+thead#shutdown-table-head > tr {
+	border-color: var(--border);
+}
+
+tbody#shutdown-table-body > tr {
+	border-color: var(--border-dark);
+}
+
+div.collapsible-header {
+	background-color: var(--bg2);
+}
+
+div.collapsible-body {
+	background-color: var(--bg2);
+}
+
+.highlight {
+	color: var(--success);
+	text-decoration: underline;
+	list-style-type: disc !important;
+}
+.collapsible-body li {
+	cursor: default;
+}
+.collapsible-body li:hover {
+	background-color: var(--sbc);
+}
+

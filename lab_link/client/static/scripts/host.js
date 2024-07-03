@@ -88,7 +88,7 @@ function populateHostData(data) {
 
 	Object.entries(keys).forEach(([keySet, keysList]) => {
 		const section = createElem("section", "", { class: `host-section ${keySet}` });
-		const sectionTitle = createElem("h3", snakeToTitleCase(keySet), { class: "section-title title-marker" });
+		const sectionTitle = createElem("h3", snakeToTitleCase(keySet), { class: "section-title" });
 		section.appendChild(sectionTitle);
 
 		const sectionData = createElem("div", "", { class: "section-data" });

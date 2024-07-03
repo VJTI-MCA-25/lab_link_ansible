@@ -1,0 +1,18 @@
+<!-- prettier-ignore -->
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="applications-container"></div>
+<!-- prettier-ignore -->
+{% endblock content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/applications.css' %}" />
+<!-- prettier-ignore -->
+{% endblock extra_css %}
+{% block extra_js %}
+<script>
+	const hostId = "{{ host_id }}";
+</script>
+<script src="{% static 'scripts/applications.js' %}" type="module"></script>
+{% endblock extra_js %}
+
