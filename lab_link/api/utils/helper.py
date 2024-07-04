@@ -327,3 +327,49 @@ def ip_to_broadcast(ip_address):
                         & 255 for i in range(4)]
 
     return '.'.join(map(str, broadcast_octets))
+
+
+def transform_applications(events):
+    applications = {}
+    for event in events:
+        if event['event'] == 'runner_on_ok':
+            if event['event_data']['task'] == "Print installed applications":
+                applications[event['event_data']['host']
+                             ] = event['event_data']['res']["combined_packages"]
+    if not applications:
+        return []
+
+    host_id = next(iter(applications))
+
+    packages = []
+    for line in applications[host_id]:
+        name_version = line.split(" ", 1)
+        if len(name_version) == 2:
+            name, version = name_version
+            packages.append({'name': name, 'version': version})
+
+    return packages
+
+
+def transform_applications_from_list(events):
+    applications = {}
+    for event in events:
+        if event['event'] == 'runner_on_unreachable':
+            applications[event['event_data']['host']] = "unreachable"
+        if event['event'] == 'runner_on_ok':
+            host = event['event_data']['host']
+            if event['event_data']['task'] == "Display app status and versions":
+                app_status = event['event_data']['res']['app_status']
+                if host not in applications:
+                    applications[host] = {}
+                for app, status in app_status.items():
+                    version = status['version'] if status['version'] else 'N/A'
+                    version_short = version.splitlines()[
+                        0] if version else 'N/A'
+                    applications[host][app] = {
+                        'installed': status['installed'],
+                        'version_long': version,
+                        'version_short': version_short
+                    }
+
+    return applications

@@ -8,3 +8,4 @@
       - name: Print peripheral information
         debug:
             var: peripherals
+

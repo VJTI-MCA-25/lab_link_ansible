@@ -1,0 +1,24 @@
+- name: Gather installed applications
+  hosts: all
+  gather_facts: yes
+  tasks:
+      - name: Gather installed applications on Debian-based systems
+        command: dpkg-query -W -f='${Package} ${Version}\n'
+        when: ansible_facts['os_family'] == "Debian"
+        register: debian_packages
+        ignore_errors: yes
+
+      - name: Gather installed applications on Red Hat-based systems
+        command: rpm -qa --qf '%{NAME} %{VERSION}\n'
+        when: ansible_facts['os_family'] == "RedHat"
+        register: redhat_packages
+        ignore_errors: yes
+
+      - name: Combine package lists
+        set_fact:
+            combined_packages: "{{ debian_packages.stdout_lines | default([]) + redhat_packages.stdout_lines | default([]) }}"
+
+      - name: Print installed applications
+        debug:
+            var: combined_packages
+

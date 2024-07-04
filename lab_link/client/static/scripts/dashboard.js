@@ -11,7 +11,7 @@ async function getHosts() {
 
 function setLoading(isLoading = false) {
 	if (isLoading) {
-		container.innerHTML = `{% include 'preloader.html' with subtext=True %}`;
+		container.innerHTML = preloaderHtml;
 	} else {
 		container.innerHTML = "";
 	}

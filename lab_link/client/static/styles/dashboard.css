@@ -16,10 +16,6 @@
 	width: 100px;
 }
 
-.host:hover {
-	transform: scale(1.05);
-}
-
 .host-status {
 	font-size: 32px;
 }
@@ -35,9 +31,9 @@ i.host-status.failed::before {
 	position: absolute;
 	content: "";
 	display: block;
-	height: 52%;
-	width: calc(100% - 8px);
-	left: 4px;
+	height: 55%;
+	width: calc(100% - 6px);
+	left: 3px;
 	top: 5px;
 	z-index: -1;
 }

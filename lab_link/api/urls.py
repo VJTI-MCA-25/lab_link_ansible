@@ -13,4 +13,6 @@ urlpatterns = [
     path('uninstall/<str:host_id>/', views.uninstall_app),
     path('logs', views.check_logs),
     path('logs/<str:host_id>', views.check_logs),
+    path('applications/<str:host_id>', views.get_host_applications),
+    path('applications/', views.get_applications_from_list)
 ]

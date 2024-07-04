@@ -1,0 +1,71 @@
+- name: Check if apps are installed and get their versions
+  hosts: all
+  gather_facts: no
+  tasks:
+      - name: Check connectivity
+        ping:
+        register: ping_result
+        ignore_errors: yes
+
+      - name: End play if host is unreachable
+        meta: end_play
+        when: ping_result.failed
+
+      - name: Gather package facts
+        package_facts:
+            manager: auto
+            strategy: all
+
+      - name: Set initial app status from package facts
+        set_fact:
+            app_status: >-
+                {{
+                  dict(app_status | default({}) | combine({
+                    item.package_name: {
+                      'installed': true,
+                      'version': ansible_facts.packages[item.package_name][0].version
+                    }
+                  }))
+                }}
+        when: item.package_name in ansible_facts.packages
+        with_items: "{{ app_list }}"
+        loop_control:
+            loop_var: item
+
+      - name: Check if apps are installed and get version with command
+        command: "{{ item.command }}"
+        register: app_check
+        ignore_errors: yes
+        when: item.package_name not in ansible_facts.packages
+        with_items: "{{ app_list }}"
+        loop_control:
+            loop_var: item
+
+      - name: Debug app_check results
+        debug:
+            var: app_check
+        when: item.package_name not in ansible_facts.packages
+        with_items: "{{ app_list }}"
+        loop_control:
+            loop_var: item
+
+      - name: Set application status and version from command
+        set_fact:
+            app_status: >-
+                {{
+                  dict(app_status | default({}) | combine({
+                    item.item.package_name: {
+                      'installed': (item.rc is defined and item.rc == 0 and item.stdout != 'N/A'), 
+                      'version': (item.stdout if item.rc == 0 and item.stdout != 'N/A' else 'N/A')
+                    }
+                  }))
+                }}
+        with_items: "{{ app_check.results }}"
+        when: item.rc is defined
+        loop_control:
+            loop_var: item
+
+      - name: Display app status and versions
+        debug:
+            var: app_status
+

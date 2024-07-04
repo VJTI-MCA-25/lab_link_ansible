@@ -1,6 +1,7 @@
 - name: Ping all hosts
+  gather_facts: no
   hosts: all
   tasks:
-    - name: Ping all hosts
-      ping:
-      tags: ping
+      - name: Ping all hosts
+        ping:
+        tags: ping
