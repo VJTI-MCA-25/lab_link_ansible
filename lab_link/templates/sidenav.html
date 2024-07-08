@@ -1,18 +1,20 @@
 <ul id="slide-out" class="sidenav">
-	<li>
-		<div class="user-view">
-			<div class="background">
-				<img src="https://materializecss.com/images/office.jpg" />
-			</div>
-			<span class="white-text name">{{ user.username }}</span>
-			<span class="white-text email">{{ user.email}}</span>
-		</div>
-	</li>
-	<li class="">
-		<a href="{% url 'index' %}" class="link"> Dashboard </a>
-	</li>
-	<li class="">
-		<a href="{% url 'all_apps' %}" class="link"> Applications </a>
-	</li>
+    <li>
+        <div class="user-view">
+            <div class="background">
+                <img src="https://materializecss.com/images/office.jpg"
+                     height="auto"
+                     width="auto"
+                     alt="drawer-background" />
+            </div>
+            <span class="white-text name">{{ user.username }}</span>
+            <span class="white-text email">{{ user.email }}</span>
+        </div>
+    </li>
+    <li>
+        <a href="{% url 'index' %}" class="link">Dashboard</a>
+    </li>
+    <li>
+        <a href="{% url 'all_apps' %}" class="link">Applications</a>
+    </li>
 </ul>
-

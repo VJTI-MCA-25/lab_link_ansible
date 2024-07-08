@@ -11,16 +11,22 @@ async function pingHosts() {
 	return data;
 }
 
-async function getHostDetails(host_id) {
-	let data = await fetchWithHttpErrorHandling(`/api/host/${host_id}`);
+async function getHostDetails(hostId) {
+	let data = await fetchWithHttpErrorHandling(`/api/host/${hostId}`);
 	return data;
 }
 
-async function shutdownHost(host_id) {
-	let url = host_id ? `/api/shutdown/${host_id}` : "/api/shutdown";
+async function shutdownHost(hostId) {
+	let url = hostId ? `/api/shutdown/${hostId}` : "/api/shutdown";
 	let data = await fetchWithHttpErrorHandling(url);
 	return data;
 }
 
-export { pingHosts, getHostDetails, shutdownHost };
+async function getApplications(hostId) {
+	let url = hostId ? `/api/applications/${hostId}` : "/api/applications";
+	let data = await fetchWithHttpErrorHandling(url);
+	return data;
+}
+
+export { pingHosts, getHostDetails, shutdownHost, getApplications };
 

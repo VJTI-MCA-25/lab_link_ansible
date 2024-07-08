@@ -1,4 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
+import { createElem, snakeToTitleCase } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -48,26 +49,6 @@ function setLoading(isLoading) {
 	}
 }
 
-function setError(error) {
-	const container = document.querySelector(".host-page");
-	container.innerHTML = `
-        <div class="error">
-            <div class="error-status">${error.status}</div>
-            <div class="error-status-text">${error.statusText}</div>
-        </div>`;
-}
-
-function createElem(tag, text = "", attr = {}) {
-	const elem = document.createElement(tag);
-	elem.textContent = text;
-	Object.entries(attr).forEach(([key, value]) => elem.setAttribute(key, value));
-	return elem;
-}
-
-function snakeToTitleCase(str) {
-	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
 function keyTextFormatter(key) {
 	const keyMappings = {
 		system: "OS",
@@ -88,7 +69,7 @@ function populateHostData(data) {
 
 	Object.entries(keys).forEach(([keySet, keysList]) => {
 		const section = createElem("section", "", { class: `host-section ${keySet}` });
-		const sectionTitle = createElem("h3", snakeToTitleCase(keySet), { class: "section-title" });
+		const sectionTitle = createElem("h3", snakeToTitleCase(keySet), { class: "section-title underline" });
 		section.appendChild(sectionTitle);
 
 		const sectionData = createElem("div", "", { class: "section-data" });
@@ -181,7 +162,7 @@ function populateDeviceCount(devices) {
 
 		const headerLabel = createElem("div", label, { class: "label" });
 		const headerCount = createElem("span", list.length || "No", {
-			class: `new badge ${list.length === 0 ? "red disable" : ""}`,
+			class: `new badge${list.length === 0 ? "red disable" : ""}`,
 			"data-badge-caption": `${list.length === 0 ? `${label} Connected` : `${label} Connected`}`,
 		});
 

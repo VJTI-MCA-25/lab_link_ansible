@@ -1,0 +1,51 @@
+{
+	"host_01": "unreachable",
+	"host_0": {
+		"vim": {
+			"installed": true,
+			"version_long": "2:8.2.3995-1ubuntu2.16",
+			"version_short": "2:8.2.3995-1ubuntu2.16"
+		},
+		"python3": {
+			"installed": true,
+			"version_long": "3.10.6-1~22.04",
+			"version_short": "3.10.6-1~22.04"
+		},
+		"git": {
+			"installed": true,
+			"version_long": "1:2.34.1-1ubuntu1.11",
+			"version_short": "1:2.34.1-1ubuntu1.11"
+		},
+		"curl": {
+			"installed": true,
+			"version_long": "7.81.0-1ubuntu1.16",
+			"version_short": "7.81.0-1ubuntu1.16"
+		},
+		"firefox": {
+			"installed": false,
+			"version_long": "N/A",
+			"version_short": "N/A"
+		},
+		"code": {
+			"installed": true,
+			"version_long": "1.91.0\nea1445cc7016315d0f5728f8e8b12a45dc0a7286\nx64",
+			"version_short": "1.91.0"
+		},
+		"android-studio": {
+			"installed": false,
+			"version_long": "N/A",
+			"version_short": "N/A"
+		},
+		"node": {
+			"installed": false,
+			"version_long": "N/A",
+			"version_short": "N/A"
+		},
+		"ssh": {
+			"installed": true,
+			"version_long": "N/A",
+			"version_short": "N/A"
+		}
+	}
+}
+

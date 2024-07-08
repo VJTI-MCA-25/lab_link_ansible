@@ -329,7 +329,7 @@ def ip_to_broadcast(ip_address):
     return '.'.join(map(str, broadcast_octets))
 
 
-def transform_applications(events):
+def transform_host_applications(events):
     applications = {}
     for event in events:
         if event['event'] == 'runner_on_ok':
@@ -349,6 +349,20 @@ def transform_applications(events):
             packages.append({'name': name, 'version': version})
 
     return packages
+
+
+def load_dummy_applications_from_list():
+    """
+    Load applications installed from a given list from a JSON file.
+
+    Returns:
+        dict: A dictionary containing the data.
+    """
+    dummy_path = os.path.join(
+        settings.BASE_DIR, 'api', 'utils', 'dummy_applications_from_list.json')
+    with open(dummy_path, 'r') as f:
+        dummy_shutdown = json.load(f)
+    return dummy_shutdown
 
 
 def transform_applications_from_list(events):
@@ -373,3 +387,17 @@ def transform_applications_from_list(events):
                     }
 
     return applications
+
+
+def load_dummy_host_applications():
+    """
+    Load applications installed for a single host from a JSON file.
+
+    Returns:
+        dict: A dictionary containing the data.
+    """
+    dummy_path = os.path.join(
+        settings.BASE_DIR, 'api', 'utils', 'dummy_host_applications.json')
+    with open(dummy_path, 'r') as f:
+        dummy_shutdown = json.load(f)
+    return dummy_shutdown

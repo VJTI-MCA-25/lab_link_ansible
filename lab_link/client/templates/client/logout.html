@@ -1,6 +1,8 @@
-<!-- prettier-ignore -->
-{% extends 'main.html' %}
+{% extends "main.html" %}
+{% block title %}
+    Logout
+{% endblock title %}
 {% block content %}
-<h2>You have been logged out.</h2>
-<a href="{% url 'login' %}">Login Again</a>
+    <h2>You have been logged out.</h2>
+    <a href="{% url 'login' %}">Login Again</a>
 {% endblock content %}

@@ -1,0 +1,34 @@
+.check-row {
+	cursor: pointer;
+}
+
+.check-row > td:first-child {
+	display: grid;
+	place-items: center;
+}
+
+.check-row.checked {
+	background-color: var(--sbc);
+}
+
+.counter {
+	height: calc(1rem + 5px);
+	width: 100vw;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: var(--sbc);
+	color: var(--ptc);
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 2rem;
+}
+
+.count {
+	margin-right: 5px;
+}
+
+.search-cancel {
+	cursor: pointer;
+}
+

@@ -9,6 +9,7 @@
 	--sbc: #c9d6df;
 	--ptc: #1e2022;
 	--stc: #52616b;
+	--highlight: rgba(82, 97, 107, 0.3);
 	--success: green;
 	--error: red;
 	--br: 15px;
@@ -24,8 +25,12 @@ nav {
 }
 
 .btn {
-	background-color: var(--sbc) !important;
-	color: var(--stc) !important;
+	background-color: var(--sbc);
+	color: var(--stc);
+}
+
+.btn:hover {
+	background-color: var(--sbc);
 }
 
 .preloader {
@@ -55,7 +60,34 @@ ul.collapsible {
 	box-shadow: none;
 }
 
-.badge {
-	background-color: var(--stc) !important;
+span.new.badge {
+	background-color: var(--stc);
+}
+
+.underline {
+	border-bottom: 1px solid var(--stc);
+	padding-bottom: 10px;
+}
+
+.btn.danger {
+	background-color: var(--error);
+	color: white;
+}
+
+.custom-scroll::-webkit-scrollbar {
+	height: 0.5rem;
+	width: 0.5rem;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+	background-color: var(--pbc);
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+	background-color: var(--sbc);
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+	background-color: var(--highlight);
 }
 

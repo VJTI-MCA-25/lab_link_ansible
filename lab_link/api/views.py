@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-DUMMY = False  # Toggle this for Dummy Data
+DUMMY = True  # Toggle this for Dummy Data
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):
@@ -22,15 +22,10 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
     )
 
 
-def handle_dummy_response(dummy_data_loader):
-    dummy_data = dummy_data_loader()
-    return Response(dummy_data, status=status.HTTP_200_OK)
-
-
 @api_view(['GET'])
 def ping_hosts(request):
     if DUMMY:
-        return handle_dummy_response(helper.generate_dummy_data)
+        return Response(helper.generate_dummy_data(), status=status.HTTP_200_OK)
 
     r = run_ansible_playbook('ping.yml')
     transformed_output = helper.transform_ping_output(r.stats)
@@ -49,7 +44,7 @@ def inventory(request):
 @api_view(['GET'])
 def host_details(request, host_id):
     if DUMMY:
-        return handle_dummy_response(helper.load_dummy_sys_info)
+        return Response(helper.load_dummy_sys_info(), status=status.HTTP_200_OK)
 
     r = run_ansible_playbook('sys_info.yml', limit=host_id)
     if not r.stats:
@@ -65,7 +60,7 @@ def host_details(request, host_id):
 @api_view(['GET'])
 def peripherals(request):
     if DUMMY:
-        return handle_dummy_response(helper.load_dummy_peripherals)
+        return Response(helper.load_dummy_peripherals(), status=status.HTTP_200_OK)
 
     r = run_ansible_playbook('peripherals.yml')
 
@@ -79,7 +74,7 @@ def peripherals(request):
 @api_view(['GET'])
 def shutdown(request, host_id='all'):
     if DUMMY:
-        return handle_dummy_response(helper.load_dummy_shutdown)
+        return Response(helper.load_dummy_shutdown(), status=status.HTTP_200_OK)
 
     r = run_ansible_playbook('shutdown.yml', limit=host_id)
     if not r.stats:
@@ -116,6 +111,11 @@ def wol(request, host_id):
 
 @api_view(['GET'])
 def install_app(request, host_id):
+
+    if DUMMY:
+        return Response("Applications installed successfully", status=status.HTTP_200_OK)
+        return Response("Installation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     app_name = request.query_params.get('app_name')
     if not app_name:
         return Response("app_name query parameter is required", status=status.HTTP_400_BAD_REQUEST)
@@ -128,12 +128,16 @@ def install_app(request, host_id):
     if 'failed' in r.stats and r.stats['failed'] > 0:
         return Response("Installation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    events = [event['event'] for event in r.events]
-    return Response(events, status=status.HTTP_200_OK)
+    # events = [event['event'] for event in r.events]
+    return Response("Applications uninstalled successfully", status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def uninstall_app(request, host_id):
+    if DUMMY:
+        return Response("Applications uninstalled successfully", status=status.HTTP_200_OK)
+        return Response("Uninstallation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     app_name = request.query_params.get('app_name')
     if not app_name:
         return Response("app_name query parameter is required", status=status.HTTP_400_BAD_REQUEST)
@@ -147,8 +151,8 @@ def uninstall_app(request, host_id):
     if any(count > 0 for count in failures.values()):
         return Response("Uninstallation failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    events = [event['event'] for event in r.events]
-    return Response(events, status=status.HTTP_200_OK)
+    # events = [event['event'] for event in r.events]
+    return Response("Applications uninstalled successfully", status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -162,22 +166,29 @@ def check_logs(request, host_id='all'):
 
 @api_view(['GET'])
 def get_host_applications(request, host_id):
-    r = run_ansible_playbook('applications.yml', limit=host_id)
+    if DUMMY:
+        return Response(helper.load_dummy_host_applications(), status=status.HTTP_200_OK)
+
+    r = run_ansible_playbook('host_applications.yml', limit=host_id)
     if not r.stats:
         return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
 
-    transformed_data = helper.transform_applications(r.events)
+    transformed_data = helper.transform_host_applications(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def get_applications_from_list(request):
+    if DUMMY:
+        return Response(helper.load_dummy_applications_from_list(), status=status.HTTP_200_OK)
+
     apps = list(App.objects.values_list('command', 'package_name'))
     app_list = [{'command': command, 'package_name': package_name}
                 for command, package_name in apps]
 
     r = run_ansible_playbook('applications_from_list.yml', extravars={
                              "app_list": app_list})
+
     if not r.stats:
         return Response("Host not found", status=status.HTTP_404_NOT_FOUND)
 

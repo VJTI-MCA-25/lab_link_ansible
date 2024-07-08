@@ -46,8 +46,3 @@ i.host-status.failed::before {
 	background-color: var(--error);
 }
 
-.shutdown-all-hosts {
-	background-color: var(--error) !important;
-	color: white !important;
-}
-

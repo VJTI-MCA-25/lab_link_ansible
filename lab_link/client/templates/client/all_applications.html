@@ -1,0 +1,83 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}
+    Applications
+{% endblock title %}
+{% block content %}
+    <section class="applications-container">
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <h3 class="underline">All Applications</h3>
+                    </div>
+                </div>
+                <div class="row valign-wrapper">
+                    <div class="col s3 offset-s8">
+                        <div class="options-container">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h5 class="underline">Options</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <a class="install-button waves-effect waves-light btn">
+                                        <i class="material-icons left">file_download</i>
+                                        Install New App
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <a class="remove-button danger waves-effect waves-light btn">
+                                        <i class="material-icons left">delete</i>
+                                        Remove Selected
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="table-container custom-scroll">
+                            <table class="apps-table {% if not host_id %}centered{% endif %} ">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" class="main-header">Host Names</th>
+                                        {% for header in headers %}<th colspan="2" class="main-header">{{ header }}</th>{% endfor %}
+                                    </tr>
+                                    <tr>
+                                        {% for header in headers %}
+                                            <th class="sub-header">Installed</th>
+                                            <th class="sub-header">Version</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody class="apps-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="preloader"></div>
+            </div>
+        </div>
+        <div class="arrow-containers">
+            <div class="go-up">
+                <i class="material-icons">keyboard_arrow_up</i>
+            </div>
+            <div class="go-down">
+                <i class="material-icons">keyboard_arrow_down</i>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/common_applications.css' %}">
+{% endblock extra_css %}
+{% block extra_js %}
+    <script>const packageNames = {{ keys_json|safe }}</script>
+    <script src="{% static 'scripts/all_applications.js' %}" type="module"></script>
+{% endblock extra_js %}

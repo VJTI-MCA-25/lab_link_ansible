@@ -28,10 +28,6 @@
 	margin-bottom: 5rem;
 }
 
-.section-title,
-.options-title {
-	border-bottom: 1px solid var(--stc);
-}
 .host-container > section > .section-data {
 	margin-left: 1rem;
 }

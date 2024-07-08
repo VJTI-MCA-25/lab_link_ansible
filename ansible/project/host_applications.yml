@@ -1,4 +1,4 @@
-- name: Gather installed applications
+- name: Gather installed applications on host machine
   hosts: all
   gather_facts: yes
   tasks:

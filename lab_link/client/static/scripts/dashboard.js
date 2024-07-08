@@ -1,20 +1,14 @@
 import { pingHosts, shutdownHost } from "./fetch.js";
+import { Loading } from "./script.js";
 
 const container = document.querySelector(".hosts-container");
+const loading = new Loading(container);
 
 async function getHosts() {
-	setLoading(true);
+	loading.setLoading(true);
 	const data = await pingHosts();
-	setLoading(false);
+	loading.setLoading(false);
 	populateHosts(data);
-}
-
-function setLoading(isLoading = false) {
-	if (isLoading) {
-		container.innerHTML = preloaderHtml;
-	} else {
-		container.innerHTML = "";
-	}
 }
 
 function populateHosts(data) {
