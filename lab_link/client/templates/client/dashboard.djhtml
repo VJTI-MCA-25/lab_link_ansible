@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends "main.djhtml" %}
 {% load static %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'styles/dashboard.css' %}" />
