@@ -18,10 +18,10 @@ let lastChecked = 0;
 let allState = true;
 
 // Fetch and populate applications data
-async function getApps() {
+async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
-		const data = await getApplications(hostId);
+		const { data, isCached } = await getApplications(hostId, uncached);
 		populateHostAppsTable(data);
 		fuzzy.list = data;
 	} catch (error) {

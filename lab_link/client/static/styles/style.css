@@ -71,9 +71,9 @@ span.new.badge {
 	padding-bottom: 10px;
 }
 
-.btn.danger {
-	background-color: var(--error);
-	color: white;
+.danger {
+	background-color: var(--error) !important;
+	color: var(--stc) !important;
 }
 
 .custom-scroll::-webkit-scrollbar {

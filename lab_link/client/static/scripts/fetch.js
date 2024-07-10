@@ -1,31 +1,36 @@
-async function fetchWithHttpErrorHandling(url, options) {
+async function fetchWithHttpErrorHandling(url, options = {}) {
+	if (options.uncached) {
+		const urlObj = new URL(url, window.location.origin);
+		urlObj.searchParams.append("uncached", "true");
+		url = urlObj.toString();
+	}
+
 	const response = await fetch(url, options);
 	if (!response.ok) {
 		throw { status: response.status, statusText: response.statusText };
 	}
-	return response.json();
+	const data = await response.json();
+	const isCached = response.headers.get("X-Cache-Status") === "HIT";
+	return { data, isCached };
 }
 
-async function pingHosts() {
-	let data = await fetchWithHttpErrorHandling("/api/ping");
-	return data;
+async function pingHosts(uncached = false) {
+	return await fetchWithHttpErrorHandling("/api/ping", { uncached });
 }
 
-async function getHostDetails(hostId) {
-	let data = await fetchWithHttpErrorHandling(`/api/host/${hostId}`);
-	return data;
+async function getHostDetails(hostId, uncached = false) {
+	return await fetchWithHttpErrorHandling(`/api/host/${hostId}`, { uncached });
 }
 
 async function shutdownHost(hostId) {
-	let url = hostId ? `/api/shutdown/${hostId}` : "/api/shutdown";
-	let data = await fetchWithHttpErrorHandling(url);
+	const url = hostId ? `/api/shutdown/${hostId}` : "/api/shutdown";
+	const { data } = await fetchWithHttpErrorHandling(url);
 	return data;
 }
 
-async function getApplications(hostId) {
-	let url = hostId ? `/api/applications/${hostId}` : "/api/applications";
-	let data = await fetchWithHttpErrorHandling(url);
-	return data;
+async function getApplications(hostId, uncached = false) {
+	const url = hostId ? `/api/applications/${hostId}` : "/api/applications";
+	return await fetchWithHttpErrorHandling(url, { uncached });
 }
 
 export { pingHosts, getHostDetails, shutdownHost, getApplications };

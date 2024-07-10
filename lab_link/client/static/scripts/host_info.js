@@ -19,10 +19,10 @@ const keys = {
 	peripherals_devices: ["peripherals"],
 };
 
-async function getHostData() {
+async function getHostData(uncached = false) {
 	setLoading(true);
 	try {
-		const data = await getHostDetails(hostId);
+		const { data, isCached } = await getHostDetails(hostId, uncached);
 		setLoading(false);
 		populateHostData(data);
 	} catch (error) {
@@ -162,7 +162,7 @@ function populateDeviceCount(devices) {
 
 		const headerLabel = createElem("div", label, { class: "label" });
 		const headerCount = createElem("span", list.length || "No", {
-			class: `new badge${list.length === 0 ? "red disable" : ""}`,
+			class: `new badge ${list.length === 0 ? "danger disable" : ""}`,
 			"data-badge-caption": `${list.length === 0 ? `${label} Connected` : `${label} Connected`}`,
 		});
 
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const refreshBtn = document.querySelector(".refresh-host");
 	if (refreshBtn) {
-		refreshBtn.addEventListener("click", getHostData);
+		refreshBtn.addEventListener("click", () => getHostData(true));
 	}
 });
 

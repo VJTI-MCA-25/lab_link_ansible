@@ -1,17 +1,17 @@
 import { pingHosts, shutdownHost } from "./fetch.js";
-import { Loading } from "./script.js";
+import { Loading, showCachedMessage } from "./script.js";
 
 const container = document.querySelector(".hosts-container");
 const refreshButton = document.querySelector(".refresh-list-button");
 const shutdownAllButton = document.querySelector(".shutdown-all-hosts");
 const loading = new Loading(container);
 
-async function getHosts() {
+async function getHosts(uncached = false) {
 	loading.setLoading(true);
-	const data = await pingHosts();
+	const { data, isCached } = await pingHosts(uncached);
+	if (isCached) showCachedMessage();
 	loading.setLoading(false);
 	populateHosts(data);
-	console.log("running");
 }
 
 function populateHosts(data) {
@@ -49,7 +49,7 @@ async function shutdownAllHosts() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (refreshButton) {
-		refreshButton.addEventListener("click", getHosts);
+		refreshButton.addEventListener("click", () => getHosts(true));
 	}
 	if (shutdownAllButton) {
 		shutdownAllButton.addEventListener("click", shutdownAllHosts);

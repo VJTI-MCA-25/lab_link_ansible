@@ -153,6 +153,25 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+export function showCachedMessage() {
+	document.querySelector(".cache-message-container")?.remove();
+
+	const div = createElem(
+		"div",
+		"You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.",
+		{ class: "cache-message-container" }
+	);
+	const icon = createElem("i", "close", { class: "material-icons cache-message-close-icon" });
+
+	div.appendChild(icon);
+
+	icon.addEventListener("click", () => {
+		div.remove();
+	});
+
+	document.body.appendChild(div);
+}
+
 const alertModal = new AlertModal();
 
 window.modalAlert = alertModal.alert.bind(alertModal);
