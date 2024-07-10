@@ -27,24 +27,6 @@
 	margin-left: 1rem;
 }
 
-.options-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: max-content;
-	gap: 1rem;
-	padding: 1rem;
-}
-
-.options-container > a {
-	width: 100%;
-}
-
-.options-container > .options-title {
-	width: 100%;
-}
-
 .error {
 	display: flex;
 	justify-content: center;

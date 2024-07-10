@@ -8,8 +8,6 @@ const selectAllButton = document.querySelector(".select-all-button");
 const loading = new Loading(document.querySelector(".preloader"));
 const searchCancel = document.querySelector(".search-cancel");
 const countDisplay = document.querySelector(".count");
-const goUpButton = document.querySelector(".go-up");
-const goDownButton = document.querySelector(".go-down");
 const removeButton = document.querySelector(".remove-button");
 const downloadExcelButton = document.querySelector(".download-excel-button");
 
@@ -147,19 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Attach search input event listener
 	if (searchInput) {
 		searchInput.addEventListener("input", fuzzySearch);
-	}
-
-	// Attach scroll buttons event listeners
-	if (goUpButton) {
-		goUpButton.addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		});
-	}
-
-	if (goDownButton) {
-		goDownButton.addEventListener("click", () => {
-			window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-		});
 	}
 
 	if (selectAllButton) {

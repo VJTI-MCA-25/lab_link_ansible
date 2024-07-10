@@ -4,8 +4,6 @@ import { downloadAsExcel__HTMLTable } from "./excel.js";
 
 const tbody = document.querySelector(".apps-table-body");
 const loading = new Loading(document.querySelector(".preloader"));
-const goUpButton = document.querySelector(".go-up");
-const goDownButton = document.querySelector(".go-down");
 const downloadExcelButton = document.querySelector(".download-excel-button");
 
 var appsData = null;
@@ -47,19 +45,6 @@ function populateAllAppsTable(data) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	// Attach scroll buttons event listeners
-	if (goUpButton) {
-		goUpButton.addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		});
-	}
-
-	if (goDownButton) {
-		goDownButton.addEventListener("click", () => {
-			window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-		});
-	}
-
 	if (downloadExcelButton) {
 		downloadExcelButton.addEventListener("click", () => {
 			if (appsData) {

@@ -5,89 +5,77 @@
 {% endblock title %}
 {% block content %}
     <section class="applications-container">
-        <div class="row">
-            <div class="col s12">
-                <div class="row">
-                    <div class="col s12">
-                        <h3 class="underline">{{ host_id }} Applications</h3>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h3 class="underline">{{ host_id }} Applications</h3>
                 </div>
-                <div class="row valign-wrapper">
-                    <div class="col s8">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input id="search" type="text">
-                                <i class="material-icons prefix search-cancel">close</i>
-                                <label for="search">Search Packages</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s3">
-                        <div class="options-container">
-                            <div class="row">
-                                <div class="col s12">
-                                    <h5 class="underline">Options</h5>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="col s12">
-                                    <a class="install-button waves-effect waves-light btn">
-                                        <i class="material-icons left">file_download</i>
-                                        Install New App
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="col s12">
-                                    <a class="remove-button danger waves-effect waves-light btn">
-                                        <i class="material-icons left">delete</i>
-                                        Remove Selected
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="select-all-button waves-effect waves-light btn">
-                            <i class="material-icons left">select_all</i>
-                            Select All
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="download-excel-button waves-effect waves-light btn tooltipped"
-                           data-position="right"
-                           data-tooltip="Unselect all to download complete list">
-                            <i class="material-icons left">file_download</i>
-                            Download Selected as Excel
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="table-container custom-scroll">
-                            <table class="apps-table centered ">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Package Name</th>
-                                        <th>Version</th>
-                                        <th>Size</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="apps-table-body">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="preloader"></div>
             </div>
-        </div>
-        <div class="counter">
-            <span class="count">0</span>Items Selected
+            <div class="row">
+                <div class="col s10">
+                    <div class="row">
+                        <div class="input-field col s11">
+                            <i class="material-icons prefix">search</i>
+                            <input id="search" type="text">
+                            <i class="material-icons prefix search-cancel">close</i>
+                            <label for="search">Search Packages</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <a class="select-all-button waves-effect waves-light btn">
+                                <i class="material-icons left">select_all</i>
+                                Select All
+                            </a>
+                            <a class="download-excel-button waves-effect waves-light btn tooltipped"
+                               data-position="right"
+                               data-tooltip="Unselect all to download complete list">
+                                <i class="material-icons left">file_download</i>
+                                Download Selected as Excel
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="table-container custom-scroll">
+                                <table class="apps-table centered ">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Package Name</th>
+                                            <th>Version</th>
+                                            <th>Size</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="apps-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preloader"></div>
+                    <div class="counter">
+                        <span class="count">0</span>Items Selected
+                    </div>
+                </div>
+                <div class="col s2">
+                    <div class="options-container">
+                        <h5 class="underline">Options</h5>
+                        <a class="refresh-button waves-effect waves-light btn">
+                            <i class="material-icons left">refresh</i>
+                            Uncache & Refresh List
+                        </a>
+                        <a class="install-button waves-effect waves-light btn">
+                            <i class="material-icons left">file_download</i>
+                            Install New App
+                        </a>
+                        <a class="remove-button danger waves-effect waves-light btn">
+                            <i class="material-icons left">delete</i>
+                            Remove Selected
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         {% include "scroll.djhtml" %}
     </section>

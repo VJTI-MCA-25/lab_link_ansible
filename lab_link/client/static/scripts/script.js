@@ -6,6 +6,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		edge: "left",
 		draggable: true,
 	});
+
+	const goUp = document.querySelector(".go-up");
+	const goDown = document.querySelector(".go-down");
+
+	console.log(goUp, goDown);
+
+	if (goUp && goDown) {
+		goUp.addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		});
+
+		goDown.addEventListener("click", () => {
+			window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+		});
+	}
 });
 
 class AlertModal {

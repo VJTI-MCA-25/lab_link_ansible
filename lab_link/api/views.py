@@ -9,7 +9,7 @@ from django.core.cache import cache
 
 logger = logging.getLogger(__name__)
 
-DUMMY = False  # Toggle this for Dummy Data
+DUMMY = True  # Toggle this for Dummy Data
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):

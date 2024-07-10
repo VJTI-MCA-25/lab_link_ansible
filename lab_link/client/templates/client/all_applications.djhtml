@@ -5,71 +5,63 @@
 {% endblock title %}
 {% block content %}
     <section class="applications-container">
-        <div class="row">
-            <div class="col s12">
-                <div class="row">
-                    <div class="col s12">
-                        <h3 class="underline">All Applications</h3>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h3 class="underline">All Applications</h3>
                 </div>
-                <div class="row valign-wrapper">
-                    <div class="col s3 offset-s8">
-                        <div class="options-container">
-                            <div class="row">
-                                <div class="col s12">
-                                    <h5 class="underline">Options</h5>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="col s12">
-                                    <a class="install-button waves-effect waves-light btn">
-                                        <i class="material-icons left">file_download</i>
-                                        Install New App
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="col s12">
-                                    <a class="remove-button danger waves-effect waves-light btn">
-                                        <i class="material-icons left">delete</i>
-                                        Remove Selected
-                                    </a>
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col s10">
+                    <div class="row">
+                        <div class="col s12">
+                            <a class="download-excel-button waves-effect waves-light btn">
+                                <i class="material-icons left">file_download</i>
+                                Download Selected as Excel
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="table-container custom-scroll">
+                                <table class="apps-table {% if not host_id %}centered{% endif %} ">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="main-header">Host Names</th>
+                                            {% for header in headers %}<th colspan="2" class="main-header">{{ header }}</th>{% endfor %}
+                                        </tr>
+                                        <tr>
+                                            {% for header in headers %}
+                                                <th class="sub-header">Installed</th>
+                                                <th class="sub-header">Version</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    <tbody class="apps-table-body">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                    <div class="preloader"></div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="download-excel-button waves-effect waves-light btn">
+                <div class="col s2">
+                    <div class="options-container">
+                        <h5 class="underline">Options</h5>
+                        <a class="refresh-button waves-effect waves-light btn">
+                            <i class="material-icons left">refresh</i>
+                            Uncache & Refresh List
+                        </a>
+                        <a class="install-button waves-effect waves-light btn">
                             <i class="material-icons left">file_download</i>
-                            Download Selected as Excel
+                            Install New App
+                        </a>
+                        <a class="remove-button danger waves-effect waves-light btn">
+                            <i class="material-icons left">delete</i>
+                            Remove Selected
                         </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="table-container custom-scroll">
-                            <table class="apps-table {% if not host_id %}centered{% endif %} ">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2" class="main-header">Host Names</th>
-                                        {% for header in headers %}<th colspan="2" class="main-header">{{ header }}</th>{% endfor %}
-                                    </tr>
-                                    <tr>
-                                        {% for header in headers %}
-                                            <th class="sub-header">Installed</th>
-                                            <th class="sub-header">Version</th>
-                                        {% endfor %}
-                                    </tr>
-                                </thead>
-                                <tbody class="apps-table-body">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="preloader"></div>
             </div>
         </div>
         {% include "scroll.djhtml" %}

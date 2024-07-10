@@ -126,3 +126,46 @@ span.new.badge {
 	color: var(--sbc);
 }
 
+.options-container {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: max-content;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.options-container > * {
+	width: 100%;
+}
+
+.go-up,
+.go-down {
+	height: 40px;
+	width: 40px;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	border-radius: 50%;
+	background-color: var(--sbc);
+	color: var(--stc);
+}
+
+.arrow-container {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+	right: 1rem;
+	bottom: 3rem;
+}
+
+/* Add the disable class */
+.disable {
+	display: none;
+}
+
