@@ -12,7 +12,7 @@ def index(request):
 @login_required
 def host(request, host_id):
     context = {'host_id': host_id}
-    return render(request, 'client/host-info.djhtml', context)
+    return render(request, 'client/host_info.djhtml', context)
 
 
 @login_required
@@ -20,7 +20,6 @@ def applications(request, host_id=None):
     if host_id:
         context = {
             'host_id': host_id,
-            'headers': ['Package Name', 'Version']
         }
         return render(request, 'client/host_applications.djhtml', context)
     else:

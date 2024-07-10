@@ -32,7 +32,7 @@ class SSHConsumer(WebsocketConsumer):
             if err:
                 raise Exception(err)
 
-            host = out["_meta"]["hostvars"][host_id]
+            host = out["_meta"]["hostvars"].get(host_id)
             if not host:
                 raise Exception("Host not found in inventory")
 
@@ -53,7 +53,6 @@ class SSHConsumer(WebsocketConsumer):
             )
 
             self.command_queue = Queue()
-
             self.channel = self.ssh.invoke_shell()
 
             self.command_thread = Thread(target=self.handle_commands)
@@ -64,7 +63,8 @@ class SSHConsumer(WebsocketConsumer):
 
         except Exception as e:
             logger.error(f"Connection error: {e}")
-            self.close(code=4000)
+            self.send(text_data=f"Error: {str(e)}")
+            self.close(code=4001)
 
     def disconnect(self, close_code):
         if hasattr(self, 'channel') and self.channel:
@@ -87,7 +87,7 @@ class SSHConsumer(WebsocketConsumer):
                     timeout=1)  # Check every 1 second
                 if command is None:  # Exit signal received
                     break
-                self.channel.send(command)
+                self.channel.send(command + '\n')
             except Empty:
                 pass  # Queue is empty, continue waiting
             except Exception as e:
@@ -106,3 +106,6 @@ class SSHConsumer(WebsocketConsumer):
             except Exception as e:
                 logger.error(f"Error receiving output: {e}")
                 break
+
+        # Ensure the WebSocket is closed if the output listening loop exits
+        self.close(code=4002)

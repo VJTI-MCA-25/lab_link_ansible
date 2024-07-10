@@ -12,34 +12,8 @@
 	padding: 10px;
 }
 
-.apps-table tbody tr {
-	transition: background-color 0.2s ease-out;
-}
-
 .apps-table > tbody > tr:hover {
 	background-color: var(--highlight);
-}
-
-.go-up,
-.go-down {
-	background-color: var(--sbc);
-	height: 40px;
-	width: 40px;
-	display: grid;
-	place-items: center;
-	cursor: pointer;
-	border-radius: 50%;
-}
-
-.arrow-containers {
-	position: fixed;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	gap: 1rem;
-	right: 1rem;
-	bottom: 3rem;
 }
 
 .apps-table > thead > tr:first-child > th:not(:last-child) {

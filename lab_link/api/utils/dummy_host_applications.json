@@ -1,1747 +1,4132 @@
 [
 	{
 		"name": "adduser",
-		"version": "3.118ubuntu5"
+		"version": "3.118ubuntu5",
+		"size": "608 Kb"
+	},
+	{
+		"name": "adwaita-icon-theme",
+		"version": "41.0-1ubuntu1",
+		"size": "5234 Kb"
 	},
 	{
 		"name": "apparmor",
-		"version": "3.0.4-2ubuntu2.3"
+		"version": "3.0.4-2ubuntu2.3",
+		"size": "2676 Kb"
 	},
 	{
 		"name": "apport",
-		"version": "2.20.11-0ubuntu82.5"
+		"version": "2.20.11-0ubuntu82.5",
+		"size": "812 Kb"
 	},
 	{
 		"name": "apport-symptoms",
-		"version": "0.24"
+		"version": "0.24",
+		"size": "61 Kb"
 	},
 	{
 		"name": "apt",
-		"version": "2.4.11"
+		"version": "2.4.12",
+		"size": "4141 Kb"
 	},
 	{
 		"name": "apt-utils",
-		"version": "2.4.11"
+		"version": "2.4.12",
+		"size": "792 Kb"
+	},
+	{
+		"name": "at-spi2-core",
+		"version": "2.44.0-3",
+		"size": "276 Kb"
 	},
 	{
 		"name": "base-files",
-		"version": "12ubuntu4.4"
+		"version": "12ubuntu4.6",
+		"size": "394 Kb"
 	},
 	{
 		"name": "base-passwd",
-		"version": "3.5.52build1"
+		"version": "3.5.52build1",
+		"size": "243 Kb"
 	},
 	{
 		"name": "bash",
-		"version": "5.1-6ubuntu1.1"
+		"version": "5.1-6ubuntu1.1",
+		"size": "1864 Kb"
 	},
 	{
 		"name": "bash-completion",
-		"version": "1:2.11-5ubuntu1"
+		"version": "1:2.11-5ubuntu1",
+		"size": "1464 Kb"
 	},
 	{
 		"name": "bind9-dnsutils",
-		"version": "1:9.18.18-0ubuntu0.22.04.2"
+		"version": "1:9.18.24-0ubuntu0.22.04.1",
+		"size": "528 Kb"
 	},
 	{
 		"name": "bind9-host",
-		"version": "1:9.18.18-0ubuntu0.22.04.2"
+		"version": "1:9.18.24-0ubuntu0.22.04.1",
+		"size": "184 Kb"
 	},
 	{
 		"name": "bind9-libs",
-		"version": "1:9.18.18-0ubuntu0.22.04.2"
+		"version": "1:9.18.24-0ubuntu0.22.04.1",
+		"size": "3438 Kb"
 	},
 	{
 		"name": "binutils",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "113 Kb"
 	},
 	{
 		"name": "binutils-common",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "504 Kb"
 	},
 	{
 		"name": "binutils-x86-64-linux-gnu",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "10431 Kb"
 	},
 	{
 		"name": "bsdextrautils",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "341 Kb"
 	},
 	{
 		"name": "bsdutils",
-		"version": "1:2.37.2-4ubuntu3.4"
+		"version": "1:2.37.2-4ubuntu3.4",
+		"size": "334 Kb"
+	},
+	{
+		"name": "build-essential",
+		"version": "12.9ubuntu3",
+		"size": "21 Kb"
 	},
 	{
 		"name": "busybox-static",
-		"version": "1:1.30.1-7ubuntu3"
+		"version": "1:1.30.1-7ubuntu3",
+		"size": "2245 Kb"
 	},
 	{
 		"name": "byobu",
-		"version": "5.133-1"
+		"version": "5.133-1",
+		"size": "624 Kb"
+	},
+	{
+		"name": "bzip2",
+		"version": "1.0.8-5build1",
+		"size": "114 Kb"
 	},
 	{
 		"name": "ca-certificates",
-		"version": "20230311ubuntu0.22.04.1"
+		"version": "20230311ubuntu0.22.04.1",
+		"size": "390 Kb"
 	},
 	{
 		"name": "command-not-found",
-		"version": "22.04.0"
+		"version": "22.04.0",
+		"size": "37 Kb"
 	},
 	{
 		"name": "console-setup",
-		"version": "1.205ubuntu3"
+		"version": "1.205ubuntu3",
+		"size": "426 Kb"
 	},
 	{
 		"name": "console-setup-linux",
-		"version": "1.205ubuntu3"
+		"version": "1.205ubuntu3",
+		"size": "2171 Kb"
 	},
 	{
 		"name": "coreutils",
-		"version": "8.32-4.1ubuntu1"
+		"version": "8.32-4.1ubuntu1.2",
+		"size": "7112 Kb"
 	},
 	{
 		"name": "cpio",
-		"version": "2.13+dfsg-7ubuntu0.1"
+		"version": "2.13+dfsg-7ubuntu0.1",
+		"size": "328 Kb"
+	},
+	{
+		"name": "cpp",
+		"version": "4:11.2.0-1ubuntu1",
+		"size": "67 Kb"
+	},
+	{
+		"name": "cpp-11",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "26284 Kb"
 	},
 	{
 		"name": "cron",
-		"version": "3.0pl1-137ubuntu3"
+		"version": "3.0pl1-137ubuntu3",
+		"size": "255 Kb"
 	},
 	{
 		"name": "curl",
-		"version": "7.81.0-1ubuntu1.16"
+		"version": "7.81.0-1ubuntu1.16",
+		"size": "443 Kb"
 	},
 	{
 		"name": "dash",
-		"version": "0.5.11+git20210903+057cd650a4ed-3build1"
+		"version": "0.5.11+git20210903+057cd650a4ed-3build1",
+		"size": "214 Kb"
 	},
 	{
 		"name": "dbus",
-		"version": "1.12.20-2ubuntu4.1"
+		"version": "1.12.20-2ubuntu4.1",
+		"size": "582 Kb"
 	},
 	{
 		"name": "dbus-x11",
-		"version": "1.12.20-2ubuntu4.1"
+		"version": "1.12.20-2ubuntu4.1",
+		"size": "161 Kb"
+	},
+	{
+		"name": "dconf-gsettings-backend",
+		"version": "0.40.0-3",
+		"size": "83 Kb"
+	},
+	{
+		"name": "dconf-service",
+		"version": "0.40.0-3",
+		"size": "102 Kb"
 	},
 	{
 		"name": "debconf",
-		"version": "1.5.79ubuntu1"
+		"version": "1.5.79ubuntu1",
+		"size": "512 Kb"
 	},
 	{
 		"name": "debconf-i18n",
-		"version": "1.5.79ubuntu1"
+		"version": "1.5.79ubuntu1",
+		"size": "787 Kb"
 	},
 	{
 		"name": "debianutils",
-		"version": "5.5-1ubuntu2"
+		"version": "5.5-1ubuntu2",
+		"size": "243 Kb"
 	},
 	{
 		"name": "diffutils",
-		"version": "1:3.8-0ubuntu2"
+		"version": "1:3.8-0ubuntu2",
+		"size": "424 Kb"
 	},
 	{
 		"name": "dirmngr",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "676 Kb"
 	},
 	{
 		"name": "distro-info",
-		"version": "1.1ubuntu0.1"
+		"version": "1.1ubuntu0.2",
+		"size": "69 Kb"
 	},
 	{
 		"name": "distro-info-data",
-		"version": "0.52ubuntu0.7"
+		"version": "0.52ubuntu0.7",
+		"size": "20 Kb"
 	},
 	{
 		"name": "dmidecode",
-		"version": "3.3-3ubuntu0.1"
+		"version": "3.3-3ubuntu0.1",
+		"size": "208 Kb"
 	},
 	{
 		"name": "dmsetup",
-		"version": "2:1.02.175-2.1ubuntu4"
+		"version": "2:1.02.175-2.1ubuntu4",
+		"size": "273 Kb"
 	},
 	{
 		"name": "dosfstools",
-		"version": "4.2-1build3"
+		"version": "4.2-1build3",
+		"size": "245 Kb"
 	},
 	{
 		"name": "dpkg",
-		"version": "1.21.1ubuntu2.2"
+		"version": "1.21.1ubuntu2.3",
+		"size": "6733 Kb"
+	},
+	{
+		"name": "dpkg-dev",
+		"version": "1.21.1ubuntu2.3",
+		"size": "2488 Kb"
 	},
 	{
 		"name": "e2fsprogs",
-		"version": "1.46.5-2ubuntu1.1"
+		"version": "1.46.5-2ubuntu1.1",
+		"size": "1516 Kb"
 	},
 	{
 		"name": "ed",
-		"version": "1.18-1"
+		"version": "1.18-1",
+		"size": "108 Kb"
 	},
 	{
 		"name": "eject",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "152 Kb"
+	},
+	{
+		"name": "fakeroot",
+		"version": "1.28-1ubuntu1",
+		"size": "220 Kb"
 	},
 	{
 		"name": "file",
-		"version": "1:5.41-3ubuntu0.1"
+		"version": "1:5.41-3ubuntu0.1",
+		"size": "84 Kb"
 	},
 	{
 		"name": "findutils",
-		"version": "4.8.0-1ubuntu3"
+		"version": "4.8.0-1ubuntu3",
+		"size": "620 Kb"
+	},
+	{
+		"name": "fontconfig",
+		"version": "2.13.1-4.2ubuntu5",
+		"size": "375 Kb"
+	},
+	{
+		"name": "fontconfig-config",
+		"version": "2.13.1-4.2ubuntu5",
+		"size": "172 Kb"
+	},
+	{
+		"name": "fonts-dejavu-core",
+		"version": "2.37-2build1",
+		"size": "2954 Kb"
 	},
 	{
 		"name": "fonts-ubuntu",
-		"version": "0.83-6ubuntu1"
+		"version": "0.83-6ubuntu1",
+		"size": "4339 Kb"
 	},
 	{
 		"name": "friendly-recovery",
-		"version": "0.2.42"
+		"version": "0.2.42",
+		"size": "45 Kb"
 	},
 	{
 		"name": "ftp",
-		"version": "20210827-4build1"
+		"version": "20210827-4build1",
+		"size": "26 Kb"
 	},
 	{
 		"name": "fuse3",
-		"version": "3.10.5-1build1"
+		"version": "3.10.5-1build1",
+		"size": "90 Kb"
+	},
+	{
+		"name": "g++",
+		"version": "4:11.2.0-1ubuntu1",
+		"size": "16 Kb"
+	},
+	{
+		"name": "g++-11",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "28891 Kb"
 	},
 	{
 		"name": "gawk",
-		"version": "1:5.1.0-1ubuntu0.1"
+		"version": "1:5.1.0-1ubuntu0.1",
+		"size": "1680 Kb"
+	},
+	{
+		"name": "gcc",
+		"version": "4:11.2.0-1ubuntu1",
+		"size": "50 Kb"
+	},
+	{
+		"name": "gcc-11",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "52747 Kb"
+	},
+	{
+		"name": "gcc-11-base",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "273 Kb"
 	},
 	{
 		"name": "gcc-12-base",
-		"version": "12.3.0-1ubuntu1~22.04"
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "272 Kb"
 	},
 	{
 		"name": "gettext-base",
-		"version": "0.21-4ubuntu4"
+		"version": "0.21-4ubuntu4",
+		"size": "284 Kb"
 	},
 	{
 		"name": "gir1.2-glib-2.0",
-		"version": "1.72.0-1"
+		"version": "1.72.0-1",
+		"size": "677 Kb"
 	},
 	{
 		"name": "gir1.2-packagekitglib-1.0",
-		"version": "1.2.5-2ubuntu2"
+		"version": "1.2.5-2ubuntu2",
+		"size": "123 Kb"
 	},
 	{
 		"name": "git",
-		"version": "1:2.34.1-1ubuntu1.11"
+		"version": "1:2.34.1-1ubuntu1.11",
+		"size": "18484 Kb"
 	},
 	{
 		"name": "git-man",
-		"version": "1:2.34.1-1ubuntu1.11"
+		"version": "1:2.34.1-1ubuntu1.11",
+		"size": "1958 Kb"
 	},
 	{
 		"name": "gnupg",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "473 Kb"
 	},
 	{
 		"name": "gnupg-l10n",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "392 Kb"
 	},
 	{
 		"name": "gnupg-utils",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "787 Kb"
 	},
 	{
 		"name": "gpg",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "1121 Kb"
 	},
 	{
 		"name": "gpg-agent",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "595 Kb"
 	},
 	{
 		"name": "gpg-wks-client",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "184 Kb"
 	},
 	{
 		"name": "gpg-wks-server",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "168 Kb"
 	},
 	{
 		"name": "gpgconf",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "280 Kb"
 	},
 	{
 		"name": "gpgsm",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "480 Kb"
 	},
 	{
 		"name": "gpgv",
-		"version": "2.2.27-3ubuntu2.1"
+		"version": "2.2.27-3ubuntu2.1",
+		"size": "324 Kb"
 	},
 	{
 		"name": "grep",
-		"version": "3.7-1build1"
+		"version": "3.7-1build1",
+		"size": "496 Kb"
 	},
 	{
 		"name": "groff-base",
-		"version": "1.22.4-8build1"
+		"version": "1.22.4-8build1",
+		"size": "3444 Kb"
+	},
+	{
+		"name": "gsettings-desktop-schemas",
+		"version": "42.0-1ubuntu1",
+		"size": "308 Kb"
+	},
+	{
+		"name": "gtk-update-icon-cache",
+		"version": "3.24.33-1ubuntu2.1",
+		"size": "160 Kb"
+	},
+	{
+		"name": "gyp",
+		"version": "0.1+20210831gitd6c5dd5-5",
+		"size": "1165 Kb"
 	},
 	{
 		"name": "gzip",
-		"version": "1.10-4ubuntu4.1"
+		"version": "1.10-4ubuntu4.1",
+		"size": "240 Kb"
 	},
 	{
 		"name": "hdparm",
-		"version": "9.60+ds-1build3"
+		"version": "9.60+ds-1build3",
+		"size": "244 Kb"
+	},
+	{
+		"name": "hicolor-icon-theme",
+		"version": "0.17-2",
+		"size": "440 Kb"
 	},
 	{
 		"name": "hostname",
-		"version": "3.23ubuntu2"
+		"version": "3.23ubuntu2",
+		"size": "51 Kb"
 	},
 	{
 		"name": "htop",
-		"version": "3.0.5-7build2"
+		"version": "3.0.5-7build2",
+		"size": "334 Kb"
+	},
+	{
+		"name": "humanity-icon-theme",
+		"version": "0.6.16",
+		"size": "20660 Kb"
 	},
 	{
 		"name": "info",
-		"version": "6.8-4build1"
+		"version": "6.8-4build1",
+		"size": "849 Kb"
 	},
 	{
 		"name": "init",
-		"version": "1.62"
+		"version": "1.62",
+		"size": "22 Kb"
 	},
 	{
 		"name": "init-system-helpers",
-		"version": "1.62"
+		"version": "1.62",
+		"size": "133 Kb"
 	},
 	{
 		"name": "install-info",
-		"version": "6.8-4build1"
+		"version": "6.8-4build1",
+		"size": "257 Kb"
 	},
 	{
 		"name": "iproute2",
-		"version": "5.15.0-1ubuntu2"
+		"version": "5.15.0-1ubuntu2",
+		"size": "2880 Kb"
 	},
 	{
 		"name": "iptables",
-		"version": "1.8.7-1ubuntu5.1"
+		"version": "1.8.7-1ubuntu5.2",
+		"size": "2837 Kb"
 	},
 	{
 		"name": "iputils-ping",
-		"version": "3:20211215-1"
+		"version": "3:20211215-1",
+		"size": "113 Kb"
 	},
 	{
 		"name": "iputils-tracepath",
-		"version": "3:20211215-1"
+		"version": "3:20211215-1",
+		"size": "52 Kb"
 	},
 	{
 		"name": "irqbalance",
-		"version": "1.8.0-1ubuntu0.1"
+		"version": "1.8.0-1ubuntu0.2",
+		"size": "149 Kb"
 	},
 	{
 		"name": "isc-dhcp-client",
-		"version": "4.4.1-2.3ubuntu2.4"
+		"version": "4.4.1-2.3ubuntu2.4",
+		"size": "673 Kb"
 	},
 	{
 		"name": "isc-dhcp-common",
-		"version": "4.4.1-2.3ubuntu2.4"
+		"version": "4.4.1-2.3ubuntu2.4",
+		"size": "165 Kb"
 	},
 	{
 		"name": "iso-codes",
-		"version": "4.9.0-1"
+		"version": "4.9.0-1",
+		"size": "19769 Kb"
 	},
 	{
 		"name": "javascript-common",
-		"version": "11+nmu1"
+		"version": "11+nmu1",
+		"size": "33 Kb"
 	},
 	{
 		"name": "kbd",
-		"version": "2.3.0-3ubuntu4.22.04"
+		"version": "2.3.0-3ubuntu4.22.04",
+		"size": "1328 Kb"
 	},
 	{
 		"name": "keyboard-configuration",
-		"version": "1.205ubuntu3"
+		"version": "1.205ubuntu3",
+		"size": "842 Kb"
 	},
 	{
 		"name": "kmod",
-		"version": "29-1ubuntu1"
+		"version": "29-1ubuntu1",
+		"size": "251 Kb"
 	},
 	{
 		"name": "less",
-		"version": "590-1ubuntu0.22.04.3"
+		"version": "590-1ubuntu0.22.04.3",
+		"size": "321 Kb"
 	},
 	{
 		"name": "libacl1",
-		"version": "2.3.1-1"
+		"version": "2.3.1-1",
+		"size": "67 Kb"
+	},
+	{
+		"name": "libalgorithm-diff-perl",
+		"version": "1.201-1",
+		"size": "127 Kb"
+	},
+	{
+		"name": "libalgorithm-diff-xs-perl",
+		"version": "0.04-6build3",
+		"size": "50 Kb"
+	},
+	{
+		"name": "libalgorithm-merge-perl",
+		"version": "0.08-3",
+		"size": "42 Kb"
 	},
 	{
 		"name": "libapparmor1",
-		"version": "3.0.4-2ubuntu2.3"
+		"version": "3.0.4-2ubuntu2.3",
+		"size": "171 Kb"
 	},
 	{
 		"name": "libappstream4",
-		"version": "0.15.2-2"
+		"version": "0.15.2-2",
+		"size": "576 Kb"
 	},
 	{
 		"name": "libapt-pkg6.0",
-		"version": "2.4.11"
+		"version": "2.4.12",
+		"size": "3198 Kb"
 	},
 	{
 		"name": "libargon2-1",
-		"version": "0~20171227-0.3"
+		"version": "0~20171227-0.3",
+		"size": "56 Kb"
+	},
+	{
+		"name": "libasan6",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "7518 Kb"
 	},
 	{
 		"name": "libassuan0",
-		"version": "2.5.5-1build1"
+		"version": "2.5.5-1build1",
+		"size": "110 Kb"
+	},
+	{
+		"name": "libatk-bridge2.0-0",
+		"version": "2.38.0-3",
+		"size": "250 Kb"
+	},
+	{
+		"name": "libatk1.0-0",
+		"version": "2.36.0-3build1",
+		"size": "199 Kb"
+	},
+	{
+		"name": "libatk1.0-data",
+		"version": "2.36.0-3build1",
+		"size": "44 Kb"
 	},
 	{
 		"name": "libatm1",
-		"version": "1:2.5.1-4build2"
+		"version": "1:2.5.1-4build2",
+		"size": "110 Kb"
+	},
+	{
+		"name": "libatomic1",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "45 Kb"
+	},
+	{
+		"name": "libatspi2.0-0",
+		"version": "2.44.0-3",
+		"size": "255 Kb"
 	},
 	{
 		"name": "libattr1",
-		"version": "1:2.5.1-1build1"
+		"version": "1:2.5.1-1build1",
+		"size": "57 Kb"
 	},
 	{
 		"name": "libaudit-common",
-		"version": "1:3.0.7-1build1"
+		"version": "1:3.0.7-1build1",
+		"size": "23 Kb"
 	},
 	{
 		"name": "libaudit1",
-		"version": "1:3.0.7-1build1"
+		"version": "1:3.0.7-1build1",
+		"size": "156 Kb"
+	},
+	{
+		"name": "libauthen-sasl-perl",
+		"version": "2.1600-1.1",
+		"size": "119 Kb"
+	},
+	{
+		"name": "libavahi-client3",
+		"version": "0.8-5ubuntu5.2",
+		"size": "137 Kb"
+	},
+	{
+		"name": "libavahi-common-data",
+		"version": "0.8-5ubuntu5.2",
+		"size": "116 Kb"
+	},
+	{
+		"name": "libavahi-common3",
+		"version": "0.8-5ubuntu5.2",
+		"size": "114 Kb"
 	},
 	{
 		"name": "libbinutils",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "2776 Kb"
 	},
 	{
 		"name": "libblkid1",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "323 Kb"
 	},
 	{
 		"name": "libbpf0",
-		"version": "1:0.5.0-1ubuntu22.04.1"
+		"version": "1:0.5.0-1ubuntu22.04.1",
+		"size": "344 Kb"
 	},
 	{
 		"name": "libbrotli1",
-		"version": "1.0.9-2build6"
+		"version": "1.0.9-2build6",
+		"size": "784 Kb"
 	},
 	{
 		"name": "libbsd0",
-		"version": "0.11.5-1"
+		"version": "0.11.5-1",
+		"size": "136 Kb"
 	},
 	{
 		"name": "libbz2-1.0",
-		"version": "1.0.8-5build1"
+		"version": "1.0.8-5build1",
+		"size": "100 Kb"
+	},
+	{
+		"name": "libc-ares2",
+		"version": "1.18.1-1ubuntu0.22.04.3",
+		"size": "112 Kb"
 	},
 	{
 		"name": "libc-bin",
-		"version": "2.35-0ubuntu3.8"
+		"version": "2.35-0ubuntu3.8",
+		"size": "2538 Kb"
+	},
+	{
+		"name": "libc-dev-bin",
+		"version": "2.35-0ubuntu3.8",
+		"size": "299 Kb"
+	},
+	{
+		"name": "libc-devtools",
+		"version": "2.35-0ubuntu3.8",
+		"size": "351 Kb"
 	},
 	{
 		"name": "libc6",
-		"version": "2.35-0ubuntu3.8"
+		"version": "2.35-0ubuntu3.8",
+		"size": "13597 Kb"
+	},
+	{
+		"name": "libc6-dev",
+		"version": "2.35-0ubuntu3.8",
+		"size": "13038 Kb"
+	},
+	{
+		"name": "libcairo-gobject2",
+		"version": "1.16.0-5ubuntu2",
+		"size": "102 Kb"
+	},
+	{
+		"name": "libcairo2",
+		"version": "1.16.0-5ubuntu2",
+		"size": "1351 Kb"
 	},
 	{
 		"name": "libcap-ng0",
-		"version": "0.7.9-2.2build3"
+		"version": "0.7.9-2.2build3",
+		"size": "45 Kb"
 	},
 	{
 		"name": "libcap2",
-		"version": "1:2.44-1ubuntu0.22.04.1"
+		"version": "1:2.44-1ubuntu0.22.04.1",
+		"size": "65 Kb"
 	},
 	{
 		"name": "libcap2-bin",
-		"version": "1:2.44-1ubuntu0.22.04.1"
+		"version": "1:2.44-1ubuntu0.22.04.1",
+		"size": "115 Kb"
 	},
 	{
 		"name": "libcbor0.8",
-		"version": "0.8.0-2ubuntu1"
+		"version": "0.8.0-2ubuntu1",
+		"size": "83 Kb"
+	},
+	{
+		"name": "libcc1-0",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "144 Kb"
+	},
+	{
+		"name": "libclone-perl",
+		"version": "0.45-1build3",
+		"size": "43 Kb"
+	},
+	{
+		"name": "libcolord2",
+		"version": "1.4.6-1",
+		"size": "616 Kb"
 	},
 	{
 		"name": "libcom-err2",
-		"version": "1.46.5-2ubuntu1.1"
+		"version": "1.46.5-2ubuntu1.1",
+		"size": "101 Kb"
+	},
+	{
+		"name": "libcrypt-dev",
+		"version": "1:4.4.27-1",
+		"size": "320 Kb"
 	},
 	{
 		"name": "libcrypt1",
-		"version": "1:4.4.27-1"
+		"version": "1:4.4.27-1",
+		"size": "225 Kb"
 	},
 	{
 		"name": "libcryptsetup12",
-		"version": "2:2.4.3-1ubuntu1.1"
+		"version": "2:2.4.3-1ubuntu1.2",
+		"size": "572 Kb"
 	},
 	{
 		"name": "libctf-nobfd0",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "313 Kb"
 	},
 	{
 		"name": "libctf0",
-		"version": "2.38-4ubuntu2.6"
+		"version": "2.38-4ubuntu2.6",
+		"size": "239 Kb"
+	},
+	{
+		"name": "libcups2",
+		"version": "2.4.1op1-1ubuntu4.10",
+		"size": "783 Kb"
 	},
 	{
 		"name": "libcurl3-gnutls",
-		"version": "7.81.0-1ubuntu1.16"
+		"version": "7.81.0-1ubuntu1.16",
+		"size": "771 Kb"
 	},
 	{
 		"name": "libcurl4",
-		"version": "7.81.0-1ubuntu1.16"
+		"version": "7.81.0-1ubuntu1.16",
+		"size": "787 Kb"
+	},
+	{
+		"name": "libdata-dump-perl",
+		"version": "1.25-1",
+		"size": "64 Kb"
+	},
+	{
+		"name": "libdatrie1",
+		"version": "0.2.13-2",
+		"size": "63 Kb"
 	},
 	{
 		"name": "libdb5.3",
-		"version": "5.3.28+dfsg1-0.8ubuntu3"
+		"version": "5.3.28+dfsg1-0.8ubuntu3",
+		"size": "1750 Kb"
 	},
 	{
 		"name": "libdbus-1-3",
-		"version": "1.12.20-2ubuntu4.1"
+		"version": "1.12.20-2ubuntu4.1",
+		"size": "457 Kb"
+	},
+	{
+		"name": "libdconf1",
+		"version": "0.40.0-3",
+		"size": "107 Kb"
 	},
 	{
 		"name": "libdebconfclient0",
-		"version": "0.261ubuntu1"
+		"version": "0.261ubuntu1",
+		"size": "79 Kb"
+	},
+	{
+		"name": "libdeflate0",
+		"version": "1.10-2",
+		"size": "154 Kb"
 	},
 	{
 		"name": "libdevmapper1.02.1",
-		"version": "2:1.02.175-2.1ubuntu4"
+		"version": "2:1.02.175-2.1ubuntu4",
+		"size": "492 Kb"
 	},
 	{
 		"name": "libdns-export1110",
-		"version": "1:9.11.19+dfsg-2.1ubuntu3"
+		"version": "1:9.11.19+dfsg-2.1ubuntu3",
+		"size": "2262 Kb"
+	},
+	{
+		"name": "libdpkg-perl",
+		"version": "1.21.1ubuntu2.3",
+		"size": "2340 Kb"
+	},
+	{
+		"name": "libdrm-amdgpu1",
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "84 Kb"
 	},
 	{
 		"name": "libdrm-common",
-		"version": "2.4.113-2~ubuntu0.22.04.1"
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "45 Kb"
+	},
+	{
+		"name": "libdrm-intel1",
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "190 Kb"
+	},
+	{
+		"name": "libdrm-nouveau2",
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "82 Kb"
+	},
+	{
+		"name": "libdrm-radeon1",
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "95 Kb"
 	},
 	{
 		"name": "libdrm2",
-		"version": "2.4.113-2~ubuntu0.22.04.1"
+		"version": "2.4.113-2~ubuntu0.22.04.1",
+		"size": "128 Kb"
 	},
 	{
 		"name": "libdw1",
-		"version": "0.186-1build1"
+		"version": "0.186-1build1",
+		"size": "729 Kb"
 	},
 	{
 		"name": "libedit2",
-		"version": "3.1-20210910-1build1"
+		"version": "3.1-20210910-1build1",
+		"size": "260 Kb"
 	},
 	{
 		"name": "libelf1",
-		"version": "0.186-1build1"
+		"version": "0.186-1build1",
+		"size": "192 Kb"
+	},
+	{
+		"name": "libencode-locale-perl",
+		"version": "1.05-1.1",
+		"size": "32 Kb"
+	},
+	{
+		"name": "libepoxy0",
+		"version": "1.5.10-1",
+		"size": "1380 Kb"
 	},
 	{
 		"name": "liberror-perl",
-		"version": "0.17029-1"
+		"version": "0.17029-1",
+		"size": "71 Kb"
 	},
 	{
 		"name": "libestr0",
-		"version": "0.1.10-2.1build3"
+		"version": "0.1.10-2.1build3",
+		"size": "31 Kb"
 	},
 	{
 		"name": "libevent-core-2.1-7",
-		"version": "2.1.12-stable-1build3"
+		"version": "2.1.12-stable-1build3",
+		"size": "256 Kb"
 	},
 	{
 		"name": "libexpat1",
-		"version": "2.4.7-1ubuntu0.3"
+		"version": "2.4.7-1ubuntu0.3",
+		"size": "433 Kb"
 	},
 	{
 		"name": "libext2fs2",
-		"version": "1.46.5-2ubuntu1.1"
+		"version": "1.46.5-2ubuntu1.1",
+		"size": "574 Kb"
+	},
+	{
+		"name": "libfakeroot",
+		"version": "1.28-1ubuntu1",
+		"size": "172 Kb"
 	},
 	{
 		"name": "libfastjson4",
-		"version": "0.99.9-1build2"
+		"version": "0.99.9-1build2",
+		"size": "69 Kb"
 	},
 	{
 		"name": "libffi8",
-		"version": "3.4.2-4"
+		"version": "3.4.2-4",
+		"size": "69 Kb"
 	},
 	{
 		"name": "libfido2-1",
-		"version": "1.10.0-1"
+		"version": "1.10.0-1",
+		"size": "236 Kb"
+	},
+	{
+		"name": "libfile-basedir-perl",
+		"version": "0.09-1",
+		"size": "39 Kb"
+	},
+	{
+		"name": "libfile-desktopentry-perl",
+		"version": "0.22-2",
+		"size": "47 Kb"
+	},
+	{
+		"name": "libfile-fcntllock-perl",
+		"version": "0.22-3build7",
+		"size": "131 Kb"
+	},
+	{
+		"name": "libfile-listing-perl",
+		"version": "6.14-1",
+		"size": "31 Kb"
+	},
+	{
+		"name": "libfile-mimeinfo-perl",
+		"version": "0.31-1",
+		"size": "112 Kb"
+	},
+	{
+		"name": "libfont-afm-perl",
+		"version": "1.20-3",
+		"size": "69 Kb"
+	},
+	{
+		"name": "libfontconfig1",
+		"version": "2.13.1-4.2ubuntu5",
+		"size": "331 Kb"
+	},
+	{
+		"name": "libfontenc1",
+		"version": "1:1.1.4-1build3",
+		"size": "50 Kb"
+	},
+	{
+		"name": "libfreetype6",
+		"version": "2.11.1+dfsg-1ubuntu0.2",
+		"size": "870 Kb"
 	},
 	{
 		"name": "libfribidi0",
-		"version": "1.0.8-2ubuntu3.1"
+		"version": "1.0.8-2ubuntu3.1",
+		"size": "136 Kb"
 	},
 	{
 		"name": "libfuse3-3",
-		"version": "3.10.5-1build1"
+		"version": "3.10.5-1build1",
+		"size": "282 Kb"
+	},
+	{
+		"name": "libgcc-11-dev",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "13895 Kb"
 	},
 	{
 		"name": "libgcc-s1",
-		"version": "12.3.0-1ubuntu1~22.04"
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "140 Kb"
 	},
 	{
 		"name": "libgcrypt20",
-		"version": "1.9.4-3ubuntu3"
+		"version": "1.9.4-3ubuntu3",
+		"size": "1354 Kb"
+	},
+	{
+		"name": "libgd3",
+		"version": "2.3.0-2ubuntu2",
+		"size": "452 Kb"
 	},
 	{
 		"name": "libgdbm-compat4",
-		"version": "1.23-1"
+		"version": "1.23-1",
+		"size": "45 Kb"
 	},
 	{
 		"name": "libgdbm6",
-		"version": "1.23-1"
+		"version": "1.23-1",
+		"size": "100 Kb"
+	},
+	{
+		"name": "libgdk-pixbuf-2.0-0",
+		"version": "2.42.8+dfsg-1ubuntu0.3",
+		"size": "516 Kb"
+	},
+	{
+		"name": "libgdk-pixbuf2.0-bin",
+		"version": "2.42.8+dfsg-1ubuntu0.3",
+		"size": "83 Kb"
+	},
+	{
+		"name": "libgdk-pixbuf2.0-common",
+		"version": "2.42.8+dfsg-1ubuntu0.3",
+		"size": "56 Kb"
 	},
 	{
 		"name": "libgirepository-1.0-1",
-		"version": "1.72.0-1"
+		"version": "1.72.0-1",
+		"size": "175 Kb"
+	},
+	{
+		"name": "libgl1",
+		"version": "1.4.0-1",
+		"size": "653 Kb"
+	},
+	{
+		"name": "libgl1-amber-dri",
+		"version": "21.3.9-0ubuntu1~22.04.1",
+		"size": "15592 Kb"
+	},
+	{
+		"name": "libgl1-mesa-dri",
+		"version": "23.2.1-1ubuntu3.1~22.04.2",
+		"size": "31988 Kb"
+	},
+	{
+		"name": "libglapi-mesa",
+		"version": "23.2.1-1ubuntu3.1~22.04.2",
+		"size": "289 Kb"
 	},
 	{
 		"name": "libglib2.0-0",
-		"version": "2.72.4-0ubuntu2.3"
+		"version": "2.72.4-0ubuntu2.3",
+		"size": "4086 Kb"
 	},
 	{
 		"name": "libglib2.0-bin",
-		"version": "2.72.4-0ubuntu2.3"
+		"version": "2.72.4-0ubuntu2.3",
+		"size": "342 Kb"
 	},
 	{
 		"name": "libglib2.0-data",
-		"version": "2.72.4-0ubuntu2.3"
+		"version": "2.72.4-0ubuntu2.3",
+		"size": "112 Kb"
+	},
+	{
+		"name": "libglvnd0",
+		"version": "1.4.0-1",
+		"size": "725 Kb"
+	},
+	{
+		"name": "libglx-mesa0",
+		"version": "23.2.1-1ubuntu3.1~22.04.2",
+		"size": "567 Kb"
+	},
+	{
+		"name": "libglx0",
+		"version": "1.4.0-1",
+		"size": "163 Kb"
 	},
 	{
 		"name": "libgmp10",
-		"version": "2:6.2.1+dfsg-3ubuntu1"
+		"version": "2:6.2.1+dfsg-3ubuntu1",
+		"size": "544 Kb"
 	},
 	{
 		"name": "libgnutls30",
-		"version": "3.7.3-4ubuntu1.5"
+		"version": "3.7.3-4ubuntu1.5",
+		"size": "2284 Kb"
+	},
+	{
+		"name": "libgomp1",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "320 Kb"
 	},
 	{
 		"name": "libgpg-error0",
-		"version": "1.43-3"
+		"version": "1.43-3",
+		"size": "189 Kb"
 	},
 	{
 		"name": "libgpm2",
-		"version": "1.20.7-10build1"
+		"version": "1.20.7-10build1",
+		"size": "65 Kb"
+	},
+	{
+		"name": "libgraphite2-3",
+		"version": "1.3.14-1build2",
+		"size": "179 Kb"
 	},
 	{
 		"name": "libgssapi-krb5-2",
-		"version": "1.19.2-2ubuntu0.3"
+		"version": "1.19.2-2ubuntu0.3",
+		"size": "455 Kb"
 	},
 	{
 		"name": "libgstreamer1.0-0",
-		"version": "1.20.3-0ubuntu1"
+		"version": "1.20.3-0ubuntu1",
+		"size": "2984 Kb"
+	},
+	{
+		"name": "libgtk-3-0",
+		"version": "3.24.33-1ubuntu2.1",
+		"size": "10280 Kb"
+	},
+	{
+		"name": "libgtk-3-bin",
+		"version": "3.24.33-1ubuntu2.1",
+		"size": "337 Kb"
+	},
+	{
+		"name": "libgtk-3-common",
+		"version": "3.24.33-1ubuntu2.1",
+		"size": "432 Kb"
+	},
+	{
+		"name": "libgtkd-3-0",
+		"version": "3.10.0-1ubuntu1",
+		"size": "12749 Kb"
+	},
+	{
+		"name": "libharfbuzz0b",
+		"version": "2.7.4-1ubuntu3.1",
+		"size": "860 Kb"
 	},
 	{
 		"name": "libhogweed6",
-		"version": "3.7.3-1build2"
+		"version": "3.7.3-1build2",
+		"size": "336 Kb"
+	},
+	{
+		"name": "libhtml-form-perl",
+		"version": "6.07-1",
+		"size": "62 Kb"
+	},
+	{
+		"name": "libhtml-format-perl",
+		"version": "2.12-1.1",
+		"size": "126 Kb"
+	},
+	{
+		"name": "libhtml-parser-perl",
+		"version": "3.76-1build2",
+		"size": "222 Kb"
+	},
+	{
+		"name": "libhtml-tagset-perl",
+		"version": "3.20-4",
+		"size": "31 Kb"
+	},
+	{
+		"name": "libhtml-tree-perl",
+		"version": "5.07-2",
+		"size": "481 Kb"
+	},
+	{
+		"name": "libhttp-cookies-perl",
+		"version": "6.10-1",
+		"size": "50 Kb"
+	},
+	{
+		"name": "libhttp-daemon-perl",
+		"version": "6.13-1ubuntu0.1",
+		"size": "56 Kb"
+	},
+	{
+		"name": "libhttp-date-perl",
+		"version": "6.05-1",
+		"size": "29 Kb"
+	},
+	{
+		"name": "libhttp-message-perl",
+		"version": "6.36-1",
+		"size": "191 Kb"
+	},
+	{
+		"name": "libhttp-negotiate-perl",
+		"version": "6.01-1",
+		"size": "34 Kb"
+	},
+	{
+		"name": "libice6",
+		"version": "2:1.0.10-1build2",
+		"size": "116 Kb"
 	},
 	{
 		"name": "libicu70",
-		"version": "70.1-2"
+		"version": "70.1-2",
+		"size": "34444 Kb"
 	},
 	{
 		"name": "libidn2-0",
-		"version": "2.3.2-2build1"
+		"version": "2.3.2-2build1",
+		"size": "220 Kb"
+	},
+	{
+		"name": "libio-html-perl",
+		"version": "1.004-2",
+		"size": "40 Kb"
+	},
+	{
+		"name": "libio-socket-ssl-perl",
+		"version": "2.074-2",
+		"size": "561 Kb"
+	},
+	{
+		"name": "libio-stringy-perl",
+		"version": "2.111-3",
+		"size": "134 Kb"
 	},
 	{
 		"name": "libip4tc2",
-		"version": "1.8.7-1ubuntu5.1"
+		"version": "1.8.7-1ubuntu5.2",
+		"size": "83 Kb"
 	},
 	{
 		"name": "libip6tc2",
-		"version": "1.8.7-1ubuntu5.1"
+		"version": "1.8.7-1ubuntu5.2",
+		"size": "83 Kb"
+	},
+	{
+		"name": "libipc-system-simple-perl",
+		"version": "1.30-1",
+		"size": "61 Kb"
 	},
 	{
 		"name": "libisc-export1105",
-		"version": "1:9.11.19+dfsg-2.1ubuntu3"
+		"version": "1:9.11.19+dfsg-2.1ubuntu3",
+		"size": "510 Kb"
+	},
+	{
+		"name": "libisl23",
+		"version": "0.24-2build1",
+		"size": "2159 Kb"
+	},
+	{
+		"name": "libitm1",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "115 Kb"
 	},
 	{
 		"name": "libjansson4",
-		"version": "2.13.1-1.1build3"
+		"version": "2.13.1-1.1build3",
+		"size": "91 Kb"
+	},
+	{
+		"name": "libjbig0",
+		"version": "2.1-3.1ubuntu0.22.04.1",
+		"size": "82 Kb"
+	},
+	{
+		"name": "libjpeg-turbo8",
+		"version": "2.1.2-0ubuntu1",
+		"size": "543 Kb"
+	},
+	{
+		"name": "libjpeg8",
+		"version": "8c-2ubuntu10",
+		"size": "9 Kb"
+	},
+	{
+		"name": "libjs-events",
+		"version": "3.3.0+~3.0.0-2",
+		"size": "43 Kb"
+	},
+	{
+		"name": "libjs-highlight.js",
+		"version": "9.18.5+dfsg1-1",
+		"size": "2111 Kb"
+	},
+	{
+		"name": "libjs-inherits",
+		"version": "2.0.4-4",
+		"size": "12 Kb"
+	},
+	{
+		"name": "libjs-is-typedarray",
+		"version": "1.0.0-4",
+		"size": "14 Kb"
 	},
 	{
 		"name": "libjs-jquery",
-		"version": "3.6.0+dfsg+~3.5.13-1"
+		"version": "3.6.0+dfsg+~3.5.13-1",
+		"size": "679 Kb"
+	},
+	{
+		"name": "libjs-psl",
+		"version": "1.8.0+ds-6",
+		"size": "309 Kb"
+	},
+	{
+		"name": "libjs-source-map",
+		"version": "0.7.0++dfsg2+really.0.6.1-9",
+		"size": "563 Kb"
+	},
+	{
+		"name": "libjs-sprintf-js",
+		"version": "1.1.2+ds1+~1.1.2-1",
+		"size": "45 Kb"
+	},
+	{
+		"name": "libjs-typedarray-to-buffer",
+		"version": "4.0.0-2",
+		"size": "17 Kb"
 	},
 	{
 		"name": "libjson-c5",
-		"version": "0.15-3~ubuntu1.22.04.2"
+		"version": "0.15-3~ubuntu1.22.04.2",
+		"size": "98 Kb"
 	},
 	{
 		"name": "libk5crypto3",
-		"version": "1.19.2-2ubuntu0.3"
+		"version": "1.19.2-2ubuntu0.3",
+		"size": "292 Kb"
 	},
 	{
 		"name": "libkeyutils1",
-		"version": "1.6.1-2ubuntu3"
+		"version": "1.6.1-2ubuntu3",
+		"size": "47 Kb"
 	},
 	{
 		"name": "libkmod2",
-		"version": "29-1ubuntu1"
+		"version": "29-1ubuntu1",
+		"size": "139 Kb"
 	},
 	{
 		"name": "libkrb5-3",
-		"version": "1.19.2-2ubuntu0.3"
+		"version": "1.19.2-2ubuntu0.3",
+		"size": "1052 Kb"
 	},
 	{
 		"name": "libkrb5support0",
-		"version": "1.19.2-2ubuntu0.3"
+		"version": "1.19.2-2ubuntu0.3",
+		"size": "164 Kb"
 	},
 	{
 		"name": "libksba8",
-		"version": "1.6.0-2ubuntu0.2"
+		"version": "1.6.0-2ubuntu0.2",
+		"size": "302 Kb"
+	},
+	{
+		"name": "liblcms2-2",
+		"version": "2.12~rc1-2build2",
+		"size": "414 Kb"
 	},
 	{
 		"name": "libldap-2.5-0",
-		"version": "2.5.16+dfsg-0ubuntu0.22.04.2"
+		"version": "2.5.17+dfsg-0ubuntu0.22.04.1",
+		"size": "565 Kb"
 	},
 	{
 		"name": "libldap-common",
-		"version": "2.5.16+dfsg-0ubuntu0.22.04.2"
+		"version": "2.5.17+dfsg-0ubuntu0.22.04.1",
+		"size": "109 Kb"
+	},
+	{
+		"name": "libllvm11",
+		"version": "1:11.1.0-6",
+		"size": "81609 Kb"
+	},
+	{
+		"name": "libllvm15",
+		"version": "1:15.0.7-0ubuntu0.22.04.3",
+		"size": "114208 Kb"
 	},
 	{
 		"name": "liblmdb0",
-		"version": "0.9.24-1build2"
+		"version": "0.9.24-1build2",
+		"size": "109 Kb"
 	},
 	{
 		"name": "liblocale-gettext-perl",
-		"version": "1.07-4build3"
+		"version": "1.07-4build3",
+		"size": "59 Kb"
+	},
+	{
+		"name": "liblsan0",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "2961 Kb"
+	},
+	{
+		"name": "liblwp-mediatypes-perl",
+		"version": "6.04-1",
+		"size": "72 Kb"
+	},
+	{
+		"name": "liblwp-protocol-https-perl",
+		"version": "6.10-1",
+		"size": "27 Kb"
 	},
 	{
 		"name": "liblz4-1",
-		"version": "1.9.3-2build2"
+		"version": "1.9.3-2build2",
+		"size": "145 Kb"
 	},
 	{
 		"name": "liblzma5",
-		"version": "5.2.5-2ubuntu1"
+		"version": "5.2.5-2ubuntu1",
+		"size": "290 Kb"
 	},
 	{
 		"name": "liblzo2-2",
-		"version": "2.10-2build3"
+		"version": "2.10-2build3",
+		"size": "159 Kb"
 	},
 	{
 		"name": "libmagic-mgc",
-		"version": "1:5.41-3ubuntu0.1"
+		"version": "1:5.41-3ubuntu0.1",
+		"size": "7128 Kb"
 	},
 	{
 		"name": "libmagic1",
-		"version": "1:5.41-3ubuntu0.1"
+		"version": "1:5.41-3ubuntu0.1",
+		"size": "229 Kb"
+	},
+	{
+		"name": "libmailtools-perl",
+		"version": "2.21-1",
+		"size": "223 Kb"
 	},
 	{
 		"name": "libmaxminddb0",
-		"version": "1.5.2-1build2"
+		"version": "1.5.2-1build2",
+		"size": "76 Kb"
 	},
 	{
 		"name": "libmd0",
-		"version": "1.0.4-1build1"
+		"version": "1.0.4-1build1",
+		"size": "71 Kb"
 	},
 	{
 		"name": "libmnl0",
-		"version": "1.0.4-3build2"
+		"version": "1.0.4-3build2",
+		"size": "47 Kb"
 	},
 	{
 		"name": "libmount1",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "382 Kb"
+	},
+	{
+		"name": "libmpc3",
+		"version": "1.2.1-2build1",
+		"size": "125 Kb"
 	},
 	{
 		"name": "libmpdec3",
-		"version": "2.5.1-2build2"
+		"version": "2.5.1-2build2",
+		"size": "250 Kb"
 	},
 	{
 		"name": "libmpfr6",
-		"version": "4.1.0-3build3"
+		"version": "4.1.0-3build3",
+		"size": "3405 Kb"
 	},
 	{
 		"name": "libncurses6",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "329 Kb"
 	},
 	{
 		"name": "libncursesw6",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "422 Kb"
+	},
+	{
+		"name": "libnet-dbus-perl",
+		"version": "1.2.0-1build3",
+		"size": "622 Kb"
+	},
+	{
+		"name": "libnet-http-perl",
+		"version": "6.22-1",
+		"size": "61 Kb"
+	},
+	{
+		"name": "libnet-smtp-ssl-perl",
+		"version": "1.04-1",
+		"size": "19 Kb"
+	},
+	{
+		"name": "libnet-ssleay-perl",
+		"version": "1.92-1build2",
+		"size": "1345 Kb"
 	},
 	{
 		"name": "libnetfilter-conntrack3",
-		"version": "1.0.9-1"
+		"version": "1.0.9-1",
+		"size": "141 Kb"
 	},
 	{
 		"name": "libnetplan0",
-		"version": "0.106.1-7ubuntu0.22.04.3"
+		"version": "0.106.1-7ubuntu0.22.04.4",
+		"size": "328 Kb"
 	},
 	{
 		"name": "libnettle8",
-		"version": "3.7.3-1build2"
+		"version": "3.7.3-1build2",
+		"size": "356 Kb"
 	},
 	{
 		"name": "libnewt0.52",
-		"version": "0.52.21-5ubuntu2"
+		"version": "0.52.21-5ubuntu2",
+		"size": "200 Kb"
 	},
 	{
 		"name": "libnfnetlink0",
-		"version": "1.0.1-3build3"
+		"version": "1.0.1-3build3",
+		"size": "48 Kb"
 	},
 	{
 		"name": "libnftables1",
-		"version": "1.0.2-1ubuntu3"
+		"version": "1.0.2-1ubuntu3",
+		"size": "913 Kb"
 	},
 	{
 		"name": "libnftnl11",
-		"version": "1.2.1-1build1"
+		"version": "1.2.1-1build1",
+		"size": "227 Kb"
 	},
 	{
 		"name": "libnghttp2-14",
-		"version": "1.43.0-1ubuntu0.2"
+		"version": "1.43.0-1ubuntu0.2",
+		"size": "204 Kb"
 	},
 	{
 		"name": "libnl-3-200",
-		"version": "3.5.0-0.1"
+		"version": "3.5.0-0.1",
+		"size": "180 Kb"
 	},
 	{
 		"name": "libnl-genl-3-200",
-		"version": "3.5.0-0.1"
+		"version": "3.5.0-0.1",
+		"size": "61 Kb"
+	},
+	{
+		"name": "libnode-dev",
+		"version": "12.22.9~dfsg-1ubuntu3.6",
+		"size": "6002 Kb"
+	},
+	{
+		"name": "libnode72",
+		"version": "12.22.9~dfsg-1ubuntu3.6",
+		"size": "40241 Kb"
+	},
+	{
+		"name": "libnotify-bin",
+		"version": "0.7.9-3ubuntu5.22.04.1",
+		"size": "39 Kb"
+	},
+	{
+		"name": "libnotify4",
+		"version": "0.7.9-3ubuntu5.22.04.1",
+		"size": "66 Kb"
 	},
 	{
 		"name": "libnpth0",
-		"version": "1.6-3build2"
+		"version": "1.6-3build2",
+		"size": "40 Kb"
+	},
+	{
+		"name": "libnsl-dev",
+		"version": "1.3.0-2build2",
+		"size": "347 Kb"
 	},
 	{
 		"name": "libnsl2",
-		"version": "1.3.0-2build2"
+		"version": "1.3.0-2build2",
+		"size": "123 Kb"
 	},
 	{
 		"name": "libnss-systemd",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "491 Kb"
 	},
 	{
 		"name": "libntfs-3g89",
-		"version": "1:2021.8.22-3ubuntu1.2"
+		"version": "1:2021.8.22-3ubuntu1.2",
+		"size": "371 Kb"
 	},
 	{
 		"name": "libnuma1",
-		"version": "2.0.14-3ubuntu2"
+		"version": "2.0.14-3ubuntu2",
+		"size": "71 Kb"
 	},
 	{
 		"name": "libp11-kit0",
-		"version": "0.24.0-6build1"
+		"version": "0.24.0-6build1",
+		"size": "1292 Kb"
 	},
 	{
 		"name": "libpackagekit-glib2-18",
-		"version": "1.2.5-2ubuntu2"
+		"version": "1.2.5-2ubuntu2",
+		"size": "463 Kb"
 	},
 	{
 		"name": "libpam-cap",
-		"version": "1:2.44-1ubuntu0.22.04.1"
+		"version": "1:2.44-1ubuntu0.22.04.1",
+		"size": "45 Kb"
 	},
 	{
 		"name": "libpam-modules",
-		"version": "1.4.0-11ubuntu2.4"
+		"version": "1.4.0-11ubuntu2.4",
+		"size": "1138 Kb"
 	},
 	{
 		"name": "libpam-modules-bin",
-		"version": "1.4.0-11ubuntu2.4"
+		"version": "1.4.0-11ubuntu2.4",
+		"size": "248 Kb"
 	},
 	{
 		"name": "libpam-runtime",
-		"version": "1.4.0-11ubuntu2.4"
+		"version": "1.4.0-11ubuntu2.4",
+		"size": "312 Kb"
 	},
 	{
 		"name": "libpam-systemd",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "649 Kb"
 	},
 	{
 		"name": "libpam0g",
-		"version": "1.4.0-11ubuntu2.4"
+		"version": "1.4.0-11ubuntu2.4",
+		"size": "235 Kb"
+	},
+	{
+		"name": "libpango-1.0-0",
+		"version": "1.50.6+ds-2ubuntu1",
+		"size": "563 Kb"
+	},
+	{
+		"name": "libpangocairo-1.0-0",
+		"version": "1.50.6+ds-2ubuntu1",
+		"size": "159 Kb"
+	},
+	{
+		"name": "libpangoft2-1.0-0",
+		"version": "1.50.6+ds-2ubuntu1",
+		"size": "197 Kb"
 	},
 	{
 		"name": "libparted2",
-		"version": "3.4-2build1"
+		"version": "3.4-2build1",
+		"size": "458 Kb"
 	},
 	{
 		"name": "libpcap0.8",
-		"version": "1.10.1-4build1"
+		"version": "1.10.1-4build1",
+		"size": "357 Kb"
 	},
 	{
 		"name": "libpci3",
-		"version": "1:3.7.0-6"
+		"version": "1:3.7.0-6",
+		"size": "90 Kb"
+	},
+	{
+		"name": "libpciaccess0",
+		"version": "0.16-3",
+		"size": "61 Kb"
 	},
 	{
 		"name": "libpcre2-8-0",
-		"version": "10.39-3ubuntu0.1"
+		"version": "10.39-3ubuntu0.1",
+		"size": "621 Kb"
 	},
 	{
 		"name": "libpcre3",
-		"version": "2:8.39-13ubuntu0.22.04.1"
+		"version": "2:8.39-13ubuntu0.22.04.1",
+		"size": "683 Kb"
 	},
 	{
 		"name": "libperl5.34",
-		"version": "5.34.0-3ubuntu1.3"
+		"version": "5.34.0-3ubuntu1.3",
+		"size": "28445 Kb"
+	},
+	{
+		"name": "libphobos2-ldc-shared98",
+		"version": "1:1.28.0-1ubuntu1",
+		"size": "6241 Kb"
 	},
 	{
 		"name": "libpipeline1",
-		"version": "1.5.5-1"
+		"version": "1.5.5-1",
+		"size": "68 Kb"
+	},
+	{
+		"name": "libpixman-1-0",
+		"version": "0.40.0-1ubuntu0.22.04.1",
+		"size": "708 Kb"
 	},
 	{
 		"name": "libplymouth5",
-		"version": "0.9.5+git20211018-1ubuntu3"
+		"version": "0.9.5+git20211018-1ubuntu3",
+		"size": "419 Kb"
 	},
 	{
 		"name": "libpng16-16",
-		"version": "1.6.37-3build5"
+		"version": "1.6.37-3build5",
+		"size": "353 Kb"
 	},
 	{
 		"name": "libpolkit-agent-1-0",
-		"version": "0.105-33"
+		"version": "0.105-33",
+		"size": "80 Kb"
 	},
 	{
 		"name": "libpolkit-gobject-1-0",
-		"version": "0.105-33"
+		"version": "0.105-33",
+		"size": "158 Kb"
 	},
 	{
 		"name": "libpopt0",
-		"version": "1.18-3build1"
+		"version": "1.18-3build1",
+		"size": "120 Kb"
 	},
 	{
 		"name": "libprocps8",
-		"version": "2:3.3.17-6ubuntu2.1"
+		"version": "2:3.3.17-6ubuntu2.1",
+		"size": "131 Kb"
 	},
 	{
 		"name": "libpsl5",
-		"version": "0.21.0-1.2build2"
+		"version": "0.21.0-1.2build2",
+		"size": "95 Kb"
 	},
 	{
 		"name": "libpython3-stdlib",
-		"version": "3.10.6-1~22.04"
+		"version": "3.10.6-1~22.04",
+		"size": "39 Kb"
 	},
 	{
 		"name": "libpython3.10",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "5768 Kb"
 	},
 	{
 		"name": "libpython3.10-minimal",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "5106 Kb"
 	},
 	{
 		"name": "libpython3.10-stdlib",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "8119 Kb"
+	},
+	{
+		"name": "libquadmath0",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "296 Kb"
 	},
 	{
 		"name": "libreadline8",
-		"version": "8.1.2-1"
+		"version": "8.1.2-1",
+		"size": "461 Kb"
+	},
+	{
+		"name": "librsvg2-2",
+		"version": "2.52.5+dfsg-3ubuntu0.2",
+		"size": "10760 Kb"
+	},
+	{
+		"name": "librsvg2-common",
+		"version": "2.52.5+dfsg-3ubuntu0.2",
+		"size": "89 Kb"
 	},
 	{
 		"name": "librtmp1",
-		"version": "2.4+20151223.gitfa8646d.1-2build4"
+		"version": "2.4+20151223.gitfa8646d.1-2build4",
+		"size": "141 Kb"
 	},
 	{
 		"name": "libsasl2-2",
-		"version": "2.1.27+dfsg2-3ubuntu1.2"
+		"version": "2.1.27+dfsg2-3ubuntu1.2",
+		"size": "170 Kb"
 	},
 	{
 		"name": "libsasl2-modules",
-		"version": "2.1.27+dfsg2-3ubuntu1.2"
+		"version": "2.1.27+dfsg2-3ubuntu1.2",
+		"size": "308 Kb"
 	},
 	{
 		"name": "libsasl2-modules-db",
-		"version": "2.1.27+dfsg2-3ubuntu1.2"
+		"version": "2.1.27+dfsg2-3ubuntu1.2",
+		"size": "93 Kb"
 	},
 	{
 		"name": "libseccomp2",
-		"version": "2.5.3-2ubuntu2"
+		"version": "2.5.3-2ubuntu2",
+		"size": "145 Kb"
 	},
 	{
 		"name": "libselinux1",
-		"version": "3.3-1build2"
+		"version": "3.3-1build2",
+		"size": "207 Kb"
 	},
 	{
 		"name": "libsemanage-common",
-		"version": "3.3-1build2"
+		"version": "3.3-1build2",
+		"size": "37 Kb"
 	},
 	{
 		"name": "libsemanage2",
-		"version": "3.3-1build2"
+		"version": "3.3-1build2",
+		"size": "300 Kb"
+	},
+	{
+		"name": "libsensors-config",
+		"version": "1:3.6.0-7ubuntu1",
+		"size": "42 Kb"
+	},
+	{
+		"name": "libsensors5",
+		"version": "1:3.6.0-7ubuntu1",
+		"size": "96 Kb"
 	},
 	{
 		"name": "libsepol2",
-		"version": "3.3-1build1"
+		"version": "3.3-1build1",
+		"size": "735 Kb"
 	},
 	{
 		"name": "libsigsegv2",
-		"version": "2.13-1ubuntu3"
+		"version": "2.13-1ubuntu3",
+		"size": "49 Kb"
 	},
 	{
 		"name": "libslang2",
-		"version": "2.3.2-5build4"
+		"version": "2.3.2-5build4",
+		"size": "1628 Kb"
+	},
+	{
+		"name": "libsm6",
+		"version": "2:1.2.3-1build2",
+		"size": "55 Kb"
 	},
 	{
 		"name": "libsmartcols1",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "209 Kb"
 	},
 	{
 		"name": "libsodium23",
-		"version": "1.0.18-1build2"
+		"version": "1.0.18-1build2",
+		"size": "402 Kb"
 	},
 	{
 		"name": "libsqlite3-0",
-		"version": "3.37.2-2ubuntu0.3"
+		"version": "3.37.2-2ubuntu0.3",
+		"size": "1602 Kb"
 	},
 	{
 		"name": "libss2",
-		"version": "1.46.5-2ubuntu1.1"
+		"version": "1.46.5-2ubuntu1.1",
+		"size": "113 Kb"
 	},
 	{
 		"name": "libssh-4",
-		"version": "0.9.6-2ubuntu0.22.04.3"
+		"version": "0.9.6-2ubuntu0.22.04.3",
+		"size": "486 Kb"
+	},
+	{
+		"name": "libssl-dev",
+		"version": "3.0.2-0ubuntu1.16",
+		"size": "12100 Kb"
 	},
 	{
 		"name": "libssl3",
-		"version": "3.0.2-0ubuntu1.16"
+		"version": "3.0.2-0ubuntu1.16",
+		"size": "5834 Kb"
+	},
+	{
+		"name": "libstdc++-11-dev",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "18759 Kb"
 	},
 	{
 		"name": "libstdc++6",
-		"version": "12.3.0-1ubuntu1~22.04"
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "2755 Kb"
 	},
 	{
 		"name": "libstemmer0d",
-		"version": "2.2.0-1build1"
+		"version": "2.2.0-1build1",
+		"size": "839 Kb"
 	},
 	{
 		"name": "libsystemd0",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "996 Kb"
 	},
 	{
 		"name": "libtasn1-6",
-		"version": "4.18.0-4build1"
+		"version": "4.18.0-4build1",
+		"size": "133 Kb"
 	},
 	{
 		"name": "libtext-charwidth-perl",
-		"version": "0.04-10build3"
+		"version": "0.04-10build3",
+		"size": "45 Kb"
 	},
 	{
 		"name": "libtext-iconv-perl",
-		"version": "1.7-7build3"
+		"version": "1.7-7build3",
+		"size": "52 Kb"
 	},
 	{
 		"name": "libtext-wrapi18n-perl",
-		"version": "0.06-9"
+		"version": "0.06-9",
+		"size": "25 Kb"
+	},
+	{
+		"name": "libthai-data",
+		"version": "0.1.29-1build1",
+		"size": "595 Kb"
+	},
+	{
+		"name": "libthai0",
+		"version": "0.1.29-1build1",
+		"size": "99 Kb"
+	},
+	{
+		"name": "libtie-ixhash-perl",
+		"version": "1.23-2.1",
+		"size": "33 Kb"
+	},
+	{
+		"name": "libtiff5",
+		"version": "4.3.0-6ubuntu0.9",
+		"size": "581 Kb"
+	},
+	{
+		"name": "libtimedate-perl",
+		"version": "2.3300-2",
+		"size": "123 Kb"
 	},
 	{
 		"name": "libtinfo6",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "558 Kb"
 	},
 	{
 		"name": "libtirpc-common",
-		"version": "1.3.2-2ubuntu0.1"
+		"version": "1.3.2-2ubuntu0.1",
+		"size": "32 Kb"
+	},
+	{
+		"name": "libtirpc-dev",
+		"version": "1.3.2-2ubuntu0.1",
+		"size": "720 Kb"
 	},
 	{
 		"name": "libtirpc3",
-		"version": "1.3.2-2ubuntu0.1"
+		"version": "1.3.2-2ubuntu0.1",
+		"size": "219 Kb"
+	},
+	{
+		"name": "libtry-tiny-perl",
+		"version": "0.31-1",
+		"size": "48 Kb"
+	},
+	{
+		"name": "libtsan0",
+		"version": "11.4.0-1ubuntu1~22.04",
+		"size": "7255 Kb"
+	},
+	{
+		"name": "libubsan1",
+		"version": "12.3.0-1ubuntu1~22.04",
+		"size": "2676 Kb"
 	},
 	{
 		"name": "libuchardet0",
-		"version": "0.0.7-1build2"
+		"version": "0.0.7-1build2",
+		"size": "208 Kb"
 	},
 	{
 		"name": "libudev1",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "348 Kb"
 	},
 	{
 		"name": "libunistring2",
-		"version": "1.0-1"
+		"version": "1.0-1",
+		"size": "1746 Kb"
 	},
 	{
 		"name": "libunwind8",
-		"version": "1.3.2-2build2.1"
+		"version": "1.3.2-2build2.1",
+		"size": "196 Kb"
+	},
+	{
+		"name": "liburi-perl",
+		"version": "5.10-1",
+		"size": "222 Kb"
 	},
 	{
 		"name": "libusb-1.0-0",
-		"version": "2:1.0.25-1ubuntu2"
+		"version": "2:1.0.25-1ubuntu2",
+		"size": "144 Kb"
 	},
 	{
 		"name": "libutempter0",
-		"version": "1.2.1-2build2"
+		"version": "1.2.1-2build2",
+		"size": "51 Kb"
 	},
 	{
 		"name": "libuuid1",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "134 Kb"
 	},
 	{
 		"name": "libuv1",
-		"version": "1.43.0-1ubuntu0.1"
+		"version": "1.43.0-1ubuntu0.1",
+		"size": "253 Kb"
+	},
+	{
+		"name": "libuv1-dev",
+		"version": "1.43.0-1ubuntu0.1",
+		"size": "632 Kb"
+	},
+	{
+		"name": "libvte-2.91-0",
+		"version": "0.68.0-1ubuntu0.1",
+		"size": "569 Kb"
+	},
+	{
+		"name": "libvte-2.91-common",
+		"version": "0.68.0-1ubuntu0.1",
+		"size": "152 Kb"
+	},
+	{
+		"name": "libvted-3-0",
+		"version": "3.10.0-1ubuntu1",
+		"size": "235 Kb"
+	},
+	{
+		"name": "libwayland-client0",
+		"version": "1.20.0-1ubuntu0.1",
+		"size": "85 Kb"
+	},
+	{
+		"name": "libwayland-cursor0",
+		"version": "1.20.0-1ubuntu0.1",
+		"size": "54 Kb"
+	},
+	{
+		"name": "libwayland-egl1",
+		"version": "1.20.0-1ubuntu0.1",
+		"size": "34 Kb"
+	},
+	{
+		"name": "libwebp7",
+		"version": "1.2.2-2ubuntu0.22.04.2",
+		"size": "439 Kb"
 	},
 	{
 		"name": "libwrap0",
-		"version": "7.6.q-31build2"
+		"version": "7.6.q-31build2",
+		"size": "109 Kb"
+	},
+	{
+		"name": "libwww-perl",
+		"version": "6.61-1",
+		"size": "380 Kb"
+	},
+	{
+		"name": "libwww-robotrules-perl",
+		"version": "6.02-1",
+		"size": "35 Kb"
 	},
 	{
 		"name": "libx11-6",
-		"version": "2:1.7.5-1ubuntu0.3"
+		"version": "2:1.7.5-1ubuntu0.3",
+		"size": "1387 Kb"
 	},
 	{
 		"name": "libx11-data",
-		"version": "2:1.7.5-1ubuntu0.3"
+		"version": "2:1.7.5-1ubuntu0.3",
+		"size": "1430 Kb"
+	},
+	{
+		"name": "libx11-protocol-perl",
+		"version": "0.56-7.1",
+		"size": "366 Kb"
+	},
+	{
+		"name": "libx11-xcb1",
+		"version": "2:1.7.5-1ubuntu0.3",
+		"size": "85 Kb"
 	},
 	{
 		"name": "libxau6",
-		"version": "1:1.0.9-1build5"
+		"version": "1:1.0.9-1build5",
+		"size": "35 Kb"
+	},
+	{
+		"name": "libxaw7",
+		"version": "2:1.0.14-1",
+		"size": "495 Kb"
+	},
+	{
+		"name": "libxcb-dri2-0",
+		"version": "1.14-3ubuntu3",
+		"size": "46 Kb"
+	},
+	{
+		"name": "libxcb-dri3-0",
+		"version": "1.14-3ubuntu3",
+		"size": "46 Kb"
+	},
+	{
+		"name": "libxcb-glx0",
+		"version": "1.14-3ubuntu3",
+		"size": "154 Kb"
+	},
+	{
+		"name": "libxcb-present0",
+		"version": "1.14-3ubuntu3",
+		"size": "36 Kb"
+	},
+	{
+		"name": "libxcb-randr0",
+		"version": "1.14-3ubuntu3",
+		"size": "106 Kb"
+	},
+	{
+		"name": "libxcb-render0",
+		"version": "1.14-3ubuntu3",
+		"size": "86 Kb"
+	},
+	{
+		"name": "libxcb-shape0",
+		"version": "1.14-3ubuntu3",
+		"size": "37 Kb"
+	},
+	{
+		"name": "libxcb-shm0",
+		"version": "1.14-3ubuntu3",
+		"size": "36 Kb"
+	},
+	{
+		"name": "libxcb-sync1",
+		"version": "1.14-3ubuntu3",
+		"size": "59 Kb"
+	},
+	{
+		"name": "libxcb-xfixes0",
+		"version": "1.14-3ubuntu3",
+		"size": "60 Kb"
 	},
 	{
 		"name": "libxcb1",
-		"version": "1.14-3ubuntu3"
+		"version": "1.14-3ubuntu3",
+		"size": "206 Kb"
+	},
+	{
+		"name": "libxcomposite1",
+		"version": "1:0.4.5-1build2",
+		"size": "32 Kb"
+	},
+	{
+		"name": "libxcursor1",
+		"version": "1:1.2.0-2build4",
+		"size": "63 Kb"
+	},
+	{
+		"name": "libxdamage1",
+		"version": "1:1.1.5-2build2",
+		"size": "31 Kb"
 	},
 	{
 		"name": "libxdmcp6",
-		"version": "1:1.1.3-0ubuntu5"
+		"version": "1:1.1.3-0ubuntu5",
+		"size": "43 Kb"
 	},
 	{
 		"name": "libxext6",
-		"version": "2:1.3.4-1build1"
+		"version": "2:1.3.4-1build1",
+		"size": "110 Kb"
+	},
+	{
+		"name": "libxfixes3",
+		"version": "1:6.0.0-1",
+		"size": "51 Kb"
+	},
+	{
+		"name": "libxft2",
+		"version": "2.3.4-1",
+		"size": "118 Kb"
+	},
+	{
+		"name": "libxi6",
+		"version": "2:1.8-1build1",
+		"size": "100 Kb"
+	},
+	{
+		"name": "libxinerama1",
+		"version": "2:1.1.4-3",
+		"size": "37 Kb"
+	},
+	{
+		"name": "libxkbcommon0",
+		"version": "1.4.0-1",
+		"size": "302 Kb"
+	},
+	{
+		"name": "libxkbfile1",
+		"version": "1:1.1.0-1build3",
+		"size": "178 Kb"
+	},
+	{
+		"name": "libxml-parser-perl",
+		"version": "2.46-3build1",
+		"size": "691 Kb"
+	},
+	{
+		"name": "libxml-twig-perl",
+		"version": "1:3.52-1",
+		"size": "552 Kb"
+	},
+	{
+		"name": "libxml-xpathengine-perl",
+		"version": "0.14-1",
+		"size": "127 Kb"
 	},
 	{
 		"name": "libxml2",
-		"version": "2.9.13+dfsg-1ubuntu0.4"
+		"version": "2.9.13+dfsg-1ubuntu0.4",
+		"size": "2097 Kb"
 	},
 	{
 		"name": "libxmlb2",
-		"version": "0.3.6-2build1"
+		"version": "0.3.6-2build1",
+		"size": "198 Kb"
+	},
+	{
+		"name": "libxmu6",
+		"version": "2:1.1.3-3",
+		"size": "127 Kb"
 	},
 	{
 		"name": "libxmuu1",
-		"version": "2:1.1.3-3"
+		"version": "2:1.1.3-3",
+		"size": "41 Kb"
+	},
+	{
+		"name": "libxpm4",
+		"version": "1:3.5.12-1ubuntu0.22.04.2",
+		"size": "98 Kb"
+	},
+	{
+		"name": "libxrandr2",
+		"version": "2:1.5.2-1build1",
+		"size": "69 Kb"
+	},
+	{
+		"name": "libxrender1",
+		"version": "1:0.9.10-1build4",
+		"size": "68 Kb"
+	},
+	{
+		"name": "libxshmfence1",
+		"version": "1.3-1build4",
+		"size": "30 Kb"
+	},
+	{
+		"name": "libxt6",
+		"version": "1:1.2.1-1",
+		"size": "467 Kb"
 	},
 	{
 		"name": "libxtables12",
-		"version": "1.8.7-1ubuntu5.1"
+		"version": "1.8.7-1ubuntu5.2",
+		"size": "114 Kb"
+	},
+	{
+		"name": "libxtst6",
+		"version": "2:1.2.3-1build4",
+		"size": "48 Kb"
+	},
+	{
+		"name": "libxv1",
+		"version": "2:1.0.11-1build2",
+		"size": "40 Kb"
+	},
+	{
+		"name": "libxxf86dga1",
+		"version": "2:1.1.5-0ubuntu3",
+		"size": "43 Kb"
+	},
+	{
+		"name": "libxxf86vm1",
+		"version": "1:1.1.4-1build3",
+		"size": "39 Kb"
 	},
 	{
 		"name": "libxxhash0",
-		"version": "0.8.1-1"
+		"version": "0.8.1-1",
+		"size": "97 Kb"
 	},
 	{
 		"name": "libyaml-0-2",
-		"version": "0.2.2-1build2"
+		"version": "0.2.2-1build2",
+		"size": "144 Kb"
 	},
 	{
 		"name": "libzstd1",
-		"version": "1.4.8+dfsg-3build1"
+		"version": "1.4.8+dfsg-3build1",
+		"size": "846 Kb"
+	},
+	{
+		"name": "linux-libc-dev",
+		"version": "5.15.0-113.123",
+		"size": "6905 Kb"
 	},
 	{
 		"name": "locales",
-		"version": "2.35-0ubuntu3.8"
+		"version": "2.35-0ubuntu3.8",
+		"size": "17068 Kb"
 	},
 	{
 		"name": "login",
-		"version": "1:4.8.1-2ubuntu2.2"
+		"version": "1:4.8.1-2ubuntu2.2",
+		"size": "888 Kb"
 	},
 	{
 		"name": "logrotate",
-		"version": "3.19.0-1ubuntu1.1"
+		"version": "3.19.0-1ubuntu1.1",
+		"size": "167 Kb"
 	},
 	{
 		"name": "logsave",
-		"version": "1.46.5-2ubuntu1.1"
+		"version": "1.46.5-2ubuntu1.1",
+		"size": "97 Kb"
 	},
 	{
 		"name": "lsb-base",
-		"version": "11.1.0ubuntu4"
+		"version": "11.1.0ubuntu4",
+		"size": "58 Kb"
 	},
 	{
 		"name": "lsb-release",
-		"version": "11.1.0ubuntu4"
+		"version": "11.1.0ubuntu4",
+		"size": "66 Kb"
 	},
 	{
 		"name": "lshw",
-		"version": "02.19.git.2021.06.19.996aaad9c7-2build1"
+		"version": "02.19.git.2021.06.19.996aaad9c7-2build1",
+		"size": "921 Kb"
 	},
 	{
 		"name": "lsof",
-		"version": "4.93.2+dfsg-1.1build2"
+		"version": "4.93.2+dfsg-1.1build2",
+		"size": "447 Kb"
+	},
+	{
+		"name": "lto-disabled-list",
+		"version": "24",
+		"size": "39 Kb"
+	},
+	{
+		"name": "make",
+		"version": "4.3-4.1build1",
+		"size": "416 Kb"
 	},
 	{
 		"name": "man-db",
-		"version": "2.10.2-1"
+		"version": "2.10.2-1",
+		"size": "2824 Kb"
 	},
 	{
 		"name": "manpages",
-		"version": "5.10-1ubuntu1"
+		"version": "5.10-1ubuntu1",
+		"size": "1669 Kb"
+	},
+	{
+		"name": "manpages-dev",
+		"version": "5.10-1ubuntu1",
+		"size": "3942 Kb"
 	},
 	{
 		"name": "mawk",
-		"version": "1.3.4.20200120-3"
+		"version": "1.3.4.20200120-3",
+		"size": "229 Kb"
 	},
 	{
 		"name": "media-types",
-		"version": "7.0.0"
+		"version": "7.0.0",
+		"size": "97 Kb"
 	},
 	{
 		"name": "motd-news-config",
-		"version": "12ubuntu4.4"
+		"version": "12ubuntu4.6",
+		"size": "47 Kb"
 	},
 	{
 		"name": "mount",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "389 Kb"
 	},
 	{
 		"name": "mtr-tiny",
-		"version": "0.95-1"
+		"version": "0.95-1",
+		"size": "157 Kb"
 	},
 	{
 		"name": "nano",
-		"version": "6.2-1"
+		"version": "6.2-1",
+		"size": "860 Kb"
 	},
 	{
 		"name": "ncurses-base",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "393 Kb"
 	},
 	{
 		"name": "ncurses-bin",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "646 Kb"
 	},
 	{
 		"name": "ncurses-term",
-		"version": "6.3-2ubuntu0.1"
+		"version": "6.3-2ubuntu0.1",
+		"size": "4249 Kb"
 	},
 	{
 		"name": "netbase",
-		"version": "6.3"
+		"version": "6.3",
+		"size": "41 Kb"
 	},
 	{
 		"name": "netcat-openbsd",
-		"version": "1.218-4ubuntu1"
+		"version": "1.218-4ubuntu1",
+		"size": "106 Kb"
 	},
 	{
 		"name": "netplan.io",
-		"version": "0.106.1-7ubuntu0.22.04.3"
+		"version": "0.106.1-7ubuntu0.22.04.4",
+		"size": "495 Kb"
 	},
 	{
 		"name": "networkd-dispatcher",
-		"version": "2.1-2ubuntu0.22.04.2"
+		"version": "2.1-2ubuntu0.22.04.2",
+		"size": "69 Kb"
 	},
 	{
 		"name": "nftables",
-		"version": "1.0.2-1ubuntu3"
+		"version": "1.0.2-1ubuntu3",
+		"size": "177 Kb"
+	},
+	{
+		"name": "node-abab",
+		"version": "2.0.5-2",
+		"size": "25 Kb"
+	},
+	{
+		"name": "node-abbrev",
+		"version": "1.1.1+~1.1.2-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-agent-base",
+		"version": "6.0.2+~cs5.4.2-1",
+		"size": "99 Kb"
+	},
+	{
+		"name": "node-ansi-regex",
+		"version": "5.0.1-1",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-ansi-styles",
+		"version": "4.3.0+~4.2.0-1",
+		"size": "31 Kb"
+	},
+	{
+		"name": "node-ansistyles",
+		"version": "0.1.3-5",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-aproba",
+		"version": "2.0.0-2",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-archy",
+		"version": "1.0.0-4",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-are-we-there-yet",
+		"version": "3.0.0+~1.1.0-1",
+		"size": "34 Kb"
+	},
+	{
+		"name": "node-argparse",
+		"version": "2.0.1-2",
+		"size": "163 Kb"
+	},
+	{
+		"name": "node-arrify",
+		"version": "2.0.1-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-asap",
+		"version": "2.0.6+~2.0.0-1",
+		"size": "43 Kb"
+	},
+	{
+		"name": "node-asynckit",
+		"version": "0.4.0-4",
+		"size": "41 Kb"
+	},
+	{
+		"name": "node-balanced-match",
+		"version": "2.0.0-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-brace-expansion",
+		"version": "2.0.1-1",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-builtins",
+		"version": "4.0.0-1",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-cacache",
+		"version": "15.0.5+~cs13.9.21-3",
+		"size": "142 Kb"
+	},
+	{
+		"name": "node-chalk",
+		"version": "4.1.2-1",
+		"size": "45 Kb"
+	},
+	{
+		"name": "node-chownr",
+		"version": "2.0.0-1",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-clean-yaml-object",
+		"version": "0.1.0-5",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-cli-table",
+		"version": "0.3.11+~cs0.13.3-1",
+		"size": "116 Kb"
+	},
+	{
+		"name": "node-clone",
+		"version": "2.1.2-3",
+		"size": "24 Kb"
+	},
+	{
+		"name": "node-color-convert",
+		"version": "2.0.1-1",
+		"size": "37 Kb"
+	},
+	{
+		"name": "node-color-name",
+		"version": "1.1.4+~1.1.1-2",
+		"size": "26 Kb"
+	},
+	{
+		"name": "node-colors",
+		"version": "1.4.0-3",
+		"size": "68 Kb"
+	},
+	{
+		"name": "node-columnify",
+		"version": "1.5.4+~1.5.1-1",
+		"size": "48 Kb"
+	},
+	{
+		"name": "node-combined-stream",
+		"version": "1.0.8+~1.0.3-1",
+		"size": "27 Kb"
+	},
+	{
+		"name": "node-commander",
+		"version": "9.0.0-2",
+		"size": "199 Kb"
+	},
+	{
+		"name": "node-console-control-strings",
+		"version": "1.1.0-2",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-copy-concurrently",
+		"version": "1.0.5-8",
+		"size": "24 Kb"
+	},
+	{
+		"name": "node-core-util-is",
+		"version": "1.0.3-1",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-coveralls",
+		"version": "3.1.1-1",
+		"size": "51 Kb"
+	},
+	{
+		"name": "node-cssom",
+		"version": "0.4.4-3",
+		"size": "75 Kb"
+	},
+	{
+		"name": "node-cssstyle",
+		"version": "2.3.0-2",
+		"size": "241 Kb"
+	},
+	{
+		"name": "node-debug",
+		"version": "4.3.2+~cs4.1.7-1",
+		"size": "48 Kb"
+	},
+	{
+		"name": "node-decompress-response",
+		"version": "6.0.0-2",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-defaults",
+		"version": "1.0.3+~1.0.3-1",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-delayed-stream",
+		"version": "1.0.0-5",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-delegates",
+		"version": "1.0.0-3",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-depd",
+		"version": "2.0.0-2",
+		"size": "34 Kb"
+	},
+	{
+		"name": "node-diff",
+		"version": "5.0.0~dfsg+~5.0.1-3",
+		"size": "415 Kb"
+	},
+	{
+		"name": "node-encoding",
+		"version": "0.1.13-2",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-end-of-stream",
+		"version": "1.4.4+~1.4.1-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-err-code",
+		"version": "2.0.3+dfsg-3",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-escape-string-regexp",
+		"version": "4.0.0-2",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-esprima",
+		"version": "4.0.1+ds+~4.0.3-2",
+		"size": "473 Kb"
+	},
+	{
+		"name": "node-events",
+		"version": "3.3.0+~3.0.0-2",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-fancy-log",
+		"version": "1.3.3+~cs1.3.1-2",
+		"size": "40 Kb"
+	},
+	{
+		"name": "node-fetch",
+		"version": "2.6.7+~2.5.12-1",
+		"size": "186 Kb"
+	},
+	{
+		"name": "node-foreground-child",
+		"version": "2.0.0-3",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-form-data",
+		"version": "3.0.1-1",
+		"size": "38 Kb"
+	},
+	{
+		"name": "node-fs-write-stream-atomic",
+		"version": "1.0.10-5",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-fs.realpath",
+		"version": "1.0.0-2",
+		"size": "25 Kb"
+	},
+	{
+		"name": "node-function-bind",
+		"version": "1.1.1+repacked+~1.0.3-1",
+		"size": "28 Kb"
+	},
+	{
+		"name": "node-gauge",
+		"version": "4.0.2-1",
+		"size": "55 Kb"
+	},
+	{
+		"name": "node-get-stream",
+		"version": "6.0.1-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-glob",
+		"version": "7.2.1+~cs7.6.15-1",
+		"size": "219 Kb"
+	},
+	{
+		"name": "node-got",
+		"version": "11.8.3+~cs58.7.37-1",
+		"size": "541 Kb"
+	},
+	{
+		"name": "node-graceful-fs",
+		"version": "4.2.4+repack-1",
+		"size": "45 Kb"
+	},
+	{
+		"name": "node-growl",
+		"version": "1.10.5-4",
+		"size": "26 Kb"
+	},
+	{
+		"name": "node-gyp",
+		"version": "8.4.1-1",
+		"size": "130 Kb"
+	},
+	{
+		"name": "node-has-flag",
+		"version": "4.0.0-2",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-has-unicode",
+		"version": "2.0.1-4",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-hosted-git-info",
+		"version": "4.0.2-1",
+		"size": "33 Kb"
+	},
+	{
+		"name": "node-https-proxy-agent",
+		"version": "5.0.0+~cs8.0.0-3",
+		"size": "91 Kb"
+	},
+	{
+		"name": "node-iconv-lite",
+		"version": "0.6.3-2",
+		"size": "356 Kb"
+	},
+	{
+		"name": "node-iferr",
+		"version": "1.0.2+~1.0.2-1",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-imurmurhash",
+		"version": "0.1.4+dfsg+~0.1.1-1",
+		"size": "28 Kb"
+	},
+	{
+		"name": "node-indent-string",
+		"version": "4.0.0-2",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-inflight",
+		"version": "1.0.6-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-inherits",
+		"version": "2.0.4-4",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-ini",
+		"version": "2.0.1-1",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-ip",
+		"version": "1.1.5+~1.1.0-1",
+		"size": "34 Kb"
+	},
+	{
+		"name": "node-ip-regex",
+		"version": "4.3.0+~4.1.1-1",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-is-buffer",
+		"version": "2.0.5-2",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-is-plain-obj",
+		"version": "3.0.0-2",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-is-typedarray",
+		"version": "1.0.0-4",
+		"size": "13 Kb"
+	},
+	{
+		"name": "node-isarray",
+		"version": "2.0.5-3",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-isexe",
+		"version": "2.0.0+~2.0.1-4",
+		"size": "24 Kb"
+	},
+	{
+		"name": "node-js-yaml",
+		"version": "4.1.0+dfsg+~4.0.5-6",
+		"size": "443 Kb"
+	},
+	{
+		"name": "node-jsdom",
+		"version": "19.0.0+~cs90.11.27-1",
+		"size": "4361 Kb"
+	},
+	{
+		"name": "node-json-buffer",
+		"version": "3.0.1-1",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-json-parse-better-errors",
+		"version": "1.0.2+~cs3.3.1-1",
+		"size": "28 Kb"
+	},
+	{
+		"name": "node-jsonparse",
+		"version": "1.3.1-10",
+		"size": "42 Kb"
+	},
+	{
+		"name": "node-kind-of",
+		"version": "6.0.3+dfsg-2",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-lcov-parse",
+		"version": "1.0.0+20170612git80d039574ed9-5",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-lodash-packages",
+		"version": "4.17.21+dfsg+~cs8.31.198.20210220-5",
+		"size": "9903 Kb"
+	},
+	{
+		"name": "node-log-driver",
+		"version": "1.2.7+git+20180219+bba1761737-7",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-lowercase-keys",
+		"version": "2.0.0-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-lru-cache",
+		"version": "6.0.0+~5.1.1-1",
+		"size": "35 Kb"
+	},
+	{
+		"name": "node-mime",
+		"version": "3.0.0+dfsg+~cs3.96.1-1",
+		"size": "264 Kb"
+	},
+	{
+		"name": "node-mime-types",
+		"version": "2.1.33-1",
+		"size": "29 Kb"
+	},
+	{
+		"name": "node-mimic-response",
+		"version": "3.1.0-7",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-minimatch",
+		"version": "3.1.1+~3.0.5-1",
+		"size": "52 Kb"
+	},
+	{
+		"name": "node-minimist",
+		"version": "1.2.5+~cs5.3.2-1",
+		"size": "40 Kb"
+	},
+	{
+		"name": "node-minipass",
+		"version": "3.1.6+~cs8.7.18-1",
+		"size": "124 Kb"
+	},
+	{
+		"name": "node-mkdirp",
+		"version": "1.0.4+~1.0.2-1",
+		"size": "36 Kb"
+	},
+	{
+		"name": "node-move-concurrently",
+		"version": "1.0.1-4",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-ms",
+		"version": "2.1.3+~cs0.7.31-2",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-mute-stream",
+		"version": "0.0.8+~0.0.1-1",
+		"size": "25 Kb"
+	},
+	{
+		"name": "node-negotiator",
+		"version": "0.6.2+~0.6.1-1",
+		"size": "52 Kb"
+	},
+	{
+		"name": "node-nopt",
+		"version": "5.0.0-2",
+		"size": "36 Kb"
+	},
+	{
+		"name": "node-normalize-package-data",
+		"version": "3.0.3+~2.4.1-1",
+		"size": "45 Kb"
+	},
+	{
+		"name": "node-npm-bundled",
+		"version": "1.1.2-1",
+		"size": "26 Kb"
+	},
+	{
+		"name": "node-npm-package-arg",
+		"version": "8.1.5-1",
+		"size": "28 Kb"
+	},
+	{
+		"name": "node-npmlog",
+		"version": "6.0.1+~4.1.4-1",
+		"size": "33 Kb"
+	},
+	{
+		"name": "node-object-assign",
+		"version": "4.1.1-6",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-once",
+		"version": "1.4.0-4",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-opener",
+		"version": "1.5.2+~1.4.0-1",
+		"size": "27 Kb"
+	},
+	{
+		"name": "node-osenv",
+		"version": "0.1.5+~0.1.0-1",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-p-cancelable",
+		"version": "2.1.1-1",
+		"size": "22 Kb"
+	},
+	{
+		"name": "node-p-map",
+		"version": "4.0.0+~3.1.0+~3.0.1-1",
+		"size": "31 Kb"
+	},
+	{
+		"name": "node-path-is-absolute",
+		"version": "2.0.0-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-process-nextick-args",
+		"version": "2.0.1-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-promise-inflight",
+		"version": "1.0.1+~1.0.0-1",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-promise-retry",
+		"version": "2.0.1-2",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-promzard",
+		"version": "0.3.0-2",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-psl",
+		"version": "1.8.0+ds-6",
+		"size": "151 Kb"
+	},
+	{
+		"name": "node-pump",
+		"version": "3.0.0-5",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-punycode",
+		"version": "2.1.1-5",
+		"size": "41 Kb"
+	},
+	{
+		"name": "node-quick-lru",
+		"version": "5.1.1-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-read",
+		"version": "1.0.7-3",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-read-package-json",
+		"version": "4.1.1-1",
+		"size": "35 Kb"
+	},
+	{
+		"name": "node-readable-stream",
+		"version": "3.6.0+~cs3.0.0-1",
+		"size": "149 Kb"
+	},
+	{
+		"name": "node-resolve",
+		"version": "1.20.0+~cs5.27.9-1",
+		"size": "121 Kb"
+	},
+	{
+		"name": "node-retry",
+		"version": "0.13.1+~0.12.1-1",
+		"size": "39 Kb"
+	},
+	{
+		"name": "node-rimraf",
+		"version": "3.0.2-1",
+		"size": "40 Kb"
+	},
+	{
+		"name": "node-run-queue",
+		"version": "2.0.0-2",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-safe-buffer",
+		"version": "5.2.1+~cs2.1.2-2",
+		"size": "53 Kb"
+	},
+	{
+		"name": "node-semver",
+		"version": "7.3.5+~7.3.8-1",
+		"size": "187 Kb"
+	},
+	{
+		"name": "node-set-blocking",
+		"version": "2.0.0-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-signal-exit",
+		"version": "3.0.6+~3.0.1-1",
+		"size": "27 Kb"
+	},
+	{
+		"name": "node-slash",
+		"version": "3.0.0-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-slice-ansi",
+		"version": "5.0.0+~cs9.0.0-4",
+		"size": "31 Kb"
+	},
+	{
+		"name": "node-source-map",
+		"version": "0.7.0++dfsg2+really.0.6.1-9",
+		"size": "138 Kb"
+	},
+	{
+		"name": "node-source-map-support",
+		"version": "0.5.21+ds+~0.5.4-1",
+		"size": "48 Kb"
+	},
+	{
+		"name": "node-spdx-correct",
+		"version": "3.1.1-2",
+		"size": "24 Kb"
+	},
+	{
+		"name": "node-spdx-exceptions",
+		"version": "2.3.0-2",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-spdx-expression-parse",
+		"version": "3.0.1+~3.0.1-1",
+		"size": "30 Kb"
+	},
+	{
+		"name": "node-spdx-license-ids",
+		"version": "3.0.11-1",
+		"size": "27 Kb"
+	},
+	{
+		"name": "node-sprintf-js",
+		"version": "1.1.2+ds1+~1.1.2-1",
+		"size": "29 Kb"
+	},
+	{
+		"name": "node-ssri",
+		"version": "8.0.1-2",
+		"size": "60 Kb"
+	},
+	{
+		"name": "node-stack-utils",
+		"version": "2.0.5+~2.0.1-1",
+		"size": "28 Kb"
+	},
+	{
+		"name": "node-stealthy-require",
+		"version": "1.1.1-5",
+		"size": "20 Kb"
+	},
+	{
+		"name": "node-string-decoder",
+		"version": "1.3.0-5",
+		"size": "26 Kb"
+	},
+	{
+		"name": "node-string-width",
+		"version": "4.2.3+~cs13.2.3-1",
+		"size": "122 Kb"
+	},
+	{
+		"name": "node-strip-ansi",
+		"version": "6.0.1-1",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-supports-color",
+		"version": "8.1.1+~8.1.1-1",
+		"size": "26 Kb"
+	},
+	{
+		"name": "node-tap",
+		"version": "12.0.1+ds-4",
+		"size": "211 Kb"
+	},
+	{
+		"name": "node-tap-mocha-reporter",
+		"version": "3.0.7+ds-2",
+		"size": "142 Kb"
+	},
+	{
+		"name": "node-tap-parser",
+		"version": "7.0.0+ds1-6",
+		"size": "69 Kb"
+	},
+	{
+		"name": "node-tar",
+		"version": "6.1.11+ds1+~cs6.0.6-1",
+		"size": "178 Kb"
+	},
+	{
+		"name": "node-text-table",
+		"version": "0.2.0-4",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-time-stamp",
+		"version": "2.2.0-1",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-tmatch",
+		"version": "5.0.0-4",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-tough-cookie",
+		"version": "4.0.0-2",
+		"size": "105 Kb"
+	},
+	{
+		"name": "node-typedarray-to-buffer",
+		"version": "4.0.0-2",
+		"size": "14 Kb"
+	},
+	{
+		"name": "node-unique-filename",
+		"version": "1.1.1+ds-1",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-universalify",
+		"version": "2.0.0-3",
+		"size": "15 Kb"
+	},
+	{
+		"name": "node-util-deprecate",
+		"version": "1.0.2-3",
+		"size": "19 Kb"
+	},
+	{
+		"name": "node-validate-npm-package-license",
+		"version": "3.0.4-2",
+		"size": "17 Kb"
+	},
+	{
+		"name": "node-validate-npm-package-name",
+		"version": "3.0.0-4",
+		"size": "18 Kb"
+	},
+	{
+		"name": "node-wcwidth.js",
+		"version": "1.0.2-1",
+		"size": "21 Kb"
+	},
+	{
+		"name": "node-webidl-conversions",
+		"version": "7.0.0~1.1.0+~cs15.1.20180823-2",
+		"size": "92 Kb"
+	},
+	{
+		"name": "node-whatwg-fetch",
+		"version": "3.6.2-5",
+		"size": "61 Kb"
+	},
+	{
+		"name": "node-which",
+		"version": "2.0.2+~cs1.3.2-2",
+		"size": "30 Kb"
+	},
+	{
+		"name": "node-wide-align",
+		"version": "1.1.3-4",
+		"size": "16 Kb"
+	},
+	{
+		"name": "node-wrappy",
+		"version": "1.0.2-2",
+		"size": "14 Kb"
+	},
+	{
+		"name": "node-write-file-atomic",
+		"version": "3.0.3+~3.0.2-1",
+		"size": "31 Kb"
+	},
+	{
+		"name": "node-ws",
+		"version": "8.5.0+~cs13.3.3-2",
+		"size": "209 Kb"
+	},
+	{
+		"name": "node-yallist",
+		"version": "4.0.0+~4.0.1-1",
+		"size": "31 Kb"
+	},
+	{
+		"name": "nodejs",
+		"version": "12.22.9~dfsg-1ubuntu3.6",
+		"size": "907 Kb"
+	},
+	{
+		"name": "nodejs-doc",
+		"version": "12.22.9~dfsg-1ubuntu3.6",
+		"size": "9285 Kb"
+	},
+	{
+		"name": "npm",
+		"version": "8.5.1~ds-1",
+		"size": "2647 Kb"
 	},
 	{
 		"name": "ntfs-3g",
-		"version": "1:2021.8.22-3ubuntu1.2"
+		"version": "1:2021.8.22-3ubuntu1.2",
+		"size": "1300 Kb"
 	},
 	{
 		"name": "openssh-client",
-		"version": "1:8.9p1-3ubuntu0.6"
+		"version": "1:8.9p1-3ubuntu0.10",
+		"size": "3092 Kb"
 	},
 	{
 		"name": "openssh-server",
-		"version": "1:8.9p1-3ubuntu0.6"
+		"version": "1:8.9p1-3ubuntu0.10",
+		"size": "1501 Kb"
 	},
 	{
 		"name": "openssh-sftp-server",
-		"version": "1:8.9p1-3ubuntu0.6"
+		"version": "1:8.9p1-3ubuntu0.10",
+		"size": "101 Kb"
 	},
 	{
 		"name": "openssl",
-		"version": "3.0.2-0ubuntu1.16"
+		"version": "3.0.2-0ubuntu1.16",
+		"size": "2053 Kb"
 	},
 	{
 		"name": "packagekit",
-		"version": "1.2.5-2ubuntu2"
+		"version": "1.2.5-2ubuntu2",
+		"size": "1592 Kb"
 	},
 	{
 		"name": "packagekit-tools",
-		"version": "1.2.5-2ubuntu2"
+		"version": "1.2.5-2ubuntu2",
+		"size": "123 Kb"
 	},
 	{
 		"name": "parted",
-		"version": "3.4-2build1"
+		"version": "3.4-2build1",
+		"size": "167 Kb"
 	},
 	{
 		"name": "passwd",
-		"version": "1:4.8.1-2ubuntu2.2"
+		"version": "1:4.8.1-2ubuntu2.2",
+		"size": "2325 Kb"
 	},
 	{
 		"name": "pastebinit",
-		"version": "1.5.1-1ubuntu1"
+		"version": "1.5.1-1ubuntu1",
+		"size": "152 Kb"
 	},
 	{
 		"name": "patch",
-		"version": "2.7.6-7build2"
+		"version": "2.7.6-7build2",
+		"size": "229 Kb"
 	},
 	{
 		"name": "pci.ids",
-		"version": "0.0~2022.01.22-1"
+		"version": "0.0~2022.01.22-1",
+		"size": "1282 Kb"
 	},
 	{
 		"name": "pciutils",
-		"version": "1:3.7.0-6"
+		"version": "1:3.7.0-6",
+		"size": "172 Kb"
 	},
 	{
 		"name": "perl",
-		"version": "5.34.0-3ubuntu1.3"
+		"version": "5.34.0-3ubuntu1.3",
+		"size": "717 Kb"
 	},
 	{
 		"name": "perl-base",
-		"version": "5.34.0-3ubuntu1.3"
+		"version": "5.34.0-3ubuntu1.3",
+		"size": "7734 Kb"
 	},
 	{
 		"name": "perl-modules-5.34",
-		"version": "5.34.0-3ubuntu1.3"
+		"version": "5.34.0-3ubuntu1.3",
+		"size": "17671 Kb"
+	},
+	{
+		"name": "perl-openssl-defaults",
+		"version": "5build2",
+		"size": "27 Kb"
 	},
 	{
 		"name": "pinentry-curses",
-		"version": "1.1.1-1build2"
+		"version": "1.1.1-1build2",
+		"size": "92 Kb"
 	},
 	{
 		"name": "pkexec",
-		"version": "0.105-33"
+		"version": "0.105-33",
+		"size": "65 Kb"
 	},
 	{
 		"name": "plymouth",
-		"version": "0.9.5+git20211018-1ubuntu3"
+		"version": "0.9.5+git20211018-1ubuntu3",
+		"size": "924 Kb"
 	},
 	{
 		"name": "plymouth-theme-ubuntu-text",
-		"version": "0.9.5+git20211018-1ubuntu3"
+		"version": "0.9.5+git20211018-1ubuntu3",
+		"size": "82 Kb"
 	},
 	{
 		"name": "policykit-1",
-		"version": "0.105-33"
+		"version": "0.105-33",
+		"size": "29 Kb"
 	},
 	{
 		"name": "polkitd",
-		"version": "0.105-33"
+		"version": "0.105-33",
+		"size": "520 Kb"
 	},
 	{
 		"name": "powermgmt-base",
-		"version": "1.36"
+		"version": "1.36",
+		"size": "25 Kb"
 	},
 	{
 		"name": "procps",
-		"version": "2:3.3.17-6ubuntu2.1"
+		"version": "2:3.3.17-6ubuntu2.1",
+		"size": "1388 Kb"
 	},
 	{
 		"name": "psmisc",
-		"version": "23.4-2build3"
+		"version": "23.4-2build3",
+		"size": "452 Kb"
 	},
 	{
 		"name": "publicsuffix",
-		"version": "20211207.1025-1"
+		"version": "20211207.1025-1",
+		"size": "330 Kb"
 	},
 	{
 		"name": "python-apt-common",
-		"version": "2.4.0ubuntu2"
+		"version": "2.4.0ubuntu3",
+		"size": "184 Kb"
 	},
 	{
 		"name": "python3",
-		"version": "3.10.6-1~22.04"
+		"version": "3.10.6-1~22.04",
+		"size": "90 Kb"
 	},
 	{
 		"name": "python3-apport",
-		"version": "2.20.11-0ubuntu82.5"
+		"version": "2.20.11-0ubuntu82.5",
+		"size": "598 Kb"
 	},
 	{
 		"name": "python3-apt",
-		"version": "2.4.0ubuntu2"
+		"version": "2.4.0ubuntu3",
+		"size": "705 Kb"
 	},
 	{
 		"name": "python3-asgiref",
-		"version": "3.5.0-1"
+		"version": "3.5.0-1",
+		"size": "91 Kb"
 	},
 	{
 		"name": "python3-blinker",
-		"version": "1.4+dfsg1-0.4"
+		"version": "1.4+dfsg1-0.4",
+		"size": "55 Kb"
 	},
 	{
 		"name": "python3-cffi-backend",
-		"version": "1.15.0-1build2"
+		"version": "1.15.0-1build2",
+		"size": "218 Kb"
 	},
 	{
 		"name": "python3-commandnotfound",
-		"version": "22.04.0"
+		"version": "22.04.0",
+		"size": "59 Kb"
 	},
 	{
 		"name": "python3-cryptography",
-		"version": "3.4.8-1ubuntu2.2"
+		"version": "3.4.8-1ubuntu2.2",
+		"size": "1589 Kb"
 	},
 	{
 		"name": "python3-dbus",
-		"version": "1.2.18-3build1"
+		"version": "1.2.18-3build1",
+		"size": "417 Kb"
 	},
 	{
 		"name": "python3-distro",
-		"version": "1.7.0-1"
+		"version": "1.7.0-1",
+		"size": "77 Kb"
 	},
 	{
 		"name": "python3-distro-info",
-		"version": "1.1ubuntu0.1"
+		"version": "1.1ubuntu0.2",
+		"size": "35 Kb"
 	},
 	{
 		"name": "python3-distupgrade",
-		"version": "1:22.04.17"
+		"version": "1:22.04.19",
+		"size": "639 Kb"
 	},
 	{
 		"name": "python3-distutils",
-		"version": "3.10.8-1~22.04"
+		"version": "3.10.8-1~22.04",
+		"size": "757 Kb"
 	},
 	{
 		"name": "python3-django",
-		"version": "2:3.2.12-2ubuntu1.11"
+		"version": "2:3.2.12-2ubuntu1.11",
+		"size": "24126 Kb"
 	},
 	{
 		"name": "python3-gdbm",
-		"version": "3.10.8-1~22.04"
+		"version": "3.10.8-1~22.04",
+		"size": "87 Kb"
 	},
 	{
 		"name": "python3-gi",
-		"version": "3.42.1-0ubuntu1"
+		"version": "3.42.1-0ubuntu1",
+		"size": "747 Kb"
 	},
 	{
 		"name": "python3-httplib2",
-		"version": "0.20.2-2"
+		"version": "0.20.2-2",
+		"size": "131 Kb"
 	},
 	{
 		"name": "python3-importlib-metadata",
-		"version": "4.6.4-1"
+		"version": "4.6.4-1",
+		"size": "67 Kb"
 	},
 	{
 		"name": "python3-jeepney",
-		"version": "0.7.1-3"
+		"version": "0.7.1-3",
+		"size": "186 Kb"
 	},
 	{
 		"name": "python3-jwt",
-		"version": "2.3.0-1ubuntu0.2"
+		"version": "2.3.0-1ubuntu0.2",
+		"size": "82 Kb"
 	},
 	{
 		"name": "python3-keyring",
-		"version": "23.5.0-1"
+		"version": "23.5.0-1",
+		"size": "154 Kb"
 	},
 	{
 		"name": "python3-launchpadlib",
-		"version": "1.10.16-1"
+		"version": "1.10.16-1",
+		"size": "1762 Kb"
 	},
 	{
 		"name": "python3-lazr.restfulclient",
-		"version": "0.14.4-1"
+		"version": "0.14.4-1",
+		"size": "183 Kb"
 	},
 	{
 		"name": "python3-lazr.uri",
-		"version": "1.0.6-2"
+		"version": "1.0.6-2",
+		"size": "75 Kb"
 	},
 	{
 		"name": "python3-lib2to3",
-		"version": "3.10.8-1~22.04"
+		"version": "3.10.8-1~22.04",
+		"size": "388 Kb"
 	},
 	{
 		"name": "python3-minimal",
-		"version": "3.10.6-1~22.04"
+		"version": "3.10.6-1~22.04",
+		"size": "122 Kb"
 	},
 	{
 		"name": "python3-more-itertools",
-		"version": "8.10.0-2"
+		"version": "8.10.0-2",
+		"size": "226 Kb"
 	},
 	{
 		"name": "python3-netifaces",
-		"version": "0.11.0-1build2"
+		"version": "0.11.0-1build2",
+		"size": "54 Kb"
 	},
 	{
 		"name": "python3-newt",
-		"version": "0.52.21-5ubuntu2"
+		"version": "0.52.21-5ubuntu2",
+		"size": "111 Kb"
 	},
 	{
 		"name": "python3-oauthlib",
-		"version": "3.2.0-1ubuntu0.1"
+		"version": "3.2.0-1ubuntu0.1",
+		"size": "556 Kb"
 	},
 	{
 		"name": "python3-pip-whl",
-		"version": "22.0.2+dfsg-1ubuntu0.4"
+		"version": "22.0.2+dfsg-1ubuntu0.4",
+		"size": "1781 Kb"
 	},
 	{
 		"name": "python3-pkg-resources",
-		"version": "59.6.0-1.2ubuntu0.22.04.1"
+		"version": "59.6.0-1.2ubuntu0.22.04.1",
+		"size": "580 Kb"
 	},
 	{
 		"name": "python3-problem-report",
-		"version": "2.20.11-0ubuntu82.5"
+		"version": "2.20.11-0ubuntu82.5",
+		"size": "182 Kb"
 	},
 	{
 		"name": "python3-pyparsing",
-		"version": "2.4.7-1"
+		"version": "2.4.7-1",
+		"size": "298 Kb"
 	},
 	{
 		"name": "python3-secretstorage",
-		"version": "3.3.1-1"
+		"version": "3.3.1-1",
+		"size": "56 Kb"
 	},
 	{
 		"name": "python3-setuptools-whl",
-		"version": "59.6.0-1.2ubuntu0.22.04.1"
+		"version": "59.6.0-1.2ubuntu0.22.04.1",
+		"size": "1007 Kb"
 	},
 	{
 		"name": "python3-six",
-		"version": "1.16.0-3ubuntu1"
+		"version": "1.16.0-3ubuntu1",
+		"size": "59 Kb"
 	},
 	{
 		"name": "python3-software-properties",
-		"version": "0.99.22.8"
+		"version": "0.99.22.9",
+		"size": "175 Kb"
 	},
 	{
 		"name": "python3-sqlparse",
-		"version": "0.4.2-1ubuntu0.22.04.2"
+		"version": "0.4.2-1ubuntu0.22.04.2",
+		"size": "158 Kb"
 	},
 	{
 		"name": "python3-systemd",
-		"version": "234-3ubuntu2"
+		"version": "234-3ubuntu2",
+		"size": "193 Kb"
 	},
 	{
 		"name": "python3-tz",
-		"version": "2022.1-1ubuntu0.22.04.1"
+		"version": "2022.1-1ubuntu0.22.04.1",
+		"size": "104 Kb"
 	},
 	{
 		"name": "python3-update-manager",
-		"version": "1:22.04.10"
+		"version": "1:22.04.10",
+		"size": "255 Kb"
 	},
 	{
 		"name": "python3-wadllib",
-		"version": "1.3.6-1"
+		"version": "1.3.6-1",
+		"size": "365 Kb"
 	},
 	{
 		"name": "python3-yaml",
-		"version": "5.4.1-1ubuntu1"
+		"version": "5.4.1-1ubuntu1",
+		"size": "529 Kb"
 	},
 	{
 		"name": "python3-zipp",
-		"version": "1.0.0-3"
+		"version": "1.0.0-3",
+		"size": "25 Kb"
 	},
 	{
 		"name": "python3.10",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "633 Kb"
 	},
 	{
 		"name": "python3.10-minimal",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "5898 Kb"
 	},
 	{
 		"name": "python3.10-venv",
-		"version": "3.10.12-1~22.04.3"
+		"version": "3.10.12-1~22.04.3",
+		"size": "28 Kb"
 	},
 	{
 		"name": "readline-common",
-		"version": "8.1.2-1"
+		"version": "8.1.2-1",
+		"size": "80 Kb"
+	},
+	{
+		"name": "rpcsvc-proto",
+		"version": "1.4.2-0ubuntu6",
+		"size": "245 Kb"
 	},
 	{
 		"name": "rsync",
-		"version": "3.2.7-0ubuntu0.22.04.2"
+		"version": "3.2.7-0ubuntu0.22.04.2",
+		"size": "794 Kb"
 	},
 	{
 		"name": "rsyslog",
-		"version": "8.2112.0-2ubuntu2.2"
+		"version": "8.2112.0-2ubuntu2.2",
+		"size": "1750 Kb"
 	},
 	{
 		"name": "run-one",
-		"version": "1.17-0ubuntu1"
+		"version": "1.17-0ubuntu1",
+		"size": "44 Kb"
 	},
 	{
 		"name": "screen",
-		"version": "4.9.0-1"
+		"version": "4.9.0-1",
+		"size": "1005 Kb"
 	},
 	{
 		"name": "sed",
-		"version": "4.8-1ubuntu2"
+		"version": "4.8-1ubuntu2",
+		"size": "328 Kb"
 	},
 	{
 		"name": "sensible-utils",
-		"version": "0.0.17"
+		"version": "0.0.17",
+		"size": "59 Kb"
+	},
+	{
+		"name": "session-migration",
+		"version": "0.3.6",
+		"size": "50 Kb"
 	},
 	{
 		"name": "shared-mime-info",
-		"version": "2.1-2"
+		"version": "2.1-2",
+		"size": "2744 Kb"
 	},
 	{
 		"name": "show-motd",
-		"version": "3.10"
+		"version": "3.10",
+		"size": "16 Kb"
 	},
 	{
 		"name": "snapd",
-		"version": "2.58+22.04.1"
+		"version": "2.63+22.04",
+		"size": "101484 Kb"
 	},
 	{
 		"name": "software-properties-common",
-		"version": "0.99.22.8"
+		"version": "0.99.22.9",
+		"size": "220 Kb"
 	},
 	{
 		"name": "squashfs-tools",
-		"version": "1:4.5-3build1"
+		"version": "1:4.5-3build1",
+		"size": "414 Kb"
 	},
 	{
 		"name": "ssh-import-id",
-		"version": "5.11-0ubuntu1"
+		"version": "5.11-0ubuntu1",
+		"size": "53 Kb"
 	},
 	{
 		"name": "sshpass",
-		"version": "1.09-1"
+		"version": "1.09-1",
+		"size": "35 Kb"
 	},
 	{
 		"name": "strace",
-		"version": "5.16-0ubuntu3"
+		"version": "5.16-0ubuntu3",
+		"size": "2000 Kb"
 	},
 	{
 		"name": "sudo",
-		"version": "1.9.9-1ubuntu2.4"
+		"version": "1.9.9-1ubuntu2.4",
+		"size": "2508 Kb"
 	},
 	{
 		"name": "systemd",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "16296 Kb"
 	},
 	{
 		"name": "systemd-hwe-hwdb",
-		"version": "249.11.3"
+		"version": "249.11.5",
+		"size": "19 Kb"
 	},
 	{
 		"name": "systemd-sysv",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "198 Kb"
 	},
 	{
 		"name": "systemd-timesyncd",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "269 Kb"
 	},
 	{
 		"name": "sysvinit-utils",
-		"version": "3.01-1ubuntu1"
+		"version": "3.01-1ubuntu1",
+		"size": "83 Kb"
 	},
 	{
 		"name": "tar",
-		"version": "1.34+dfsg-1ubuntu0.1.22.04.2"
+		"version": "1.34+dfsg-1ubuntu0.1.22.04.2",
+		"size": "960 Kb"
 	},
 	{
 		"name": "tcpdump",
-		"version": "4.99.1-3ubuntu0.1"
+		"version": "4.99.1-3ubuntu0.2",
+		"size": "1374 Kb"
 	},
 	{
 		"name": "telnet",
-		"version": "0.17-44build1"
+		"version": "0.17-44build1",
+		"size": "154 Kb"
+	},
+	{
+		"name": "tilix",
+		"version": "1.9.4-2build1",
+		"size": "3415 Kb"
+	},
+	{
+		"name": "tilix-common",
+		"version": "1.9.4-2build1",
+		"size": "1422 Kb"
 	},
 	{
 		"name": "time",
-		"version": "1.9-0.1build2"
+		"version": "1.9-0.1build2",
+		"size": "126 Kb"
 	},
 	{
 		"name": "tmux",
-		"version": "3.2a-4ubuntu0.2"
+		"version": "3.2a-4ubuntu0.2",
+		"size": "1026 Kb"
 	},
 	{
 		"name": "tnftp",
-		"version": "20210827-4build1"
+		"version": "20210827-4build1",
+		"size": "231 Kb"
 	},
 	{
 		"name": "tzdata",
-		"version": "2024a-0ubuntu0.22.04"
+		"version": "2024a-0ubuntu0.22.04.1",
+		"size": "3900 Kb"
 	},
 	{
 		"name": "ubuntu-advantage-tools",
-		"version": "30~22.04"
+		"version": "32.3.1~22.04",
+		"size": "83 Kb"
 	},
 	{
 		"name": "ubuntu-keyring",
-		"version": "2021.03.26"
+		"version": "2021.03.26",
+		"size": "41 Kb"
 	},
 	{
 		"name": "ubuntu-minimal",
-		"version": "1.481.1"
+		"version": "1.481.1",
+		"size": "53 Kb"
+	},
+	{
+		"name": "ubuntu-mono",
+		"version": "20.10-0ubuntu2",
+		"size": "5587 Kb"
+	},
+	{
+		"name": "ubuntu-pro-client",
+		"version": "32.3.1~22.04",
+		"size": "1179 Kb"
 	},
 	{
 		"name": "ubuntu-pro-client-l10n",
-		"version": "30~22.04"
+		"version": "32.3.1~22.04",
+		"size": "96 Kb"
 	},
 	{
 		"name": "ubuntu-release-upgrader-core",
-		"version": "1:22.04.17"
+		"version": "1:22.04.19",
+		"size": "340 Kb"
 	},
 	{
 		"name": "ubuntu-standard",
-		"version": "1.481.1"
+		"version": "1.481.1",
+		"size": "53 Kb"
 	},
 	{
 		"name": "ubuntu-wsl",
-		"version": "1.481.1"
+		"version": "1.481.1",
+		"size": "53 Kb"
 	},
 	{
 		"name": "ucf",
-		"version": "3.0043"
+		"version": "3.0043",
+		"size": "232 Kb"
 	},
 	{
 		"name": "udev",
-		"version": "249.11-0ubuntu3.11"
+		"version": "249.11-0ubuntu3.12",
+		"size": "9501 Kb"
 	},
 	{
 		"name": "ufw",
-		"version": "0.36.1-4ubuntu0.1"
+		"version": "0.36.1-4ubuntu0.1",
+		"size": "830 Kb"
 	},
 	{
 		"name": "unattended-upgrades",
-		"version": "2.8ubuntu1"
+		"version": "2.8ubuntu1",
+		"size": "436 Kb"
 	},
 	{
 		"name": "update-manager-core",
-		"version": "1:22.04.10"
+		"version": "1:22.04.10",
+		"size": "192 Kb"
 	},
 	{
 		"name": "update-motd",
-		"version": "3.10"
+		"version": "3.10",
+		"size": "22 Kb"
 	},
 	{
 		"name": "usb.ids",
-		"version": "2022.04.02-1"
+		"version": "2022.04.02-1",
+		"size": "715 Kb"
 	},
 	{
 		"name": "usbutils",
-		"version": "1:014-1build1"
+		"version": "1:014-1build1",
+		"size": "325 Kb"
 	},
 	{
 		"name": "usrmerge",
-		"version": "25ubuntu2"
+		"version": "25ubuntu2",
+		"size": "200 Kb"
 	},
 	{
 		"name": "util-linux",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "3395 Kb"
 	},
 	{
 		"name": "uuid-runtime",
-		"version": "2.37.2-4ubuntu3.4"
+		"version": "2.37.2-4ubuntu3.4",
+		"size": "201 Kb"
 	},
 	{
 		"name": "vim",
-		"version": "2:8.2.3995-1ubuntu2.16"
+		"version": "2:8.2.3995-1ubuntu2.17",
+		"size": "3931 Kb"
 	},
 	{
 		"name": "vim-common",
-		"version": "2:8.2.3995-1ubuntu2.16"
+		"version": "2:8.2.3995-1ubuntu2.17",
+		"size": "382 Kb"
 	},
 	{
 		"name": "vim-runtime",
-		"version": "2:8.2.3995-1ubuntu2.16"
+		"version": "2:8.2.3995-1ubuntu2.17",
+		"size": "32783 Kb"
 	},
 	{
 		"name": "vim-tiny",
-		"version": "2:8.2.3995-1ubuntu2.16"
+		"version": "2:8.2.3995-1ubuntu2.17",
+		"size": "1728 Kb"
 	},
 	{
 		"name": "wakeonlan",
-		"version": "0.41-12.1"
+		"version": "0.41-12.1",
+		"size": "29 Kb"
 	},
 	{
 		"name": "wget",
-		"version": "1.21.2-2ubuntu1.1"
+		"version": "1.21.2-2ubuntu1.1",
+		"size": "928 Kb"
 	},
 	{
 		"name": "whiptail",
-		"version": "0.52.21-5ubuntu2"
+		"version": "0.52.21-5ubuntu2",
+		"size": "72 Kb"
 	},
 	{
 		"name": "wsl-setup",
-		"version": "0.2"
+		"version": "0.2",
+		"size": "28 Kb"
+	},
+	{
+		"name": "x11-common",
+		"version": "1:7.7+23ubuntu2",
+		"size": "311 Kb"
+	},
+	{
+		"name": "x11-utils",
+		"version": "7.7+5build2",
+		"size": "709 Kb"
+	},
+	{
+		"name": "x11-xserver-utils",
+		"version": "7.7+9build1",
+		"size": "567 Kb"
 	},
 	{
 		"name": "xauth",
-		"version": "1:1.1-1build2"
+		"version": "1:1.1-1build2",
+		"size": "77 Kb"
 	},
 	{
 		"name": "xdg-user-dirs",
-		"version": "0.17-2ubuntu4"
+		"version": "0.17-2ubuntu4",
+		"size": "542 Kb"
+	},
+	{
+		"name": "xdg-utils",
+		"version": "1.1.3-4.1ubuntu3~22.04.1",
+		"size": "323 Kb"
 	},
 	{
 		"name": "xkb-data",
-		"version": "2.33-1"
+		"version": "2.33-1",
+		"size": "4236 Kb"
 	},
 	{
 		"name": "xxd",
-		"version": "2:8.2.3995-1ubuntu2.16"
+		"version": "2:8.2.3995-1ubuntu2.17",
+		"size": "280 Kb"
 	},
 	{
 		"name": "xz-utils",
-		"version": "5.2.5-2ubuntu1"
+		"version": "5.2.5-2ubuntu1",
+		"size": "372 Kb"
 	},
 	{
 		"name": "zlib1g",
-		"version": "1:1.2.11.dfsg-2ubuntu9.2"
+		"version": "1:1.2.11.dfsg-2ubuntu9.2",
+		"size": "164 Kb"
 	}
 ]
-

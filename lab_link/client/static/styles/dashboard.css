@@ -45,4 +45,3 @@ i.host-status.success::before {
 i.host-status.failed::before {
 	background-color: var(--error);
 }
-

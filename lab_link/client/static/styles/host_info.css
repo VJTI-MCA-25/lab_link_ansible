@@ -6,11 +6,6 @@
 	width: 90%;
 }
 
-.key-value-container:hover {
-	background-color: var(--sbc);
-	cursor: default;
-}
-
 .key-value-container > ul {
 	margin: 0;
 }
@@ -88,14 +83,11 @@ div.collapsible-body {
 }
 
 .highlight {
-	color: var(--success);
-	text-decoration: underline;
-	list-style-type: disc !important;
+	background-color: var(--sbc);
+	color: var(--stc);
 }
+
 .collapsible-body li {
 	cursor: default;
-}
-.collapsible-body li:hover {
-	background-color: var(--sbc);
 }
 

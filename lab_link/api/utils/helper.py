@@ -335,7 +335,8 @@ def transform_host_applications(events):
         if event['event'] == 'runner_on_ok':
             if event['event_data']['task'] == "Print installed applications":
                 applications[event['event_data']['host']
-                             ] = event['event_data']['res']["combined_packages"]
+                             ] = event['event_data']['res']["packages"]["stdout_lines"]
+
     if not applications:
         return []
 
@@ -343,10 +344,11 @@ def transform_host_applications(events):
 
     packages = []
     for line in applications[host_id]:
-        name_version = line.split(" ", 1)
-        if len(name_version) == 2:
-            name, version = name_version
-            packages.append({'name': name, 'version': version})
+        parts = line.split(" ", 2)
+        if len(parts) == 3:
+            name, version, size = parts
+            packages.append(
+                {'name': name, 'version': version, 'size': f"{size} Kb"})
 
     return packages
 

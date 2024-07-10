@@ -27,6 +27,7 @@
             {% block content %}
             {% endblock content %}
         </main>
+        {% include "modal.djhtml" %}
         <script>const preloaderHtml = `{% include 'preloader.djhtml' with subtext=True %}`;</script>
         <script src="{% static 'scripts/script.js' %}" type="module"></script>
         {% block extra_js %}

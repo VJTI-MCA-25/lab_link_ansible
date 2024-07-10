@@ -1,5 +1,6 @@
 import { getApplications } from "./fetch.js";
 import { Loading, createElem, FuzzySearch } from "./script.js";
+import { downloadAsExcel__HTMLTable } from "./excel.js";
 
 const tbody = document.querySelector(".apps-table-body");
 const searchInput = document.getElementById("search");
@@ -9,6 +10,8 @@ const searchCancel = document.querySelector(".search-cancel");
 const countDisplay = document.querySelector(".count");
 const goUpButton = document.querySelector(".go-up");
 const goDownButton = document.querySelector(".go-down");
+const removeButton = document.querySelector(".remove-button");
+const downloadExcelButton = document.querySelector(".download-excel-button");
 
 let fuzzy = new FuzzySearch([], { key: "name", all: true });
 let lastChecked = 0;
@@ -32,7 +35,7 @@ async function getApps() {
 function populateHostAppsTable(data) {
 	const fragment = document.createDocumentFragment();
 	data.forEach((item, index) => {
-		const row = createElem("tr", "", { class: `check-row-${index} check-row visible` });
+		const row = createElem("tr", "", { class: `check-row-${index} check-row visible`, "data-index": index });
 
 		const checkBoxCell = createElem("td", "", { id: `item-${index}` });
 		checkBoxCell.innerHTML = `
@@ -45,6 +48,7 @@ function populateHostAppsTable(data) {
 
 		row.appendChild(createElem("td", item.name));
 		row.appendChild(createElem("td", item.version));
+		row.appendChild(createElem("td", item.size));
 		fragment.appendChild(row);
 	});
 	tbody.innerHTML = ""; // Clear tbody before appending new content
@@ -72,6 +76,17 @@ function checkBoxRowEventHandler(e, index) {
 		check(index);
 		lastChecked = index;
 	}
+}
+
+function getSelected() {
+	const elems = document.querySelectorAll(".checked");
+	const indices = [];
+	elems.forEach((elem) => {
+		if (elem?.dataset?.index) {
+			indices.push(elem.dataset.index);
+		}
+	});
+	return indices;
 }
 
 // Toggle checkbox state and update count
@@ -164,6 +179,41 @@ document.addEventListener("DOMContentLoaded", () => {
 			searchInput.dispatchEvent(inputEvent);
 		});
 	}
+
+	if (removeButton) {
+		removeButton.addEventListener("click", async () => {
+			const selectedApp = getSelected();
+			if (selectedApp.length < 1) {
+				return modalAlert("Please select an app first.");
+			}
+			const confirmText =
+				selectedApp.length === 1 ? "the selected app?" : `all ${selectedApp.length} selected apps?`;
+
+			const modalConfirmRes = await modalConfirm(`Are you sure you want to remove ${confirmText}`);
+		});
+	}
+
+	if (downloadExcelButton) {
+		downloadExcelButton.addEventListener("click", () => {
+			const table = document.querySelector(".apps-table");
+			const rows = table.querySelectorAll(".checked");
+			const filename = `Lab Link ${hostId} Applications Report - ${new Date().toISOString()}`;
+
+			if (rows.length === 0) {
+				return downloadAsExcel__HTMLTable(table, filename);
+			}
+
+			const tableDuplicate = table.cloneNode();
+			const thead = table.querySelector("thead").cloneNode(true);
+			tableDuplicate.appendChild(thead);
+
+			const tbody = table.querySelector("tbody").cloneNode();
+			tableDuplicate.appendChild(tbody);
+			downloadAsExcel__HTMLTable(tableDuplicate, filename);
+		});
+	}
+
+	M.Tooltip.init(document.querySelectorAll(".tooltipped"), {});
 });
 
 // Initial call to fetch and display applications

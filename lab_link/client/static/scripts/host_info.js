@@ -78,7 +78,7 @@ function populateHostData(data) {
 			keysList.forEach((key) => {
 				const value = data[key];
 				if (value) {
-					const div = createElem("div", "", { class: `key-value-container ${key}` });
+					const div = createElem("div", "", { class: `key-value-container ${key} hover-highlight` });
 					if (Array.isArray(value)) {
 						div.classList.add("list");
 						const listKey = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
@@ -139,7 +139,7 @@ function populatePeripheralDevices(peripherals) {
 			highlightFlag = true;
 		}
 
-		const bodyLi = createElem("li", device, { class: `	${highlightFlag ? "highlight" : ""}` });
+		const bodyLi = createElem("li", device, { class: `${highlightFlag ? "highlight" : ""} hover-highlight` });
 		bodyUl.appendChild(bodyLi);
 	});
 
@@ -192,20 +192,33 @@ function populateDeviceCount(devices) {
 
 document.addEventListener("DOMContentLoaded", () => {
 	getHostData();
-	const shutdownBtn = document.querySelector(".shutdown-host");
-	shutdownBtn.addEventListener("click", async () => {
-		if (confirm(`Are you sure you want to switch off ${hostId}?`)) {
-			try {
-				const result = await shutdownHost(hostId);
-				const alertText = result[hostId]?.shutdown ? "has been switched off." : "could not be switched off.";
-				alert(`${hostId} ${alertText}`);
-			} catch (err) {
-				console.error(err);
-				alert("An error occurred while trying to switch off the host.");
-			}
-		}
-	});
 
-	document.querySelector(".refresh-host").addEventListener("click", getHostData);
+	const shutdownBtn = document.querySelector(".shutdown-host");
+	if (shutdownBtn) {
+		shutdownBtn.addEventListener("click", async () => {
+			const confirmRes = await modalConfirm(`Are you sure you want to switch off ${hostId}?`);
+
+			if (confirmRes) {
+				try {
+					const result = await shutdownHost(hostId);
+					const alertText = result[hostId]?.shutdown
+						? "has been switched off."
+						: "could not be switched off.";
+					const alertIcon = result[hostId]?.shutdown ? "info" : "error";
+					modalAlert(`${hostId} ${alertText}`);
+				} catch (err) {
+					console.error(err);
+					modalAlert("An error occurred while trying to switch off the host.");
+				}
+			}
+		});
+	} else {
+		console.error("Shutdown button not found.");
+	}
+
+	const refreshBtn = document.querySelector(".refresh-host");
+	if (refreshBtn) {
+		refreshBtn.addEventListener("click", getHostData);
+	}
 });
 

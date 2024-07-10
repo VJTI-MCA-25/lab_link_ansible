@@ -6,5 +6,9 @@
                 <i class="material-icons menu-icon">menu</i>
             </li>
         </ul>
+        <form class="right" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn-flat navbar-logout-text">Logout</button>
+        </form>
     </div>
 </nav>

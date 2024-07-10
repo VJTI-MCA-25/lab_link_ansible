@@ -6,10 +6,11 @@
 
 :root {
 	--pbc: #f0f5f9;
-	--sbc: #c9d6df;
+	--sbc: #0072c6;
 	--ptc: #1e2022;
-	--stc: #52616b;
-	--highlight: rgba(82, 97, 107, 0.3);
+	--stc: #fff;
+	--highlight: #c9d6df;
+	--selected: #52616b4d;
 	--success: green;
 	--error: red;
 	--br: 15px;
@@ -61,11 +62,12 @@ ul.collapsible {
 }
 
 span.new.badge {
-	background-color: var(--stc);
+	background-color: var(--sbc);
+	width: 20%;
 }
 
 .underline {
-	border-bottom: 1px solid var(--stc);
+	border-bottom: 1px solid var(--sbc);
 	padding-bottom: 10px;
 }
 
@@ -89,5 +91,38 @@ span.new.badge {
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
 	background-color: var(--highlight);
+}
+
+.custom-hover-highlight:not(.highlight):hover {
+	background-color: var(--highlight);
+	cursor: default;
+}
+.danger-text {
+	color: var(--error);
+}
+
+#alert-modal {
+	max-width: 400px;
+}
+
+.custom-highlight-text {
+	color: var(--sbc);
+}
+
+.navbar-logout-text {
+	color: var(--stc);
+}
+
+.input-field input:focus {
+	box-shadow: 0 1px 0 0 var(--sbc) !important;
+	border-bottom: 1px solid var(--sbc) !important;
+}
+
+.input-field .prefix.active {
+	color: var(--sbc);
+}
+
+.input-field label.active {
+	color: var(--sbc);
 }
 

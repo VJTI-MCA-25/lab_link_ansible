@@ -8,6 +8,86 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+class AlertModal {
+	constructor() {
+		this._modalElem = document.getElementById("alert-modal");
+
+		if (!this._modalElem) {
+			throw new Error("Modal element with id 'alert-modal' not found.");
+		}
+	}
+
+	alert(text, callback) {
+		this._modalElem.innerHTML = "";
+		const instance = M.Modal.init(this._modalElem, {});
+		const respond = () => {
+			instance.close();
+			instance.destroy();
+			if (callback && typeof callback === "function") {
+				callback();
+			}
+		};
+
+		const fragment = document.createDocumentFragment();
+		const content = createElem("div", "", { class: "modal-content" });
+		const header = createElem("h4", "Alert");
+		const p = createElem("p", text);
+		content.appendChild(header);
+		content.appendChild(p);
+		fragment.appendChild(content);
+
+		const footer = createElem("div", "", { class: "modal-footer" });
+		const confirmButton = createElem("a", "OK", {
+			class: "modal-close waves-effect waves-light btn-flat custom-highlight-text",
+		});
+		confirmButton.addEventListener("click", () => respond());
+		footer.appendChild(confirmButton);
+		fragment.appendChild(footer);
+
+		this._modalElem.appendChild(fragment);
+		instance.open();
+	}
+
+	confirm(text) {
+		return new Promise((resolve) => {
+			this._modalElem.innerHTML = "";
+			const instance = M.Modal.init(this._modalElem, {
+				onCloseEnd: () => resolve(false),
+			});
+			const respond = (response) => {
+				resolve(response);
+				instance.close();
+				instance.destroy();
+			};
+
+			const fragment = document.createDocumentFragment();
+
+			const content = createElem("div", "", { class: "modal-content" });
+			const header = createElem("h4", "Confirm");
+			const p = createElem("p", text);
+			content.appendChild(header);
+			content.appendChild(p);
+			fragment.appendChild(content);
+
+			const footer = createElem("div", "", { class: "modal-footer" });
+			const confirmButton = createElem("a", "Yes", {
+				class: "modal-close waves-effect waves-light btn danger",
+			});
+			const cancelButton = createElem("a", "Cancel", {
+				class: "modal-close waves-effect waves-light btn-flat custom-highlight-text",
+			});
+			confirmButton.addEventListener("click", () => respond(true));
+			cancelButton.addEventListener("click", () => respond(false));
+			footer.appendChild(confirmButton);
+			footer.appendChild(cancelButton);
+			fragment.appendChild(footer);
+
+			this._modalElem.appendChild(fragment);
+			instance.open();
+		});
+	}
+}
+
 export class Loading {
 	constructor(container, initial = false) {
 		this._container = container;
@@ -72,4 +152,9 @@ export function createElem(tag, text = "", attr = {}) {
 export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
+
+const alertModal = new AlertModal();
+
+window.modalAlert = alertModal.alert.bind(alertModal);
+window.modalConfirm = alertModal.confirm.bind(alertModal);
 

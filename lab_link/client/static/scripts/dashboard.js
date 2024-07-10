@@ -2,6 +2,8 @@ import { pingHosts, shutdownHost } from "./fetch.js";
 import { Loading } from "./script.js";
 
 const container = document.querySelector(".hosts-container");
+const refreshButton = document.querySelector(".refresh-list-button");
+const shutdownAllButton = document.querySelector(".shutdown-all-hosts");
 const loading = new Loading(container);
 
 async function getHosts() {
@@ -9,6 +11,7 @@ async function getHosts() {
 	const data = await pingHosts();
 	loading.setLoading(false);
 	populateHosts(data);
+	console.log("running");
 }
 
 function populateHosts(data) {
@@ -30,17 +33,27 @@ function populateHosts(data) {
 	});
 }
 
-getHosts();
+async function shutdownAllHosts() {
+	const modalConfirmRes = await modalConfirm("Are you sure you want to switch off all hosts?");
+
+	if (modalConfirmRes) {
+		try {
+			const response = await shutdownHost();
+			modalAlert("Shutdown signal sent. The list will refresh to reflect the new state.", getHosts);
+		} catch (err) {
+			console.error(err);
+			modalAlert("Something went wrong.");
+		}
+	}
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-	document.querySelector(".refresh-list-button").addEventListener("click", getHosts);
-
-	document.querySelector(".shutdown-all-hosts").addEventListener("click", async () => {
-		if (confirm("Are you sure you want to switch off all hosts?")) {
-			const response = await shutdownHost();
-			sessionStorage.setItem("shutdownData", JSON.stringify(response));
-			window.location.href = "/shutdown";
-		}
-	});
+	if (refreshButton) {
+		refreshButton.addEventListener("click", getHosts);
+	}
+	if (shutdownAllButton) {
+		shutdownAllButton.addEventListener("click", shutdownAllHosts);
+	}
+	getHosts();
 });
 

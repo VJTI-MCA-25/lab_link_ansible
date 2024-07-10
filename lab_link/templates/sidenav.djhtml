@@ -17,4 +17,8 @@
     <li>
         <a href="{% url 'all_apps' %}" class="link">Applications</a>
     </li>
+    <hr />
+    <li>
+        <a href="{% url 'logout' %}" class="link">Logout</a>
+    </li>
 </ul>

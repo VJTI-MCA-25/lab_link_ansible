@@ -1,16 +1,21 @@
 import { getApplications } from "./fetch.js";
 import { Loading, createElem } from "./script.js";
+import { downloadAsExcel__HTMLTable } from "./excel.js";
 
 const tbody = document.querySelector(".apps-table-body");
 const loading = new Loading(document.querySelector(".preloader"));
 const goUpButton = document.querySelector(".go-up");
 const goDownButton = document.querySelector(".go-down");
+const downloadExcelButton = document.querySelector(".download-excel-button");
+
+var appsData = null;
 
 // Fetch and populate applications data
 async function getApps() {
 	try {
 		loading.setLoading(true);
 		const data = await getApplications();
+		appsData = data;
 		populateAllAppsTable(data);
 	} catch (error) {
 		console.error("Failed to fetch applications:", error);
@@ -51,6 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (goDownButton) {
 		goDownButton.addEventListener("click", () => {
 			window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+		});
+	}
+
+	if (downloadExcelButton) {
+		downloadExcelButton.addEventListener("click", () => {
+			if (appsData) {
+				const tableElem = document.querySelector(".apps-table");
+				const fileName = `Lab Link Applications Report - ${new Date().toISOString()}`;
+				downloadAsExcel__HTMLTable(tableElem, fileName);
+			}
 		});
 	}
 });

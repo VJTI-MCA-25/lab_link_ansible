@@ -37,10 +37,10 @@
 {% block extra_css %}
     <link href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css"
           rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'styles/host-info.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/host_info.css' %}" />
 {% endblock extra_css %}
 {% block extra_js %}
     <script>const hostId = "{{ host_id }}";</script>
-    <script src="{% static 'scripts/host.js' %}" type="module" defer></script>
+    <script src="{% static 'scripts/host_info.js' %}" type="module" defer></script>
     <script src="{% static 'scripts/terminal.js' %}" type="module" defer></script>
 {% endblock extra_js %}

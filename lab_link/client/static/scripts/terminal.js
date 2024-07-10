@@ -19,14 +19,27 @@ function createTerminalWindow() {
 	websocket.onopen = () => {
 		const attachAddon = new AttachAddon(websocket);
 		terminal.loadAddon(attachAddon);
+		console.log("WebSocket connection opened.");
 	};
 
-	terminalWindow = window.open("", "_blank", "width=800,height=600");
+	websocket.onmessage = (event) => {
+		console.log("WebSocket message received:", event.data);
+	};
+
+	websocket.onclose = () => {
+		console.log("WebSocket connection closed.");
+		terminalWindow.close();
+		terminal.dispose();
+		terminalWindow = null;
+	};
 
 	websocket.onerror = (error) => {
 		console.error("WebSocket error: ", error);
 		terminalWindow.close();
+		modalAlert("Something went wrong when connecting to the Remote Machine.");
 	};
+
+	terminalWindow = window.open("", "_blank", "width=800,height=600");
 
 	terminalWindow.addEventListener("resize", () => {
 		fitAddon.fit();
