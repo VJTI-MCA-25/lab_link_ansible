@@ -1,5 +1,5 @@
 import { getApplications } from "./fetch.js";
-import { Loading, createElem, FuzzySearch } from "./script.js";
+import { Loading, createElem, FuzzySearch, showCachedMessage } from "./script.js";
 import { downloadAsExcel__HTMLTable } from "./excel.js";
 
 const tbody = document.querySelector(".apps-table-body");
@@ -20,6 +20,7 @@ async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
 		const { data, isCached } = await getApplications(hostId, uncached);
+		showCachedMessage(isCached);
 		populateHostAppsTable(data);
 		fuzzy.list = data;
 	} catch (error) {

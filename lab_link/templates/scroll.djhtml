@@ -1,8 +1,10 @@
 <div class="arrow-container">
-    <div class="go-up">
+    <div class="go-up"
+         onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
         <i class="material-icons">keyboard_arrow_up</i>
     </div>
-    <div class="go-down">
+    <div class="go-down"
+         onclick="window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })">
         <i class="material-icons">keyboard_arrow_down</i>
     </div>
 </div>

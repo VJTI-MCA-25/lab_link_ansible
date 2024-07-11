@@ -68,5 +68,8 @@ To uninstall OpenSSH using Windows Settings:
 -   `rest_framework`
 -   `django-cors-headers`
 
-> TODO: Need to make a virtual environment for the project and make a `requirements.txt` file
+### TODO List:
+
+-   Need to make a virtual environment for the project and make a `requirements.txt` file
+-   Schedule a cron job to update the Package model everynight
 

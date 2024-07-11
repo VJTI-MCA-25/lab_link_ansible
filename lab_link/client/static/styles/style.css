@@ -10,6 +10,7 @@
 	--ptc: #1e2022;
 	--stc: #fff;
 	--highlight: #c9d6df;
+	--dark-highlight: #8394a0;
 	--selected: #52616b4d;
 	--success: green;
 	--error: red;
@@ -49,7 +50,7 @@ nav {
 }
 
 main {
-	margin-top: 2rem;
+	margin-top: 3rem;
 }
 
 .host-link {
@@ -105,6 +106,10 @@ span.new.badge {
 	max-width: 400px;
 }
 
+#install-modal {
+	max-width: 40vw;
+}
+
 .custom-highlight-text {
 	color: var(--sbc);
 }
@@ -119,11 +124,11 @@ span.new.badge {
 }
 
 .input-field .prefix.active {
-	color: var(--sbc);
+	color: var(--sbc) !important;
 }
 
 .input-field label.active {
-	color: var(--sbc);
+	color: var(--sbc) !important;
 }
 
 .options-container {
@@ -164,8 +169,77 @@ span.new.badge {
 	bottom: 3rem;
 }
 
-/* Add the disable class */
-.disable {
-	display: none;
+.message-container {
+	width: 100%;
+	text-align: center;
+	background-color: var(--highlight);
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5rem;
+	padding-left: 10rem;
+}
+
+.message-close-icon {
+	cursor: pointer;
+}
+
+.breadcrumb-container {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 3rem;
+}
+
+.custom-breadcrumb {
+	color: var(--dark-highlight);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.3rem;
+}
+
+.custom-breadcrumb::after {
+	content: "";
+	position: absolute;
+	height: 2px;
+	width: 0;
+	background-color: var(--dark-highlight);
+	bottom: -3px;
+	left: 0;
+	transition: width 0.2s ease-out;
+	transform-origin: left;
+}
+
+.custom-breadcrumb:last-child::after {
+	background-color: var(--sbc);
+}
+
+.custom-breadcrumb:not(:first-child)::before {
+	content: "\e5cc"; /* Ensure this unicode character is correct for your icon */
+	font-family: "Material Icons";
+	color: var(--ptc);
+	position: absolute;
+	left: -3rem;
+	top: 50%;
+	transform: translateY(-50%); /* Center vertically */
+	display: block;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 25px;
+	margin: 0 10px 0 8px;
+	-webkit-font-smoothing: antialiased;
+}
+
+.custom-breadcrumb:last-child {
+	color: var(--sbc);
+}
+
+.custom-breadcrumb:hover::after {
+	width: 100%;
 }
 

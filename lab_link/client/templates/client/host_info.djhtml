@@ -28,6 +28,11 @@
                         <a class="refresh-host waves-effect btn">Uncache & Refresh List
                             <i class="material-icons left">refresh</i>
                         </a>
+                        <a class="install-app-host waves-effect btn modal-trigger"
+                           href="#install-modal">
+                            Install New App
+                            <i class="material-icons left">file_download</i>
+                        </a>
                         <a href="{% url 'host_apps' host_id %}"
                            class="refresh-host waves-effect btn">
                             Manage Applications
@@ -37,6 +42,7 @@
                 </div>
             </div>
         </div>
+        {% include "client/install_modal.djhtml" %}
         {% include "scroll.djhtml" %}
     </section>
 {% endblock content %}

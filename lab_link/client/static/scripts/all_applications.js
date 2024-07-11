@@ -13,7 +13,7 @@ async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
 		const { data, isCached } = await getApplications(undefined, uncached);
-		if (isCached) showCachedMessage();
+		showCachedMessage(isCached);
 		appsData = data;
 		populateAllAppsTable(data);
 	} catch (error) {

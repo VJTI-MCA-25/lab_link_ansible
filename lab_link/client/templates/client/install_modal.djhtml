@@ -1,0 +1,29 @@
+<div id="install-modal" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="underline">Install App</h4>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="install-app-input">
+                    <label for="install-app-input">Package Name</label>
+                </div>
+            </div>
+            <div class="row right">
+                <div class="col">
+                    <a class="btn waves-effect waves-light">Install</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p>
+                        Note: You have to enter the <b>Package name</b>, rather than the <b>App name</b>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

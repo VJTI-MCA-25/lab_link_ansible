@@ -23,6 +23,16 @@
     <body>
         {% include "navbar.djhtml" %}
         {% include "sidenav.djhtml" %}
+        <div class="message-container hide">
+            <span class="message-text"></span>
+            <i class="material-icons message-close-icon"
+               onclick="document.querySelector('.message-container').classList.add('hide');">close</i>
+        </div>
+        {% if breadcrumbs %}
+            <div class="container breadcrumb-container">
+                {% for crumb in breadcrumbs %}<a href="{{ crumb.link }}" class="custom-breadcrumb">{{ crumb.text }}</a>{% endfor %}
+            </div>
+        {% endif %}
         <main>
             {% block content %}
             {% endblock content %}

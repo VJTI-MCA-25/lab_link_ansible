@@ -9,7 +9,7 @@ const loading = new Loading(container);
 async function getHosts(uncached = false) {
 	loading.setLoading(true);
 	const { data, isCached } = await pingHosts(uncached);
-	if (isCached) showCachedMessage();
+	showCachedMessage(isCached);
 	loading.setLoading(false);
 	populateHosts(data);
 }

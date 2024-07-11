@@ -1,5 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, snakeToTitleCase } from "./script.js";
+import { createElem, showCachedMessage, snakeToTitleCase } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -23,6 +23,7 @@ async function getHostData(uncached = false) {
 	setLoading(true);
 	try {
 		const { data, isCached } = await getHostDetails(hostId, uncached);
+		showCachedMessage(isCached);
 		setLoading(false);
 		populateHostData(data);
 	} catch (error) {
@@ -78,7 +79,7 @@ function populateHostData(data) {
 			keysList.forEach((key) => {
 				const value = data[key];
 				if (value) {
-					const div = createElem("div", "", { class: `key-value-container ${key} hover-highlight` });
+					const div = createElem("div", "", { class: `key-value-container ${key} custom-hover-highlight` });
 					if (Array.isArray(value)) {
 						div.classList.add("list");
 						const listKey = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
@@ -139,7 +140,9 @@ function populatePeripheralDevices(peripherals) {
 			highlightFlag = true;
 		}
 
-		const bodyLi = createElem("li", device, { class: `${highlightFlag ? "highlight" : ""} hover-highlight` });
+		const bodyLi = createElem("li", device, {
+			class: `${highlightFlag ? "custom-highlight-text" : ""} custom-hover-highlight`,
+		});
 		bodyUl.appendChild(bodyLi);
 	});
 
@@ -220,5 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (refreshBtn) {
 		refreshBtn.addEventListener("click", () => getHostData(true));
 	}
+
+	M.Modal.init(document.getElementById("install-modal"));
 });
 

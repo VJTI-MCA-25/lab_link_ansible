@@ -6,21 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		edge: "left",
 		draggable: true,
 	});
-
-	const goUp = document.querySelector(".go-up");
-	const goDown = document.querySelector(".go-down");
-
-	console.log(goUp, goDown);
-
-	if (goUp && goDown) {
-		goUp.addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		});
-
-		goDown.addEventListener("click", () => {
-			window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-		});
-	}
 });
 
 class AlertModal {
@@ -168,23 +153,14 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export function showCachedMessage() {
-	document.querySelector(".cache-message-container")?.remove();
-
-	const div = createElem(
-		"div",
-		"You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.",
-		{ class: "cache-message-container" }
-	);
-	const icon = createElem("i", "close", { class: "material-icons cache-message-close-icon" });
-
-	div.appendChild(icon);
-
-	icon.addEventListener("click", () => {
-		div.remove();
-	});
-
-	document.body.appendChild(div);
+export function showCachedMessage(show = true) {
+	const container = document.querySelector(".message-container");
+	if (!show) {
+		return container.classList.add("hide");
+	}
+	container.firstChild.textContent =
+		"You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.";
+	container.classList.remove("hide");
 }
 
 const alertModal = new AlertModal();
