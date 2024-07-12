@@ -7,11 +7,13 @@ from .models import App
 import logging
 from django.core.cache import cache
 import subprocess
+from functools import wraps
 
 logger = logging.getLogger(__name__)
 
 
 def error_handler(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         try:
             result = func(*args, **kwargs)
@@ -32,13 +34,17 @@ def generate_cache_key(prefix):
 
 def cache_response(get_cache_key):
     def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
+            request = args[0] if args else kwargs.get('request')
             cache_key = get_cache_key(*args, **kwargs)
-            cached_data = cache.get(cache_key)
-            if cached_data:
-                response = Response(cached_data, status=status.HTTP_200_OK)
-                response['X-Cache-Status'] = 'HIT'
-                return response
+
+            if not request.uncache:
+                cached_data = cache.get(cache_key)
+                if cached_data:
+                    response = Response(cached_data, status=status.HTTP_200_OK)
+                    response['X-Cache-Status'] = 'HIT'
+                    return response
 
             # Call the original function to get the data
             data = func(*args, **kwargs)
@@ -73,8 +79,8 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(lambda *args, **kwargs: 'ping_hosts')
+@error_handler
 def ping_hosts(request):
     r = run_ansible_playbook('ping.yml')
     transformed_output = helper.transform_ping_output(r.stats)
@@ -82,8 +88,8 @@ def ping_hosts(request):
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(lambda *args, **kwargs: 'inventory')
+@error_handler
 def inventory(request):
     inventory = helper.get_inventory()
     return inventory
@@ -93,8 +99,8 @@ host_cache_key = generate_cache_key('host_details')
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(host_cache_key)
+@error_handler
 def host_details(request, host_id):
     r = run_ansible_playbook('sys_info.yml', limit=host_id)
     transformed_data = helper.transform_sys_info(r.events)
@@ -102,8 +108,8 @@ def host_details(request, host_id):
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(lambda *args, **kwargs: 'peripherals')
+@error_handler
 def peripherals(request):
     r = run_ansible_playbook('peripherals.yml')
     transformed_data = helper.transform_peripherals_output(r.events)
@@ -172,8 +178,8 @@ host_apps_cache_key = generate_cache_key('host_applications')
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(host_apps_cache_key)
+@error_handler
 def get_host_applications(request, host_id):
     r = run_ansible_playbook('host_applications.yml', limit=host_id)
     transformed_data = helper.transform_host_applications(r.events)
@@ -181,8 +187,8 @@ def get_host_applications(request, host_id):
 
 
 @api_view(['GET'])
-@error_handler
 @cache_response(lambda *args, **kwargs: 'all_applications')
+@error_handler
 def get_applications_from_list(request):
     apps = list(App.objects.values_list('command', 'package_name'))
     app_list = [{'command': command, 'package_name': package_name}

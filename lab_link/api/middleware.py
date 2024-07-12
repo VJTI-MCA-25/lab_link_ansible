@@ -4,7 +4,6 @@ class CommonMiddleware:
 
     def __call__(self, request):
         request.uncache = request.GET.get('uncached') == 'true'
-        print(request.GET.get('uncached'))
         response = self.get_response(request)
 
         if 'X-Cache-Status' not in response:

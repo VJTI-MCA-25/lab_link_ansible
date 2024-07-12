@@ -129,6 +129,7 @@ def get_inventory():
         inventories=[
             '/home/aashay/lab_link_ansible/ansible/inventory/hosts.yml'],
         response_format='json',
+        quiet=True
     )
     if err:
         raise Exception(err)
