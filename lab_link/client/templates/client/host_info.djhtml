@@ -33,7 +33,7 @@
                             Install New App
                             <i class="material-icons left">file_download</i>
                         </a>
-                        <a href="{% url 'host_apps' host_id %}"
+                        <a href="{% url 'client_host_apps' host_id %}"
                            class="refresh-host waves-effect btn">
                             Manage Applications
                             <i class="material-icons left">archive</i>

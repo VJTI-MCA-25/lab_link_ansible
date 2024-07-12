@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <a href="{% url 'login' %}">Login Again</a>
+                <a href="{% url 'client_login' %}">Login Again</a>
             </div>
         </div>
     </div>

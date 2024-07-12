@@ -1,4 +1,5 @@
 import fuzzysort from "https://cdn.jsdelivr.net/npm/fuzzysort@3.0.2/+esm";
+import { searchPackage } from "./fetch.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 	var sidenav = document.querySelectorAll(".sidenav");
@@ -161,6 +162,31 @@ export function showCachedMessage(show = true) {
 	container.firstChild.textContent =
 		"You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.";
 	container.classList.remove("hide");
+}
+
+export class AutocompleteField {
+	constructor(element) {
+		this._element = element;
+		this._instance = M.Autocomplete.init(this._element, { data: {} });
+
+		this._element.addEventListener("input", async (e) => {
+			const value = e.target.value;
+			try {
+				const newData = await searchPackage(value);
+				console.log(newData);
+				this._instance.updateData(AutocompleteField.arrayToObject(newData));
+			} catch (error) {
+				console.error(error);
+			}
+		});
+	}
+
+	static arrayToObject(array) {
+		return array.reduce((obj, item) => {
+			obj[item] = null;
+			return obj;
+		}, {});
+	}
 }
 
 const alertModal = new AlertModal();

@@ -12,13 +12,16 @@
         </div>
     </li>
     <li>
-        <a href="{% url 'index' %}" class="link">Dashboard</a>
+        <a href="{% url 'client_index' %}" class="link">Dashboard</a>
     </li>
     <li>
-        <a href="{% url 'all_apps' %}" class="link">Applications</a>
+        <a href="{% url 'client_all_apps' %}" class="link">Applications</a>
     </li>
     <hr />
-    <li>
-        <a href="{% url 'logout' %}" class="link">Logout</a>
-    </li>
+    <form method="post" action="{% url 'client_logout' %}">
+        <li>
+            {% csrf_token %}
+            <button type="submit" width="100%" class="btn-flat">Logout</button>
+        </li>
+    </form>
 </ul>

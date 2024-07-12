@@ -1,11 +1,13 @@
 async function fetchWithHttpErrorHandling(url, options = {}) {
-	if (options.uncached) {
+	const { uncached, ...rest } = options;
+
+	if (uncached) {
 		const urlObj = new URL(url, window.location.origin);
 		urlObj.searchParams.append("uncached", "true");
 		url = urlObj.toString();
 	}
 
-	const response = await fetch(url, options);
+	const response = await fetch(url, rest);
 	if (!response.ok) {
 		throw { status: response.status, statusText: response.statusText };
 	}
@@ -33,5 +35,13 @@ async function getApplications(hostId, uncached = false) {
 	return await fetchWithHttpErrorHandling(url, { uncached });
 }
 
-export { pingHosts, getHostDetails, shutdownHost, getApplications };
+async function searchPackage(query) {
+	const url = new URL("/api/search-package", window.location.origin);
+	url.searchParams.append("q", query);
+	url.searchParams.append("limit", 100);
+	const { data } = await fetchWithHttpErrorHandling(url);
+	return data;
+}
+
+export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage };
 

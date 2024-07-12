@@ -1,5 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, showCachedMessage, snakeToTitleCase } from "./script.js";
+import { createElem, showCachedMessage, snakeToTitleCase, AutocompleteField } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -223,6 +223,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (refreshBtn) {
 		refreshBtn.addEventListener("click", () => getHostData(true));
 	}
+
+	const autocompleteElem = document.getElementById("install-app-input");
+	new AutocompleteField(autocompleteElem);
 
 	M.Modal.init(document.getElementById("install-modal"));
 });

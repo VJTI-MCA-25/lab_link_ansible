@@ -1,12 +1,12 @@
 <nav class="z-depth-3">
     <div class="nav-wrapper">
-        <a href="{% url 'index' %}" class="brand-logo center">LabLink</a>
+        <a href="{% url 'client_index' %}" class="brand-logo center">LabLink</a>
         <ul id="nav-mobile" class="left">
             <li data-target="slide-out" class="sidenav-trigger">
                 <i class="material-icons menu-icon">menu</i>
             </li>
         </ul>
-        <form class="right" method="post" action="{% url 'logout' %}">
+        <form class="right" method="post" action="{% url 'client_logout' %}">
             {% csrf_token %}
             <button class="btn-flat navbar-logout-text">Logout</button>
         </form>
