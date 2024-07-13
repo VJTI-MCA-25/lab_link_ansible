@@ -155,20 +155,28 @@ export function showMessage(show = true, message = "") {
 	container.classList.remove("hide");
 }
 
-export class AutocompleteField {
+export class ChipsAutocomplete {
 	constructor(element) {
 		this._element = element;
-		this._instance = M.Autocomplete.init(this._element, { data: {} });
-
-		this._element.addEventListener("input", async (e) => {
-			const value = e.target.value;
-			try {
-				const newData = await searchPackage(value);
-				this._instance.updateData(AutocompleteField.arrayToObject(newData));
-			} catch (error) {
-				console.error(error);
-			}
+		this._instance = M.Chips.init(this._element, {
+			autocompleteOptions: {
+				data: {},
+				limit: 5,
+				minLength: 1,
+			},
 		});
+
+		if (this._element) {
+			this._element.querySelector("input").addEventListener("input", async (e) => {
+				const value = e.target.value;
+				try {
+					const newData = await searchPackage(value);
+					this.updateAutocompleteData(newData);
+				} catch (error) {
+					console.error(error);
+				}
+			});
+		}
 	}
 
 	static arrayToObject(array) {
@@ -176,6 +184,12 @@ export class AutocompleteField {
 			obj[item] = null;
 			return obj;
 		}, {});
+	}
+
+	updateAutocompleteData(data) {
+		if (this._instance.hasAutocomplete) {
+			this._instance.autocomplete.updateData(ChipsAutocomplete.arrayToObject(data));
+		}
 	}
 }
 

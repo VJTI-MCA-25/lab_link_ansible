@@ -1,5 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, snakeToTitleCase, AutocompleteField } from "./script.js";
+import { createElem, snakeToTitleCase, ChipsAutocomplete } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -225,6 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	M.Modal.init(document.getElementById("install-modal"));
-	new AutocompleteField(document.getElementById("install-app-input"));
+	new ChipsAutocomplete(document.querySelector(".chips-autocomplete"));
 });
 

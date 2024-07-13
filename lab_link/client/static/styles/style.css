@@ -106,10 +106,6 @@ span.new.badge {
 	max-width: 400px;
 }
 
-#install-modal {
-	max-width: 40vw;
-}
-
 .custom-highlight-text {
 	color: var(--sbc);
 }
