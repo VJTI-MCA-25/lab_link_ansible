@@ -64,11 +64,6 @@ div.collapsible-body {
 	background-color: var(--bg2);
 }
 
-.highlight {
-	background-color: var(--sbc);
-	color: var(--stc);
-}
-
 .collapsible-body li {
 	cursor: default;
 }

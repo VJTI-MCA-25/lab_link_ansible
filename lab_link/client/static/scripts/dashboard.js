@@ -1,5 +1,5 @@
 import { pingHosts, shutdownHost } from "./fetch.js";
-import { Loading, showCachedMessage } from "./script.js";
+import { Loading } from "./script.js";
 
 const container = document.querySelector(".hosts-container");
 const refreshButton = document.querySelector(".refresh-list-button");
@@ -8,8 +8,7 @@ const loading = new Loading(container);
 
 async function getHosts(uncached = false) {
 	loading.setLoading(true);
-	const { data, isCached } = await pingHosts(uncached);
-	showCachedMessage(isCached);
+	const data = await pingHosts(uncached);
 	loading.setLoading(false);
 	populateHosts(data);
 }

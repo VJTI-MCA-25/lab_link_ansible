@@ -1,5 +1,5 @@
 import { getApplications } from "./fetch.js";
-import { Loading, createElem, showCachedMessage } from "./script.js";
+import { Loading, createElem } from "./script.js";
 import { downloadAsExcel__HTMLTable } from "./excel.js";
 
 const tbody = document.querySelector(".apps-table-body");
@@ -12,8 +12,7 @@ var appsData = null;
 async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
-		const { data, isCached } = await getApplications(undefined, uncached);
-		showCachedMessage(isCached);
+		const data = await getApplications(undefined, uncached);
 		appsData = data;
 		populateAllAppsTable(data);
 	} catch (error) {

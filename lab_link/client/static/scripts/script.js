@@ -154,13 +154,15 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export function showCachedMessage(show = true) {
+export function showMessage(
+	show = true,
+	message = "You are viewing a cached page. Use the Uncache & Refresh Button to get a new list."
+) {
 	const container = document.querySelector(".message-container");
 	if (!show) {
 		return container.classList.add("hide");
 	}
-	container.firstChild.textContent =
-		"You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.";
+	container.firstChild.textContent = message;
 	container.classList.remove("hide");
 }
 

@@ -1,5 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, showCachedMessage, snakeToTitleCase, AutocompleteField } from "./script.js";
+import { createElem, snakeToTitleCase, AutocompleteField } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -22,13 +22,11 @@ const keys = {
 async function getHostData(uncached = false) {
 	setLoading(true);
 	try {
-		const { data, isCached } = await getHostDetails(hostId, uncached);
-		showCachedMessage(isCached);
+		const data = await getHostDetails(hostId, uncached);
 		setLoading(false);
 		populateHostData(data);
 	} catch (error) {
 		setLoading(false);
-		setError(error);
 	}
 }
 
@@ -160,7 +158,7 @@ function populatePeripheralDevices(peripherals) {
 function populateDeviceCount(devices) {
 	const ul = createElem("ul", "", { class: "collapsible expandable" });
 	Object.entries(devices).map(([label, list]) => {
-		const li = createElem("li", "", { class: `${list.length === 0 ? "disable" : ""}` });
+		const li = createElem("li", "", { class: `${list.length === 0 ? "disable" : ""}`, "data-device": label });
 		const header = createElem("div", "", { class: "collapsible-header" });
 
 		const headerLabel = createElem("div", label, { class: "label" });
@@ -187,7 +185,9 @@ function populateDeviceCount(devices) {
 	M.Collapsible.init(ul, {
 		accordion: false,
 		onOpenStart: (elem) => {
-			if (elem.classList.contains("disable")) throw "No Devices";
+			const alertText = `No ${elem.dataset.device} Connected`;
+			if (elem.classList.contains("disable")) modalAlert(alertText);
+			throw alertText;
 		},
 	});
 	return ul;

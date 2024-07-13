@@ -1,3 +1,5 @@
+import { showMessage } from "./script.js";
+
 async function fetchWithHttpErrorHandling(url, options = {}) {
 	const { uncached, ...rest } = options;
 
@@ -13,7 +15,11 @@ async function fetchWithHttpErrorHandling(url, options = {}) {
 	}
 	const data = await response.json();
 	const isCached = response.headers.get("X-Cache-Status") === "HIT";
-	return { data, isCached };
+	const isFromDb = response.headers.get("X-Db-Status") === "HIT";
+	isFromDb
+		? showMessage(isFromDb, "The Host was Unreachable, you are viewing data saved from earlier request.")
+		: showMessage(isCached);
+	return data;
 }
 
 async function pingHosts(uncached = false) {
@@ -38,7 +44,7 @@ async function getApplications(hostId, uncached = false) {
 async function searchPackage(query) {
 	const url = new URL("/api/search-package", window.location.origin);
 	url.searchParams.append("q", query);
-	url.searchParams.append("limit", 100);
+	url.searchParams.append("limit", 10);
 	const { data } = await fetchWithHttpErrorHandling(url);
 	return data;
 }

@@ -22,7 +22,7 @@ class App(models.Model):
 
 
 class SystemInfo(models.Model):
-    host_id = models.CharField(max_length=100, unique=True)
+    host_id = models.CharField(max_length=100, unique=True, primary_key=True)
     system = models.CharField(max_length=100)
     release = models.CharField(max_length=100)
     type = models.CharField(max_length=100)

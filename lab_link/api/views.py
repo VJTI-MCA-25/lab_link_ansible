@@ -3,11 +3,13 @@ import ansible_runner
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import App
+from .models import App, SystemInfo
+from .serializers import SystemInfoSerializer
 import logging
 from django.core.cache import cache
 import subprocess
 from functools import wraps
+from .exceptions import *
 
 logger = logging.getLogger(__name__)
 
@@ -70,10 +72,10 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
     )
 
     if not r.stats and (limit is not None and limit != 'all'):
-        raise Exception("Host not found")
+        raise HostNotFound
 
     if r.rc != 0 and (limit is not None and limit != 'all'):
-        raise Exception("Host was unreachable")
+        raise HostUnreachable
 
     return r
 
@@ -95,16 +97,39 @@ def inventory(request):
     return inventory
 
 
-host_cache_key = generate_cache_key('host_details')
-
-
 @api_view(['GET'])
-@cache_response(host_cache_key)
 @error_handler
 def host_details(request, host_id):
-    r = run_ansible_playbook('sys_info.yml', limit=host_id)
-    transformed_data = helper.transform_sys_info(r.events)
-    return transformed_data
+    cache_key = f'host_details_{host_id}'
+
+    if not request.uncache:
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            response = Response(cached_data, status=status.HTTP_200_OK)
+            response['X-Cache-Status'] = 'HIT'
+            return response
+
+    try:
+        r = run_ansible_playbook('sys_info.yml', limit=host_id)
+        transformed_data = helper.transform_sys_info(r.events)
+        system_info, created = SystemInfo.objects.update_or_create(
+            host_id=host_id,
+            defaults=transformed_data
+        )
+        cache.set(cache_key, transformed_data, 60 * 15)
+        return Response(transformed_data, status=status.HTTP_200_OK)
+
+    except HostUnreachable:
+        if SystemInfo.objects.filter(host_id=host_id).exists():
+            system_info = SystemInfo.objects.get(host_id=host_id)
+            serializer = SystemInfoSerializer(system_info)
+            data = serializer.data
+            response = Response(data, status=status.HTTP_200_OK)
+            response['X-Db-Status'] = 'HIT'
+            return response
+        else:
+            raise Exception('System info not found for this host')
 
 
 @api_view(['GET'])

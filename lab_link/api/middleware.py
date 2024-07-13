@@ -8,6 +8,8 @@ class CommonMiddleware:
 
         if 'X-Cache-Status' not in response:
             response['X-Cache-Status'] = 'MISS'
+        if 'X-Db-Status' not in response:
+            response['X-Db-Status'] = 'MISS'
         # Optionally, add this for debugging purposes
         # response['X-Uncache'] = str(request.uncache).lower()
 
