@@ -404,10 +404,3 @@ def load_dummy_host_applications():
     with open(dummy_path, 'r') as f:
         dummy_shutdown = json.load(f)
     return dummy_shutdown
-
-
-def transform_search_package(stdout, limit=None):
-    packages = [line.split(" - ")[0] for line in stdout.splitlines()]
-    if limit:
-        return packages[:limit]
-    return packages

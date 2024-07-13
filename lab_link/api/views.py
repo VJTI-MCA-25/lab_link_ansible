@@ -225,18 +225,23 @@ def get_applications_from_list(request):
 
 
 @api_view(['GET'])
-@error_handler
 def search_package(request):
-    query = request.query_params.get("q")
+    query = request.query_params.get("q", "").strip().lower()
     limit = request.query_params.get("limit")
+
     if limit:
         try:
             limit = int(limit)
         except ValueError:
-            return Response({"error": "Invalid limit parameter"}, status=status.HTTP_400_BAD_REQUEST)
-    result = subprocess.run(
-        ["/home/aashay/lab_link_ansible/apt-search.sh", query], text=True, capture_output=True)
-    if result.returncode != 0:
-        raise Exception("Error executing apt-cache search")
-    transformed_data = helper.transform_search_package(result.stdout, limit)
-    return Response(transformed_data, status=status.HTTP_200_OK)
+            raise Exception("Invalid limit parameter")
+
+    try:
+        with open('/home/aashay/lab_link_ansible/package_list.txt', 'r') as file:
+            packages = file.read().splitlines()
+    except FileNotFoundError:
+        raise Exception("Package list file not found")
+
+    filtered_packages = [pkg for pkg in packages if query in pkg.lower()]
+    if limit:
+        filtered_packages = filtered_packages[:limit]
+    return Response(filtered_packages, status=status.HTTP_200_OK)

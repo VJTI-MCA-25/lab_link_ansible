@@ -224,9 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		refreshBtn.addEventListener("click", () => getHostData(true));
 	}
 
-	const autocompleteElem = document.getElementById("install-app-input");
-	new AutocompleteField(autocompleteElem);
-
 	M.Modal.init(document.getElementById("install-modal"));
+	new AutocompleteField(document.getElementById("install-app-input"));
 });
 

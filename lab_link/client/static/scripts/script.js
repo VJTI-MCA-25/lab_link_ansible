@@ -1,14 +1,6 @@
 import fuzzysort from "https://cdn.jsdelivr.net/npm/fuzzysort@3.0.2/+esm";
 import { searchPackage } from "./fetch.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-	var sidenav = document.querySelectorAll(".sidenav");
-	M.Sidenav.init(sidenav, {
-		edge: "left",
-		draggable: true,
-	});
-});
-
 class AlertModal {
 	constructor() {
 		this._modalElem = document.getElementById("alert-modal");
@@ -154,10 +146,7 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export function showMessage(
-	show = true,
-	message = "You are viewing a cached page. Use the Uncache & Refresh Button to get a new list."
-) {
+export function showMessage(show = true, message = "") {
 	const container = document.querySelector(".message-container");
 	if (!show) {
 		return container.classList.add("hide");
@@ -175,7 +164,6 @@ export class AutocompleteField {
 			const value = e.target.value;
 			try {
 				const newData = await searchPackage(value);
-				console.log(newData);
 				this._instance.updateData(AutocompleteField.arrayToObject(newData));
 			} catch (error) {
 				console.error(error);
@@ -195,4 +183,12 @@ const alertModal = new AlertModal();
 
 window.modalAlert = alertModal.alert.bind(alertModal);
 window.modalConfirm = alertModal.confirm.bind(alertModal);
+
+document.addEventListener("DOMContentLoaded", function () {
+	var sidenav = document.querySelectorAll(".sidenav");
+	M.Sidenav.init(sidenav, {
+		edge: "left",
+		draggable: true,
+	});
+});
 

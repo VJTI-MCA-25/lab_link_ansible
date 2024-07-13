@@ -30,7 +30,7 @@ def host(request, host_id):
                 "text": host_id,
                 "link": f"/host/{host_id}"
             }
-        ]
+        ],
     }
     return render(request, 'client/host_info.djhtml', context)
 
@@ -53,7 +53,7 @@ def applications(request, host_id=None):
                     "text": "Applications",
                     "link": f"/applications/{host_id}"
                 }
-            ]
+            ],
         }
         return render(request, 'client/host_applications.djhtml', context)
     else:

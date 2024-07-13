@@ -18,7 +18,7 @@ async function fetchWithHttpErrorHandling(url, options = {}) {
 	const isFromDb = response.headers.get("X-Db-Status") === "HIT";
 	isFromDb
 		? showMessage(isFromDb, "The Host was Unreachable, you are viewing data saved from earlier request.")
-		: showMessage(isCached);
+		: showMessage(isCached, "You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.");
 	return data;
 }
 
@@ -45,8 +45,7 @@ async function searchPackage(query) {
 	const url = new URL("/api/search-package", window.location.origin);
 	url.searchParams.append("q", query);
 	url.searchParams.append("limit", 10);
-	const { data } = await fetchWithHttpErrorHandling(url);
-	return data;
+	return await fetchWithHttpErrorHandling(url);
 }
 
 export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage };
