@@ -1,4 +1,4 @@
-class CommonMiddleware:
+class CacheMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -6,11 +6,7 @@ class CommonMiddleware:
         request.uncache = request.GET.get('uncached') == 'true'
         response = self.get_response(request)
 
-        if 'X-Cache-Status' not in response:
-            response['X-Cache-Status'] = 'MISS'
-        if 'X-Db-Status' not in response:
-            response['X-Db-Status'] = 'MISS'
-        # Optionally, add this for debugging purposes
-        # response['X-Uncache'] = str(request.uncache).lower()
+        if 'X-Data-Source' not in response:
+            response['X-Data-Source'] = 'RUN'
 
         return response

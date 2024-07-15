@@ -404,3 +404,13 @@ def load_dummy_host_applications():
     with open(dummy_path, 'r') as f:
         dummy_shutdown = json.load(f)
     return dummy_shutdown
+
+
+def transform_uninstall(events):
+    packages = {}
+    for event in events:
+        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Remove apt package":
+            for result in event['event_data']['res']['results']:
+                packages[result['item']] = not result['failed']
+
+    return packages

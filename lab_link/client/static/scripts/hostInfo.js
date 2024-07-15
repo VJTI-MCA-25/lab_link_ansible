@@ -1,5 +1,5 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, snakeToTitleCase, ChipsAutocomplete } from "./script.js";
+import { createElem, snakeToTitleCase } from "./script.js";
 
 const keys = {
 	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
@@ -23,10 +23,23 @@ async function getHostData(uncached = false) {
 	setLoading(true);
 	try {
 		const data = await getHostDetails(hostId, uncached);
-		setLoading(false);
 		populateHostData(data);
+		disableOptions(data.dataSource);
+		setLoading(false);
 	} catch (error) {
 		setLoading(false);
+	}
+}
+
+function disableOptions(source) {
+	if (source === "DATABASE") {
+		const manageApplicaionButton = document.querySelector(".applications-host");
+		const shutdownButton = document.querySelector(".shutdown-host");
+		const openTerminalButton = document.querySelector(".open-terminal");
+
+		[manageApplicaionButton, shutdownButton, openTerminalButton].forEach((button) =>
+			button.classList.add("disabled")
+		);
 	}
 }
 
@@ -223,8 +236,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (refreshBtn) {
 		refreshBtn.addEventListener("click", () => getHostData(true));
 	}
-
-	M.Modal.init(document.getElementById("install-modal"));
-	new ChipsAutocomplete(document.querySelector(".chips-autocomplete"));
 });
 

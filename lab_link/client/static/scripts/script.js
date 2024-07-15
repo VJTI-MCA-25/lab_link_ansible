@@ -11,7 +11,6 @@ class AlertModal {
 	}
 
 	alert(text, callback) {
-		this._modalElem.innerHTML = "";
 		const instance = M.Modal.init(this._modalElem, {});
 		const respond = () => {
 			instance.close();
@@ -21,29 +20,22 @@ class AlertModal {
 			}
 		};
 
-		const fragment = document.createDocumentFragment();
-		const content = createElem("div", "", { class: "modal-content" });
-		const header = createElem("h4", "Alert");
-		const p = createElem("p", text);
-		content.appendChild(header);
-		content.appendChild(p);
-		fragment.appendChild(content);
-
-		const footer = createElem("div", "", { class: "modal-footer" });
-		const confirmButton = createElem("a", "OK", {
-			class: "modal-close waves-effect waves-light btn-flat custom-highlight-text",
+		this._modalElem.innerHTML = `
+		<div class="modal-content">
+			<h4>Alert</h4>
+			<p>${text}</p>
+			<div class="modal-footer">
+				<a class="modal-close waves-effect waves-light btn-flat custom-highlight-text">OK</a>
+			</div>
+		</div>`;
+		this._modalElem.querySelector("a.modal-close").addEventListener("click", () => {
+			respond(true);
 		});
-		confirmButton.addEventListener("click", () => respond());
-		footer.appendChild(confirmButton);
-		fragment.appendChild(footer);
-
-		this._modalElem.appendChild(fragment);
 		instance.open();
 	}
 
 	confirm(text) {
 		return new Promise((resolve) => {
-			this._modalElem.innerHTML = "";
 			const instance = M.Modal.init(this._modalElem, {
 				onCloseEnd: () => resolve(false),
 			});
@@ -53,29 +45,66 @@ class AlertModal {
 				instance.destroy();
 			};
 
-			const fragment = document.createDocumentFragment();
+			this._modalElem.innerHTML = `
+			<div class="modal-content">
+				<h4>Confirm</h4>
+				<p>${text}</p>
+				<div class="modal-footer">
+					<a id="install-modal-confirm-button-accept" class="modal-close waves-effect waves-light btn danger">Yes</a>
+					<a id="install-modal-confirm-button-reject" class="modal-close waves-effect waves-light btn-flat custom-highlight-text">Cancel</a>
+				</div>
+			</div>`;
 
-			const content = createElem("div", "", { class: "modal-content" });
-			const header = createElem("h4", "Confirm");
-			const p = createElem("p", text);
-			content.appendChild(header);
-			content.appendChild(p);
-			fragment.appendChild(content);
+			this._modalElem
+				.querySelector("#install-modal-confirm-button-accept")
+				.addEventListener("click", () => respond(true));
+			this._modalElem
+				.querySelector("#install-modal-confirm-button-reject")
+				.addEventListener("click", () => respond(false));
+			instance.open();
+		});
+	}
 
-			const footer = createElem("div", "", { class: "modal-footer" });
-			const confirmButton = createElem("a", "Yes", {
-				class: "modal-close waves-effect waves-light btn danger",
+	strictConfirm({ text = "Are you sure?", html = "" }) {
+		return new Promise((resolve) => {
+			const manualConfirmText = "Confirm";
+			const instance = M.Modal.init(this._modalElem, {
+				onCloseEnd: () => {
+					resolve(false);
+				},
 			});
-			const cancelButton = createElem("a", "Cancel", {
-				class: "modal-close waves-effect waves-light btn-flat custom-highlight-text",
+			const respond = (response) => {
+				resolve(response);
+				instance.close();
+				instance.destroy();
+			};
+
+			this._modalElem.innerHTML = `
+			<div class="modal-content">
+				<h4>Alert</h4>
+				<p>${text}</p>
+				<div class="install-modal-html">${html}</div>
+				<input type='text' id="install-modal-strict-input" placeholder="Please enter '${manualConfirmText}'" />
+				<div class="modal-footer">
+					<a id="install-modal-strict-button-accept" class="modal-close waves-effect waves-light btn danger">Yes</a>
+					<a id="install-modal-strict-button-reject" class="modal-close waves-effect waves-light btn-flat custom-highlight-text">Cancel</a>
+				</div>
+			</div>`;
+
+			const confirmButton = this._modalElem.querySelector("#install-modal-strict-button-accept");
+			const cancelButton = this._modalElem.querySelector("#install-modal-strict-button-reject");
+
+			const input = this._modalElem.querySelector("#install-modal-strict-input");
+			input.addEventListener("input", (e) => {
+				if (e.target.value === manualConfirmText) {
+					confirmButton.classList.remove("disabled");
+				} else {
+					confirmButton.classList.add("disabled");
+				}
 			});
-			confirmButton.addEventListener("click", () => respond(true));
+
+			confirmButton.addEventListener("click", () => respond(input.value === manualConfirmText));
 			cancelButton.addEventListener("click", () => respond(false));
-			footer.appendChild(confirmButton);
-			footer.appendChild(cancelButton);
-			fragment.appendChild(footer);
-
-			this._modalElem.appendChild(fragment);
 			instance.open();
 		});
 	}
@@ -146,9 +175,9 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export function showMessage(show = true, message = "") {
+export function showMessage(message = "") {
 	const container = document.querySelector(".message-container");
-	if (!show) {
+	if (message == "") {
 		return container.classList.add("hide");
 	}
 	container.firstChild.textContent = message;
@@ -159,6 +188,8 @@ export class ChipsAutocomplete {
 	constructor(element) {
 		this._element = element;
 		this._instance = M.Chips.init(this._element, {
+			placeholder: "Package Name",
+			secondaryPlaceholder: "+Package",
 			autocompleteOptions: {
 				data: {},
 				limit: 5,
@@ -191,12 +222,17 @@ export class ChipsAutocomplete {
 			this._instance.autocomplete.updateData(ChipsAutocomplete.arrayToObject(data));
 		}
 	}
+
+	get chipsData() {
+		return this._instance.chipsData.map((item) => item["tag"]);
+	}
 }
 
 const alertModal = new AlertModal();
 
 window.modalAlert = alertModal.alert.bind(alertModal);
 window.modalConfirm = alertModal.confirm.bind(alertModal);
+window.modalStrictConfirm = alertModal.strictConfirm.bind(alertModal);
 
 document.addEventListener("DOMContentLoaded", function () {
 	var sidenav = document.querySelectorAll(".sidenav");

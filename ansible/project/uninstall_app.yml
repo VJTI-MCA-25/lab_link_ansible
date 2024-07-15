@@ -1,40 +1,17 @@
-- name: Uninstall an application
+- name: Uninstall applications and their dependencies
   become: yes
   hosts: all
   tasks:
-      - name: Check if binary exists
-        stat:
-            path: /usr/local/{{ app_name }}
-        register: binary_exists
-
-      - name: Remove binary (if it is a directory)
-        file:
-            path: /usr/local/{{ app_name }}
-            state: absent
-            recurse: yes
-        when: binary_exists.stat.isdir is defined and binary_exists.stat.isdir
-        ignore_errors: yes
-
-      - name: Remove binary (if it is a file)
-        file:
-            path: /usr/local/{{ app_name }}
-            state: absent
-        when: binary_exists.stat.isreg is defined and binary_exists.stat.isreg
-        ignore_errors: yes
-
-      - name: Remove desktop entry
-        file:
-            path: /usr/share/applications/{{ app_name }}.desktop
-            state: absent
-        ignore_errors: yes
-
       - name: Remove apt package
         apt:
-            name: "{{ app_name }}"
+            name: "{{ item }}"
             state: absent
+            purge: yes
+        loop: "{{ app_list }}"
         ignore_errors: yes
 
-      - name: Remove snap package
-        command: snap remove {{ app_name }}
-        ignore_errors: yes
+      - name: Autoremove unnecessary dependencies
+        apt:
+            autoremove: yes
+            state: latest
 

@@ -13,12 +13,12 @@
             </div>
             <div class="row right">
                 <div class="col">
-                    <a class="btn waves-effect waves-light">Install</a>
+                    <a class="btn waves-effect waves-light" id="install-button">Install</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
-                    <p>
+                    <p id="message">
                         Note: You have to enter the <b>Package name</b>, rather than the <b>App name</b>.
                     </p>
                 </div>

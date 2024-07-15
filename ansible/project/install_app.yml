@@ -1,9 +1,9 @@
-- name: Install an application
+- name: Install applications
   become: yes
   hosts: all
   tasks:
-      - name: Install app
+      - name: Install apps
         apt:
-            name: "{{ app_name }}"
+            name: "{{ item }}"
             state: present
-
+        loop: "{{ app_names }}"

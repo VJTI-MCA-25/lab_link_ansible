@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    'api.middleware.CommonMiddleware',
+    # 'api.middleware.CommonMiddleware',
 
     'corsheaders.middleware.CorsMiddleware',
 

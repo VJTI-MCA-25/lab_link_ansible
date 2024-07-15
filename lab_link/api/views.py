@@ -1,3 +1,4 @@
+from django.core.cache import cache
 import api.utils.helper as helper
 import ansible_runner
 from rest_framework import status
@@ -5,60 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import App, SystemInfo
 from .serializers import SystemInfoSerializer
-import logging
-from django.core.cache import cache
-import subprocess
-from functools import wraps
 from .exceptions import *
-
-logger = logging.getLogger(__name__)
-
-
-def error_handler(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            result = func(*args, **kwargs)
-            return result
-        except Exception as e:
-            logger.error(f"Error in view {func.__name__}: {str(e)}")
-            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    return wrapper
-
-
-def generate_cache_key(prefix):
-    def get_cache_key(*args, **kwargs):
-        # Extract the host_id from kwargs
-        host_id = kwargs.get('host_id')
-        return f'{prefix}_{host_id}'
-    return get_cache_key
-
-
-def cache_response(get_cache_key):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            request = args[0] if args else kwargs.get('request')
-            cache_key = get_cache_key(*args, **kwargs)
-
-            if not request.uncache:
-                cached_data = cache.get(cache_key)
-                if cached_data:
-                    response = Response(cached_data, status=status.HTTP_200_OK)
-                    response['X-Cache-Status'] = 'HIT'
-                    return response
-
-            # Call the original function to get the data
-            data = func(*args, **kwargs)
-
-            # Cache the data
-            cache.set(cache_key, data, 60 * 15)
-
-            # Return the data wrapped in a Response
-            return Response(data, status=status.HTTP_200_OK)
-
-        return wrapper
-    return decorator
+from .decorators import cached_view, error_handler, generate_cache_key, cache_middleware
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):
@@ -81,64 +30,61 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
 
 
 @api_view(['GET'])
-@cache_response(lambda *args, **kwargs: 'ping_hosts')
 @error_handler
+@cached_view(lambda *args, **kwargs: 'ping_hosts')
 def ping_hosts(request):
     r = run_ansible_playbook('ping.yml')
     transformed_output = helper.transform_ping_output(r.stats)
-    return transformed_output
+    return Response(transformed_output, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
-@cache_response(lambda *args, **kwargs: 'inventory')
 @error_handler
+@cached_view(lambda *args, **kwargs: 'inventory')
 def inventory(request):
     inventory = helper.get_inventory()
-    return inventory
+    return Response(inventory, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 @error_handler
+@cache_middleware
 def host_details(request, host_id):
-    cache_key = f'host_details_{host_id}'
-
+    cache_key = f"host_details_{host_id}"
     if not request.uncache:
         cached_data = cache.get(cache_key)
-
         if cached_data:
             response = Response(cached_data, status=status.HTTP_200_OK)
-            response['X-Cache-Status'] = 'HIT'
+            response['X-Data-Source'] = 'CACHE'
             return response
-
     try:
         r = run_ansible_playbook('sys_info.yml', limit=host_id)
         transformed_data = helper.transform_sys_info(r.events)
+        cache.set(cache_key, transformed_data, 60 * 15)
         system_info, created = SystemInfo.objects.update_or_create(
             host_id=host_id,
             defaults=transformed_data
         )
-        cache.set(cache_key, transformed_data, 60 * 15)
         return Response(transformed_data, status=status.HTTP_200_OK)
-
+    # If host is unreachable, check db for saved data
     except HostUnreachable:
-        if SystemInfo.objects.filter(host_id=host_id).exists():
-            system_info = SystemInfo.objects.get(host_id=host_id)
+        system_info = SystemInfo.objects.filter(host_id=host_id).first()
+        if system_info:
             serializer = SystemInfoSerializer(system_info)
-            data = serializer.data
-            response = Response(data, status=status.HTTP_200_OK)
-            response['X-Db-Status'] = 'HIT'
+            response = Response(serializer.data, status=status.HTTP_200_OK)
+            response['X-Data-Source'] = 'DATABASE'
             return response
         else:
-            raise Exception('System info not found for this host')
+            raise Exception('Host is unreachable and no cached data found.')
 
 
 @api_view(['GET'])
-@cache_response(lambda *args, **kwargs: 'peripherals')
 @error_handler
+@cached_view(lambda *args, **kwargs: 'peripherals')
 def peripherals(request):
     r = run_ansible_playbook('peripherals.yml')
     transformed_data = helper.transform_peripherals_output(r.events)
-    return transformed_data
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -177,19 +123,18 @@ def install_app(request, host_id='all'):
     return Response("Applications installed successfully", status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @error_handler
 def uninstall_app(request, host_id='all'):
-    app_name = request.query_params.get('app_name')
-    if not app_name:
-        raise Exception("app_name query parameter is required")
+    data = request.data
+    app_list = data.get('app_list', [])
+    if not app_list:
+        raise Exception('No applications specified for uninstallation')
     r = run_ansible_playbook('uninstall_app.yml', limit=host_id, extravars={
-        'app_name': app_name
+        'app_list': app_list
     })
-    failures = r.stats.get('failures', {})
-    if any(count > 0 for count in failures.values()):
-        raise Exception("Uninstallation Failed")
-    return Response("Applications uninstalled successfully", status=status.HTTP_200_OK)
+    transformed_data = helper.transform_uninstall(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -199,21 +144,18 @@ def check_logs(request, host_id='all'):
     return Response({}, status=status.HTTP_200_OK)
 
 
-host_apps_cache_key = generate_cache_key('host_applications')
-
-
 @api_view(['GET'])
-@cache_response(host_apps_cache_key)
 @error_handler
+@cached_view(lambda *args, **kwargs: generate_cache_key('host_apps')(*args, **kwargs))
 def get_host_applications(request, host_id):
     r = run_ansible_playbook('host_applications.yml', limit=host_id)
     transformed_data = helper.transform_host_applications(r.events)
-    return transformed_data
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
-@cache_response(lambda *args, **kwargs: 'all_applications')
 @error_handler
+@cached_view(lambda *args, **kwargs: 'all_applications')
 def get_applications_from_list(request):
     apps = list(App.objects.values_list('command', 'package_name'))
     app_list = [{'command': command, 'package_name': package_name}
@@ -221,10 +163,11 @@ def get_applications_from_list(request):
     r = run_ansible_playbook('applications_from_list.yml', extravars={
                              "app_list": app_list})
     transformed_data = helper.transform_applications_from_list(r.events)
-    return transformed_data
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
+@error_handler
 def search_package(request):
     query = request.query_params.get("q", "").strip().lower()
     limit = request.query_params.get("limit")

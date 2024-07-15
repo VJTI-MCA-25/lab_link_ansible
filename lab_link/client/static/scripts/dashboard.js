@@ -9,8 +9,9 @@ const loading = new Loading(container);
 async function getHosts(uncached = false) {
 	loading.setLoading(true);
 	const data = await pingHosts(uncached);
+	const { params, ...hosts } = data;
 	loading.setLoading(false);
-	populateHosts(data);
+	populateHosts(hosts);
 }
 
 function populateHosts(data) {

@@ -58,7 +58,7 @@
                         </a>
                         <a class="remove-button danger waves-effect waves-light btn">
                             <i class="material-icons left">delete</i>
-                            Remove Selected
+                            Uninstall Selected
                         </a>
                     </div>
                 </div>
@@ -73,5 +73,5 @@
 {% block extra_js %}
     <script src="{% static 'scripts/excel.js' %}" type="module"></script>
     <script>const packageNames = {{ keys_json|safe }}</script>
-    <script src="{% static 'scripts/all_applications.js' %}" type="module"></script>
+    <script src="{% static 'scripts/allApplications.js' %}" type="module"></script>
 {% endblock extra_js %}

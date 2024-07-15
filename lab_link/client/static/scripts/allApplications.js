@@ -12,9 +12,8 @@ var appsData = null;
 async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
-		const data = await getApplications(undefined, uncached);
-		appsData = data;
-		populateAllAppsTable(data);
+		appsData = await getApplications(false, uncached);
+		populateAllAppsTable(appsData);
 	} catch (error) {
 		console.error("Failed to fetch applications:", error);
 	} finally {

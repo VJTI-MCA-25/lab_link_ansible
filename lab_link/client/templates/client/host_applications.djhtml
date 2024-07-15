@@ -65,18 +65,20 @@
                             <i class="material-icons left">refresh</i>
                             Uncache & Refresh List
                         </a>
-                        <a class="install-button waves-effect waves-light btn">
-                            <i class="material-icons left">file_download</i>
+                        <a class="install-app-host waves-effect btn modal-trigger"
+                           href="#install-modal">
                             Install New App
+                            <i class="material-icons left">file_download</i>
                         </a>
                         <a class="remove-button danger waves-effect waves-light btn">
                             <i class="material-icons left">delete</i>
-                            Remove Selected
+                            Uninstall Selected
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+        {% include "client/install_modal.djhtml" %}
         {% include "scroll.djhtml" %}
     </section>
 {% endblock content %}
@@ -87,5 +89,6 @@
 {% block extra_js %}
     <script src="{% static 'scripts/excel.js' %}" type="module"></script>
     <script>const hostId = "{{ host_id }}";</script>
-    <script src="{% static 'scripts/host_applications.js' %}" type="module"></script>
+    <script src="{% static 'scripts/hostApplications.js' %}" type="module"></script>
+    <script type="module" src="{% static 'scripts/installModal.js' %}"></script>
 {% endblock extra_js %}

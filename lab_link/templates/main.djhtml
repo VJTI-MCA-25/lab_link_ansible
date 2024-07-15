@@ -38,8 +38,10 @@
             {% endblock content %}
         </main>
         {% include "modal.djhtml" %}
+        {% csrf_token %}
         <script>
         const preloaderHtml = `{% include 'preloader.djhtml' with subtext=True %}`;
+        window.CSRF_TOKEN = "{{ csrf_token }}"
         </script>
         <script src="{% static 'scripts/script.js' %}" type="module"></script>
         {% block extra_js %}

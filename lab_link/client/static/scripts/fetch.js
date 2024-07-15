@@ -1,52 +1,83 @@
 import { showMessage } from "./script.js";
 
-async function fetchWithHttpErrorHandling(url, options = {}) {
-	const { uncached, ...rest } = options;
+async function fetchWithErrorHandler(url, options = {}) {
+	const { params, includeSource, ...rest } = options;
 
-	if (uncached) {
-		const urlObj = new URL(url, window.location.origin);
-		urlObj.searchParams.append("uncached", "true");
-		url = urlObj.toString();
+	const urlObj = new URL(url, window.location.origin);
+	if (params) {
+		Object.entries(params).forEach(([key, value]) => {
+			if (value !== undefined) {
+				urlObj.searchParams.append(key, value.toString());
+			}
+		});
 	}
+	url = urlObj.toString();
 
 	const response = await fetch(url, rest);
 	if (!response.ok) {
+		showMessage(false, `Error: ${response.status} ${response.statusText}`);
 		throw { status: response.status, statusText: response.statusText };
 	}
+
 	const data = await response.json();
-	const isCached = response.headers.get("X-Cache-Status") === "HIT";
-	const isFromDb = response.headers.get("X-Db-Status") === "HIT";
-	isFromDb
-		? showMessage(isFromDb, "The Host was Unreachable, you are viewing data saved from earlier request.")
-		: showMessage(isCached, "You are viewing a cached page. Use the Uncache & Refresh Button to get a new list.");
+	const dataSource = response.headers.get("X-Data-Source");
+	showMessageBySource(dataSource);
+
+	if (includeSource) {
+		data.dataSource = dataSource;
+	}
+
 	return data;
 }
 
+function showMessageBySource(source) {
+	let message = "";
+	switch (source) {
+		case "CACHE":
+			message = "You are viewing a cached page. Press the Uncache & Refresh Button to get a new list.";
+			break;
+		case "DATABASE":
+			message = "The Host was unreachable, you are viewing data saved previously from an earlier request.";
+			break;
+	}
+	return showMessage(message);
+}
+
 async function pingHosts(uncached = false) {
-	return await fetchWithHttpErrorHandling("/api/ping", { uncached });
+	return fetchWithErrorHandler("/api/ping", { params: { uncached } });
 }
 
 async function getHostDetails(hostId, uncached = false) {
-	return await fetchWithHttpErrorHandling(`/api/host/${hostId}`, { uncached });
+	return fetchWithErrorHandler(`/api/host/${hostId}`, { params: { uncached }, includeSource: true });
 }
 
 async function shutdownHost(hostId) {
 	const url = hostId ? `/api/shutdown/${hostId}` : "/api/shutdown";
-	const { data } = await fetchWithHttpErrorHandling(url);
-	return data;
+	return fetchWithErrorHandler(url);
 }
 
 async function getApplications(hostId, uncached = false) {
-	const url = hostId ? `/api/applications/${hostId}` : "/api/applications";
-	return await fetchWithHttpErrorHandling(url, { uncached });
+	if (hostId) {
+		return fetchWithErrorHandler(`/api/applications/${hostId}`, { params: { uncached } });
+	}
+
+	return fetchWithErrorHandler("/api/applications/", { params: { uncached } });
 }
 
 async function searchPackage(query) {
-	const url = new URL("/api/search-package", window.location.origin);
-	url.searchParams.append("q", query);
-	url.searchParams.append("limit", 10);
-	return await fetchWithHttpErrorHandling(url);
+	return fetchWithErrorHandler("/api/search-package", { params: { q: query, limit: 10 } });
 }
 
-export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage };
+async function uninstallPackages(hostId, list) {
+	return fetchWithErrorHandler(`/api/uninstall/${hostId}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"X-CSRFToken": window.CSRF_TOKEN,
+		},
+		body: JSON.stringify({ app_list: list }),
+	});
+}
+
+export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage, uninstallPackages };
 

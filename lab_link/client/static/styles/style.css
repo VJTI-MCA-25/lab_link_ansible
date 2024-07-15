@@ -127,6 +127,10 @@ span.new.badge {
 	color: var(--sbc) !important;
 }
 
+.install-modal-html {
+	margin: 1rem 0.5rem;
+}
+
 .options-container {
 	position: fixed;
 	display: flex;
@@ -239,3 +243,6 @@ span.new.badge {
 	width: 100%;
 }
 
+input::placeholder {
+	color: var(--dark-highlight);
+}
