@@ -2,8 +2,13 @@
   become: yes
   hosts: all
   tasks:
+      - name: Gather facts about installed packages
+        package_facts:
+
       - name: Install apps
         apt:
             name: "{{ item }}"
             state: present
-        loop: "{{ app_names }}"
+        loop: "{{ app_list }}"
+        when: "item not in ansible_facts.packages"
+

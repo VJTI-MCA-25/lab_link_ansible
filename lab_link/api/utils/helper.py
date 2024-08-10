@@ -406,11 +406,13 @@ def load_dummy_host_applications():
     return dummy_shutdown
 
 
-def transform_uninstall(events):
+def transform_uninstall_install(events):
     packages = {}
     for event in events:
-        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Remove apt package":
-            for result in event['event_data']['res']['results']:
-                packages[result['item']] = not result['failed']
-
+        if event['event'].startswith('runner_item_on_'):
+            item = event.get('event_data', {}).get('res', {}).get('item')
+            if item:
+                status = event['event'].split('_')[-1]
+                status = 'success' if status == 'ok' else status
+                packages[item] = status
     return packages

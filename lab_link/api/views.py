@@ -17,7 +17,7 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
         limit=limit,
         extravars=extravars,
         rotate_artifacts=1,
-        quiet=True
+        # quiet=True
     )
 
     if not r.stats and (limit is not None and limit != 'all'):
@@ -50,24 +50,43 @@ def inventory(request):
 @error_handler
 @cache_middleware
 def host_details(request, host_id):
-    cache_key = f"host_details_{host_id}"
-    if not request.uncache:
-        cached_data = cache.get(cache_key)
-        if cached_data:
-            response = Response(cached_data, status=status.HTTP_200_OK)
-            response['X-Data-Source'] = 'CACHE'
-            return response
+
     try:
+        # Check if host is unreachable
+        is_unreachable = cache.get(f'unreachable_{host_id}')
+        if not request.uncache and is_unreachable:
+            raise HostUnreachable
+
+        cache_key = f"host_details_{host_id}"
+
+        # Check for ping cache and handle host failure
+        if not request.uncache:
+            # Retrieve data from cache if available
+            cached_data = cache.get(cache_key)
+            if cached_data:
+                response = Response(cached_data, status=status.HTTP_200_OK)
+                response['X-Data-Source'] = 'CACHE'
+                return response
+
+        # Run Ansible playbook if no cache is found
         r = run_ansible_playbook('sys_info.yml', limit=host_id)
         transformed_data = helper.transform_sys_info(r.events)
+
+        # Cache the transformed data for future requests
         cache.set(cache_key, transformed_data, 60 * 15)
+
+        # Update or create system info in the database
         system_info, created = SystemInfo.objects.update_or_create(
             host_id=host_id,
             defaults=transformed_data
         )
+
         return Response(transformed_data, status=status.HTTP_200_OK)
-    # If host is unreachable, check db for saved data
+
     except HostUnreachable:
+        # Sets this so that the playbook doesn't need to run again
+        cache.set(f'unreachable_{host_id}', True, 60 * 60)
+        # Handle unreachable host by retrieving data from the database
         system_info = SystemInfo.objects.filter(host_id=host_id).first()
         if system_info:
             serializer = SystemInfoSerializer(system_info)
@@ -75,7 +94,16 @@ def host_details(request, host_id):
             response['X-Data-Source'] = 'DATABASE'
             return response
         else:
-            raise Exception('Host is unreachable and no cached data found.')
+            return Response(
+                {'error': 'Host is unreachable and no cached data found.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    except Exception as e:
+        return Response(
+            {'error': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 
 @api_view(['GET'])
@@ -108,19 +136,18 @@ def wol(request, host_id):
     return Response(events, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @error_handler
 def install_app(request, host_id='all'):
-    app_name = request.query_params.get('app_name')
-    if not app_name:
-        raise Exception("app_name query parameter is required")
+    data = request.data
+    app_list = data.get('app_list', [])
+    if not app_list:
+        raise Exception('No applications specified for installation')
     r = run_ansible_playbook('install_app.yml', limit=host_id, extravars={
-        'app_name': app_name
+        'app_list': app_list
     })
-    failures = r.stats.get('failures', {})
-    if any(count > 0 for count in failures.values()):
-        raise Exception("Installation Failed")
-    return Response("Applications installed successfully", status=status.HTTP_200_OK)
+    transformed_data = helper.transform_uninstall_install(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -133,14 +160,14 @@ def uninstall_app(request, host_id='all'):
     r = run_ansible_playbook('uninstall_app.yml', limit=host_id, extravars={
         'app_list': app_list
     })
-    transformed_data = helper.transform_uninstall(r.events)
+    transformed_data = helper.transform_uninstall_install(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 @error_handler
-def check_logs(request, host_id='all'):
-    run_ansible_playbook('collect_logs.yml', limit=host_id)
+def check_logs(request, host_id):
+    run_ansible_playbook('ipmi.yml', limit=host_id)
     return Response({}, status=status.HTTP_200_OK)
 
 

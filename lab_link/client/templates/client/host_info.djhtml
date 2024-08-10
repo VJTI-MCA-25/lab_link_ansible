@@ -33,6 +33,11 @@
                             Manage Applications
                             <i class="material-icons left">archive</i>
                         </a>
+                        <a href="{% url 'client_logs' host_id %}"
+                           class="logs-host waves-effect btn">
+                            View Logs
+                            <i class="material-icons left">insert_drive_file</i>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,15 +1,14 @@
-- name: Check IPMI power status
-  hosts: ipmi_hosts
+- name: Check IPMI SEL logs for errors
+  hosts: all
   gather_facts: no
   tasks:
-      - name: Get power status
-        ipmi_power:
-            user: "mca"
-            password: "mca@123"
-            name: "status"
-        register: ipmi_result
+      - name: Fetch SEL logs
+        ipmi_sel:
+            user: "{{ ansible_user }}"
+            password: "{{ ansible_become_password }}"
+        register: sel_logs
 
-      - name: Print result
+      - name: Print SEL logs
         debug:
-            var: ipmi_result
+            var: sel_logs
 

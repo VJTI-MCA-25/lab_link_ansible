@@ -7,3 +7,4 @@
             src: /var/log/syslog
             dest: /tmp/logs/{{ inventory_hostname }}/
             flat: yes
+

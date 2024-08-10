@@ -69,7 +69,8 @@ async function searchPackage(query) {
 }
 
 async function uninstallPackages(hostId, list) {
-	return fetchWithErrorHandler(`/api/uninstall/${hostId}`, {
+	const url = hostId ? `/api/uninstall/${hostId}/` : "/api/uninstall/";
+	return fetchWithErrorHandler(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -79,5 +80,17 @@ async function uninstallPackages(hostId, list) {
 	});
 }
 
-export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage, uninstallPackages };
+async function installPackages(hostId, list) {
+	const url = hostId ? `/api/install/${hostId}/` : "/api/install/";
+	return fetchWithErrorHandler(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"X-CSRFToken": window.CSRF_TOKEN,
+		},
+		body: JSON.stringify({ app_list: list }),
+	});
+}
+
+export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage, uninstallPackages, installPackages };
 

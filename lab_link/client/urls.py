@@ -8,6 +8,7 @@ urlpatterns = [
     path('applications/', views.applications, name='client_all_apps'),
     path('applications/<str:host_id>/',
          views.applications, name='client_host_apps'),
+    path('logs/<str:host_id>/', views.logs, name='client_logs'),
     path('login/', auth_views.LoginView.as_view(template_name='client/login.djhtml'),
          name='client_login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='client/logout.djhtml'),

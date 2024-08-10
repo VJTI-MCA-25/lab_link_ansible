@@ -2,6 +2,9 @@
   become: yes
   hosts: all
   tasks:
+      - name: Gather facts about installed packages
+        package_facts:
+
       - name: Remove apt package
         apt:
             name: "{{ item }}"
@@ -9,6 +12,7 @@
             purge: yes
         loop: "{{ app_list }}"
         ignore_errors: yes
+        when: "item in ansible_facts.packages"
 
       - name: Autoremove unnecessary dependencies
         apt:

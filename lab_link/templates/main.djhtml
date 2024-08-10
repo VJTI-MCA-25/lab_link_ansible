@@ -12,6 +12,7 @@
               rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
                 defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
         {% block extra_css %}
         {% endblock extra_css %}
@@ -37,7 +38,6 @@
             {% block content %}
             {% endblock content %}
         </main>
-        {% include "modal.djhtml" %}
         {% csrf_token %}
         <script>
         const preloaderHtml = `{% include 'preloader.djhtml' with subtext=True %}`;

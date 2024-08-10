@@ -3,117 +3,98 @@ import { searchPackage } from "./fetch.js";
 
 class AlertModal {
 	constructor() {
-		this._modalElem = document.getElementById("alert-modal");
-
-		if (!this._modalElem) {
-			throw new Error("Modal element with id 'alert-modal' not found.");
-		}
+		// No need to manually create modal elements, as SweetAlert2 handles this
 	}
 
-	alert(text, callback) {
-		const instance = M.Modal.init(this._modalElem, {});
-		const respond = () => {
-			instance.close();
-			instance.destroy();
+	alert(html, callback, persistent = false) {
+		Swal.fire({
+			title: "Alert",
+			html: html,
+			icon: "info",
+			allowOutsideClick: !persistent,
+			allowEscapeKey: !persistent,
+			confirmButtonText: "OK",
+		}).then(() => {
 			if (callback && typeof callback === "function") {
 				callback();
 			}
-		};
-
-		this._modalElem.innerHTML = `
-		<div class="modal-content">
-			<h4>Alert</h4>
-			<p>${text}</p>
-			<div class="modal-footer">
-				<a class="modal-close waves-effect waves-light btn-flat custom-highlight-text">OK</a>
-			</div>
-		</div>`;
-		this._modalElem.querySelector("a.modal-close").addEventListener("click", () => {
-			respond(true);
 		});
-		instance.open();
+	}
+
+	async awaitAlert(htmlPromise, callback, persistent = false) {
+		Swal.fire({
+			title: "Alert",
+			html: preloaderHtml, // Preloader HTML injected here
+			allowOutsideClick: !persistent,
+			allowEscapeKey: !persistent,
+			showConfirmButton: false, // Hide the confirm button while loading
+		});
+
+		const html = await htmlPromise;
+
+		Swal.fire({
+			title: "Alert",
+			html: html,
+			icon: "info",
+			confirmButtonText: "OK",
+			allowOutsideClick: !persistent,
+			allowEscapeKey: !persistent,
+		}).then(() => {
+			if (callback && typeof callback === "function") {
+				callback();
+			}
+		});
 	}
 
 	confirm(text) {
-		return new Promise((resolve) => {
-			const instance = M.Modal.init(this._modalElem, {
-				onCloseEnd: () => resolve(false),
-			});
-			const respond = (response) => {
-				resolve(response);
-				instance.close();
-				instance.destroy();
-			};
-
-			this._modalElem.innerHTML = `
-			<div class="modal-content">
-				<h4>Confirm</h4>
-				<p>${text}</p>
-				<div class="modal-footer">
-					<a id="install-modal-confirm-button-accept" class="modal-close waves-effect waves-light btn danger">Yes</a>
-					<a id="install-modal-confirm-button-reject" class="modal-close waves-effect waves-light btn-flat custom-highlight-text">Cancel</a>
-				</div>
-			</div>`;
-
-			this._modalElem
-				.querySelector("#install-modal-confirm-button-accept")
-				.addEventListener("click", () => respond(true));
-			this._modalElem
-				.querySelector("#install-modal-confirm-button-reject")
-				.addEventListener("click", () => respond(false));
-			instance.open();
+		return Swal.fire({
+			title: "Confirm",
+			text: text,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+			cancelButtonText: "Cancel",
+		}).then((result) => {
+			return result.isConfirmed;
 		});
 	}
 
 	strictConfirm({ text = "Are you sure?", html = "" }) {
-		return new Promise((resolve) => {
-			const manualConfirmText = "Confirm";
-			const instance = M.Modal.init(this._modalElem, {
-				onCloseEnd: () => {
-					resolve(false);
-				},
-			});
-			const respond = (response) => {
-				resolve(response);
-				instance.close();
-				instance.destroy();
-			};
-
-			this._modalElem.innerHTML = `
-			<div class="modal-content">
-				<h4>Alert</h4>
-				<p>${text}</p>
-				<div class="install-modal-html">${html}</div>
-				<input type='text' id="install-modal-strict-input" placeholder="Please enter '${manualConfirmText}'" />
-				<div class="modal-footer">
-					<a id="install-modal-strict-button-accept" class="modal-close waves-effect waves-light btn danger">Yes</a>
-					<a id="install-modal-strict-button-reject" class="modal-close waves-effect waves-light btn-flat custom-highlight-text">Cancel</a>
-				</div>
-			</div>`;
-
-			const confirmButton = this._modalElem.querySelector("#install-modal-strict-button-accept");
-			const cancelButton = this._modalElem.querySelector("#install-modal-strict-button-reject");
-
-			const input = this._modalElem.querySelector("#install-modal-strict-input");
-			input.addEventListener("input", (e) => {
-				if (e.target.value === manualConfirmText) {
-					confirmButton.classList.remove("disabled");
-				} else {
-					confirmButton.classList.add("disabled");
+		const manualConfirmText = "Confirm";
+		return Swal.fire({
+			title: "Alert",
+			html: `
+                <p>${text}</p>
+                <div class="install-modal-html">${html}</div>
+                <input type='text' id="install-modal-strict-input" class="swal2-input" placeholder="Please enter '${manualConfirmText}'" />
+            `,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+			cancelButtonText: "Cancel",
+			preConfirm: () => {
+				const inputValue = Swal.getPopup().querySelector("#install-modal-strict-input").value;
+				if (inputValue !== manualConfirmText) {
+					Swal.showValidationMessage(`You need to enter '${manualConfirmText}'`);
+					return false;
 				}
-			});
-
-			confirmButton.addEventListener("click", () => respond(input.value === manualConfirmText));
-			cancelButton.addEventListener("click", () => respond(false));
-			instance.open();
+				return true;
+			},
+		}).then((result) => {
+			return result.isConfirmed;
 		});
 	}
 }
 
 export class Loading {
-	constructor(container, initial = false) {
+	constructor(container, initial = false, preserveOriginalContent = false) {
 		this._container = container;
 		this._status = initial;
+		this._preserve = preserveOriginalContent;
+
+		if (preserveOriginalContent) {
+			this._content = this._container.innerHTML;
+		}
 	}
 
 	get container() {
@@ -128,7 +109,11 @@ export class Loading {
 		if (state) {
 			this._container.innerHTML = preloaderHtml;
 		} else {
-			this._container.innerHTML = "";
+			if (this._preserve) {
+				this._container.innerHTML = this._content;
+			} else {
+				this._container.innerHTML = "";
+			}
 		}
 		this._status = state;
 	}
@@ -166,7 +151,7 @@ export class FuzzySearch {
 
 export function createElem(tag, text = "", attr = {}) {
 	const elem = document.createElement(tag);
-	elem.textContent = text;
+	elem.innerHTML = text;
 	Object.entries(attr).forEach(([key, value]) => elem.setAttribute(key, value));
 	return elem;
 }
@@ -231,6 +216,7 @@ export class ChipsAutocomplete {
 const alertModal = new AlertModal();
 
 window.modalAlert = alertModal.alert.bind(alertModal);
+window.modalAwaitAlert = alertModal.awaitAlert.bind(alertModal);
 window.modalConfirm = alertModal.confirm.bind(alertModal);
 window.modalStrictConfirm = alertModal.strictConfirm.bind(alertModal);
 

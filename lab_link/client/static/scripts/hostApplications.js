@@ -1,18 +1,21 @@
-import { getApplications, uninstallPackages } from "./fetch.js";
+import { getApplications, uninstallPackages, installPackages } from "./fetch.js";
 import { Loading, createElem, FuzzySearch } from "./script.js";
 import { downloadAsExcel__HTMLTable } from "./excel.js";
+import { InstallModal } from "./installModal.js";
+
+const loading = new Loading(document.querySelector(".preloader"));
+let fuzzy = new FuzzySearch([], { key: "name", all: true });
 
 const tbody = document.querySelector(".apps-table-body");
 const searchInput = document.getElementById("search");
 const selectAllButton = document.querySelector(".select-all-button");
-const loading = new Loading(document.querySelector(".preloader"));
 const searchCancel = document.querySelector(".search-cancel");
 const countDisplay = document.querySelector(".count");
 const removeButton = document.querySelector(".remove-button");
 const downloadExcelButton = document.querySelector(".download-excel-button");
 const uncacheAndRefresh = document.querySelector(".refresh-button");
+const installButton = document.querySelector(".install-app-host");
 
-let fuzzy = new FuzzySearch([], { key: "name", all: true });
 let lastChecked = 0;
 let allState = true;
 let appData = null;
@@ -22,8 +25,10 @@ async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
 		tbody.innerHTML = "";
+		toggleOptions(false);
 		const data = await getApplications(hostId, uncached);
 		populateHostAppsTable(data);
+		toggleOptions(true);
 		fuzzy.list = data;
 		appData = data;
 	} catch (error) {
@@ -31,6 +36,16 @@ async function getApps(uncached = false) {
 	} finally {
 		loading.setLoading(false);
 	}
+}
+
+function toggleOptions(show = true) {
+	[selectAllButton, downloadExcelButton, uncacheAndRefresh, installButton, removeButton].forEach((button) => {
+		if (!show) {
+			button.classList.add("disabled");
+		} else {
+			button.classList.remove("disabled");
+		}
+	});
 }
 
 // Populate table for host apps
@@ -137,6 +152,38 @@ function toggleAll() {
 	allState = !allState;
 }
 
+async function installAppsFromList(list) {
+	const htmlPromise = new Promise(async (resolve) => {
+		const response = await installPackages(hostId, list);
+		const html = getAppStatus(response);
+		resolve(html);
+	});
+	modalAwaitAlert(htmlPromise, () => getApps(true), true);
+}
+
+async function uninstallAppsFromList(list) {
+	const htmlPromise = new Promise(async (resolve) => {
+		const response = await uninstallPackages(hostId, list);
+		const html = getAppStatus(response, false);
+		resolve(html);
+	});
+	modalAwaitAlert(htmlPromise, () => getApps(true), true);
+}
+
+function getAppStatus(data, forInstall = true) {
+	const fragment = createElem("div");
+	const h5 = createElem("h5", `${forInstall ? "Installation" : "Removal"} Status`);
+	const ul = createElem("ul");
+	Object.entries(data).forEach(([key, value]) => {
+		const text = `${key}: <b>${value}</b>`;
+		const li = createElem("li", text, { class: value ? "custom-highlight-text" : "danger-text" });
+		ul.append(li);
+	});
+	fragment.appendChild(h5);
+	fragment.appendChild(ul);
+	return fragment.innerHTML;
+}
+
 // Handle Ctrl+A key press for selecting/deselecting all checkboxes
 document.addEventListener("keydown", (e) => {
 	if (e.ctrlKey && (e.key === "a" || e.key === "A")) {
@@ -179,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				selectedApps.length === 1 ? "the selected app?" : `all ${selectedApps.length} selected apps?`
 			}`;
 
-			// const modalConfirmRes = await modalConfirm(`Are you sure you want to remove ${confirmText}`);
 			const selectedAppNames = selectedApps.map((index) => appData[index].name);
 			const selectedAppsListHtml = `<ul>${selectedAppNames.map((item) => `<li>${item}</li>`).join("")}</ul>`;
 			const strictConfirmRes = await modalStrictConfirm({
@@ -187,8 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				html: selectedAppsListHtml,
 			});
 			if (strictConfirmRes) {
-				const response = await uninstallPackages(hostId, selectedAppNames);
-				console.log(response);
+				uninstallAppsFromList(selectedAppNames);
 			}
 		});
 	}
@@ -216,6 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (uncacheAndRefresh) {
 		uncacheAndRefresh.addEventListener("click", () => getApps(true));
 	}
+
+	new InstallModal(installAppsFromList);
 
 	M.Tooltip.init(document.querySelectorAll(".tooltipped"), {});
 });

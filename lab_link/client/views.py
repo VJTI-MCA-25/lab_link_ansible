@@ -76,3 +76,25 @@ def applications(request, host_id=None):
             ]
         }
         return render(request, 'client/all_applications.djhtml', context)
+
+
+@login_required
+def logs(request, host_id):
+    context = {
+        'host_id': host_id,
+        "breadcrumbs": [
+            {
+                "text": "Dashboard",
+                "link": "/"
+            },
+            {
+                "text": host_id,
+                "link": f"/host/{host_id}"
+            },
+            {
+                "text": "Logs",
+                "link": f"/logs/{host_id}"
+            }
+        ]
+    }
+    return render(request, 'client/logs.djhtml', context=context)

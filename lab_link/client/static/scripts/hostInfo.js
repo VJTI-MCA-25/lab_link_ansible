@@ -24,6 +24,7 @@ async function getHostData(uncached = false) {
 	try {
 		const data = await getHostDetails(hostId, uncached);
 		populateHostData(data);
+		console.log(data.dataSource);
 		disableOptions(data.dataSource);
 		setLoading(false);
 	} catch (error) {
@@ -32,15 +33,17 @@ async function getHostData(uncached = false) {
 }
 
 function disableOptions(source) {
-	if (source === "DATABASE") {
-		const manageApplicaionButton = document.querySelector(".applications-host");
-		const shutdownButton = document.querySelector(".shutdown-host");
-		const openTerminalButton = document.querySelector(".open-terminal");
+	const manageApplicaionButton = document.querySelector(".applications-host");
+	const shutdownButton = document.querySelector(".shutdown-host");
+	const openTerminalButton = document.querySelector(".open-terminal");
 
-		[manageApplicaionButton, shutdownButton, openTerminalButton].forEach((button) =>
-			button.classList.add("disabled")
-		);
-	}
+	[manageApplicaionButton, shutdownButton, openTerminalButton].forEach((button) => {
+		if (source === "DATABASE") {
+			button.classList.add("disabled");
+		} else {
+			button.classList.remove("disabled");
+		}
+	});
 }
 
 function setLoading(isLoading) {
