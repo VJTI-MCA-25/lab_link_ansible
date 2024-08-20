@@ -17,20 +17,22 @@ async function getHosts(uncached = false) {
 function populateHosts(data) {
 	let hosts = Object.keys(data);
 
-	hosts.forEach((host) => {
-		let div = document.createElement("div");
-		div.classList.add("host");
-		div.innerHTML = `
+	hosts
+		.sort((a, b) => a.localeCompare(b))
+		.forEach((host) => {
+			let div = document.createElement("div");
+			div.classList.add("host", "col", "s1");
+			div.innerHTML = `
 			<i class="${data[host].status} host-status material-icons">desktop_windows</i>
 			<div class=	"host-name">${host}</div>
 			<div class="host-ip">${data[host].ip}</div>
             `;
-		let a = document.createElement("a");
-		a.href = `/host/${host}`;
-		a.classList.add("host-link");
-		a.appendChild(div);
-		container.appendChild(a);
-	});
+			let a = document.createElement("a");
+			a.href = `/host/${host}`;
+			a.classList.add("host-link");
+			a.appendChild(div);
+			container.appendChild(a);
+		});
 }
 
 async function shutdownAllHosts() {

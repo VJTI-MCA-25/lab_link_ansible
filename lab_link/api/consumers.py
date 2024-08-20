@@ -17,6 +17,7 @@ class SSHConsumer(WebsocketConsumer):
 
         host_id = self.scope['url_route']['kwargs'].get('host_id')
         if not host_id:
+            self.send(text_data="Error: Host ID not provided.")
             self.close(code=4000)
             return
 
@@ -29,8 +30,9 @@ class SSHConsumer(WebsocketConsumer):
                 host=host_id,
                 quiet=True,
             )
+
             if err:
-                raise Exception(err)
+                raise Exception(f"Inventory error: {err}")
 
             host = out["_meta"]["hostvars"].get(host_id)
             if not host:
@@ -56,10 +58,23 @@ class SSHConsumer(WebsocketConsumer):
             self.channel = self.ssh.invoke_shell()
 
             self.command_thread = Thread(target=self.handle_commands)
+            self.command_thread.daemon = True
             self.command_thread.start()
 
             self.output_thread = Thread(target=self.listen_to_output)
+            self.output_thread.daemon = True
             self.output_thread.start()
+
+        except paramiko.AuthenticationException:
+            logger.error(
+                "Authentication failed, please verify your credentials.")
+            self.send(text_data="Error: Authentication failed.")
+            self.close(code=4001)
+
+        except paramiko.SSHException as e:
+            logger.error(f"SSH error: {e}")
+            self.send(text_data=f"Error: SSH error: {str(e)}")
+            self.close(code=4001)
 
         except Exception as e:
             logger.error(f"Connection error: {e}")
@@ -67,15 +82,27 @@ class SSHConsumer(WebsocketConsumer):
             self.close(code=4001)
 
     def disconnect(self, close_code):
-        if hasattr(self, 'channel') and self.channel:
-            self.channel.close()
-        if hasattr(self, 'ssh') and self.ssh:
-            self.ssh.close()
-        if hasattr(self, 'command_thread') and self.command_thread.is_alive():
-            self.command_queue.put(None)  # Signal command thread to exit
-            self.command_thread.join()
-        if hasattr(self, 'output_thread') and self.output_thread.is_alive():
-            self.output_thread.join()
+        try:
+            if hasattr(self, 'command_queue'):
+                self.command_queue.put(None)  # Signal command thread to exit
+
+            if hasattr(self, 'command_thread') and self.command_thread.is_alive():
+                self.command_thread.join(timeout=2)
+
+            if hasattr(self, 'output_thread') and self.output_thread.is_alive():
+                self.output_thread.join(timeout=2)
+
+            if hasattr(self, 'channel') and self.channel:
+                self.channel.close()
+
+            if hasattr(self, 'ssh') and self.ssh:
+                self.ssh.close()
+
+        except Exception as e:
+            logger.error(f"Error during disconnect: {e}")
+        finally:
+            # Make sure to close the WebSocket connection
+            super().disconnect(close_code)
 
     def receive(self, text_data):
         self.command_queue.put(text_data)
@@ -83,13 +110,12 @@ class SSHConsumer(WebsocketConsumer):
     def handle_commands(self):
         while True:
             try:
-                command = self.command_queue.get(
-                    timeout=1)  # Check every 1 second
+                command = self.command_queue.get(timeout=1)
                 if command is None:  # Exit signal received
                     break
                 self.channel.send(command + '\n')
             except Empty:
-                pass  # Queue is empty, continue waiting
+                continue  # Queue is empty, continue waiting
             except Exception as e:
                 logger.error(f"Error sending command: {e}")
                 break

@@ -6,12 +6,8 @@ urlpatterns = [
     path('inventory', views.inventory, name="api_inventory"),
     path('host/<str:host_id>', views.host_details, name="api_host_info"),
 
-    path('peripherals', views.peripherals, name="api_peripherals"),
     path('shutdown', views.shutdown, name="api_all_shutdown"),
     path('shutdown/<str:host_id>', views.shutdown, name="api_host_shutdown"),
-
-    path('wol/', views.wol, name="api_all_wol"),
-    path('wol/<str:host_id>', views.wol, name="api_host_wol"),
 
     path('install/', views.install_app, name="api_all_install_app"),
     path('install/<str:host_id>/', views.install_app,

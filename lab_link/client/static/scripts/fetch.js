@@ -20,7 +20,7 @@ async function fetchWithErrorHandler(url, options = {}) {
 	}
 
 	const data = await response.json();
-	const dataSource = response.headers.get("X-Data-Source");
+	const dataSource = response.headers.get("X-Data-Source") || "DATABASE";
 	showMessageBySource(dataSource);
 
 	if (includeSource) {

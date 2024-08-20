@@ -13,3 +13,6 @@ __pycache__/
 /media/
 .venv
 **/env/*
+add_key.sh
+migrations
+.pytest_cache

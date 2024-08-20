@@ -1,8 +1,4 @@
 from ansible_runner import get_inventory as get_inventory_from_ansible_runner
-import random
-import json
-from django.conf import settings
-import os
 
 
 def transform_ping_output(output):
@@ -44,23 +40,6 @@ def transform_ping_output(output):
     for host in result:
         result[host] = {"status": result[host], "ip": inventory[host]
                         ["ip"], "user": inventory[host]["user"]}
-    return result
-
-
-def generate_dummy_data():
-    """
-    Generates dummy data for IP addresses with random statuses.
-
-    Returns:
-        dict: A dictionary where the keys are IP addresses and the values are random statuses.
-    """
-    result = {}
-    for i in range(1, 25):
-        result[f"host_{i}"] = {
-            "status": random.choice(["success", "failed"]),
-            "ip": f"192.168.1.{i}",
-            "user": "mca"
-        }
     return result
 
 
@@ -110,6 +89,7 @@ def transform_inventory_output(out):
                      "user": details["ansible_user"]}
         if "mac_address" in details:
             host_info["mac_address"] = details["mac_address"]
+            host_info["broadcast_address"] = details["broadcast_address"]
         output[host] = host_info
     return output
 
@@ -138,55 +118,15 @@ def get_inventory():
         return transformed_output
 
 
-def load_dummy_peripherals():
-    """
-    Load dummy peripherals information from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the dummy peripherals information.
-    """
-    dummy_peripherals_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_peripherals.json')
-    with open(dummy_peripherals_path, 'r') as f:
-        dummy_peripherals = json.load(f)
-    return dummy_peripherals
-
-
-def transform_peripherals_output(events):
-    """
-    Transforms the output of events into a dictionary of peripherals.
-
-    Args:
-        events (list): A list of events.
-
-    Returns:
-        dict: A dictionary containing the peripherals information.
-
-    """
-    peripherals_dict = {}
+def extract_sys_info_events(events):
     for event in events:
-        if event['event'] == 'runner_on_ok':
-            if event['event_data']['task'] == "Print peripheral information":
-                peripherals_dict[event['event_data']['host']
-                                 ] = event['event_data']['res']["peripherals"]
-    return peripherals_dict
+        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Print collected information":
+            data = event['event_data']['res']['platform_info']
+            break
+    return data
 
 
-def load_dummy_sys_info():
-    """
-    Load dummy system information from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the dummy system information.
-    """
-    dummy_sys_info_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_sys_info.json')
-    with open(dummy_sys_info_path, 'r') as f:
-        dummy_sys_info = json.load(f)
-    return dummy_sys_info
-
-
-def transform_sys_info(events):
+def transform_sys_info(data):
     """
     Transforms the system information data by formatting the Python version and CPUs.
 
@@ -196,43 +136,57 @@ def transform_sys_info(events):
     Returns:
         dict: The transformed system information data.
     """
-    for event in events:
-        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Print collected information":
-            data = event['event_data']['res']['platform_info']
-            break
-
-    python_version = data['python_version']
-    python_version_str = "{}.{}.{} {} {}".format(
-        python_version["major"],
-        python_version["minor"],
-        python_version["micro"],
-        python_version["releaselevel"],
-        python_version["serial"]
-    )
-    data['python_version'] = python_version_str
-
     cpus = data['cpus']
     cpus_str = ["{} {}".format(cpus[i+1], cpus[i+2])
                 for i in range(0, len(cpus), 3)]
     data['cpus'] = cpus_str
 
-    data['cores'] = len(data['cpus'])
+    grouped_data = {
+        'Storage And Memory': {
+            'Memory': {
+                'Total': data['mem_total'],
+                'Used': data['mem_used'],
+                'Free': data['mem_free'],
+            },
+            'Disk': {
+                'Total': data['disk_total'],
+                'Used': data['disk_used'],
+                'Free': data['disk_free'],
+            },
+        },
+        'System Details': {
+            'System': data['system'],
+            'Release': data['release'],
+            'Architecture': data['architecture'],
+            'Type': data['type'],
+            'Version': data['version'],
+            'Hostname': data['hostname'],
+            'Uptime': data['uptime'],
+            'Users': data['users'],
+        },
+        'Specifications': {
+            'CPUs': data['cpus'],
+            'Core Count': data['cores'],
+        },
+        'Network': {
+            'Default IP': data['default_ip'],
+            'Network Interfaces': data['network_interfaces'],
+            'MAC Addresses': data['mac_addresses'],
+            'IPv4 Addresses': data['ipv4_addresses'],
+            'IPv6 Addresses': data['ipv6_addresses'],
+            'DNS Servers': data['dns_servers'],
+            'Gateway': data['gateway'],
+            'Domain': data['domain'],
+            'Timezone': data['timezone'],
+        },
+        'Other': {
+            'Locale': data['locale'],
+            'Python Version': data['python_version'],
+        },
+        'Peripheral Devices': data['peripheral_devices'],
+    }
 
-    return data
-
-
-def load_dummy_shutdown():
-    """
-    Load dummy shutdown information from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the dummy shutdown information.
-    """
-    dummy_shutdown_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_shutdown.json')
-    with open(dummy_shutdown_path, 'r') as f:
-        dummy_shutdown = json.load(f)
-    return dummy_shutdown
+    return grouped_data
 
 
 def transform_shutdown_output(events):
@@ -354,20 +308,6 @@ def transform_host_applications(events):
     return packages
 
 
-def load_dummy_applications_from_list():
-    """
-    Load applications installed from a given list from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the data.
-    """
-    dummy_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_applications_from_list.json')
-    with open(dummy_path, 'r') as f:
-        dummy_shutdown = json.load(f)
-    return dummy_shutdown
-
-
 def transform_applications_from_list(events):
     applications = {}
     for event in events:
@@ -392,20 +332,6 @@ def transform_applications_from_list(events):
     return applications
 
 
-def load_dummy_host_applications():
-    """
-    Load applications installed for a single host from a JSON file.
-
-    Returns:
-        dict: A dictionary containing the data.
-    """
-    dummy_path = os.path.join(
-        settings.BASE_DIR, 'api', 'utils', 'dummy_host_applications.json')
-    with open(dummy_path, 'r') as f:
-        dummy_shutdown = json.load(f)
-    return dummy_shutdown
-
-
 def transform_uninstall_install(events):
     packages = {}
     for event in events:
@@ -416,3 +342,8 @@ def transform_uninstall_install(events):
                 status = 'success' if status == 'ok' else status
                 packages[item] = status
     return packages
+
+
+def transform_logs(logs):
+    data = logs.splitlines()
+    return data

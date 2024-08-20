@@ -5,10 +5,10 @@ from .models import App, SystemInfo
 class AppSerializer(serializers.ModelSerializer):
     class Meta:
         model = App
-        fields = '__all__'
+        fields = ['name', 'version', 'description', 'url']
 
 
 class SystemInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemInfo
-        exclude = ['host_id']
+        fields = '__all__'

@@ -1,35 +1,138 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, snakeToTitleCase } from "./script.js";
-
-const keys = {
-	system_details: ["architecture", "system", "release", "type", "version", "hostname", "users", "uptime"],
-	specification: ["cpus", "cores", "memory", "disk_usage"],
-	network_details: [
-		"ip_address",
-		"network_interfaces",
-		"mac_addresses",
-		"ipv4_addresses",
-		"ipv6_addresses",
-		"dns_servers",
-		"gateway",
-		"domain",
-		"timezone",
-	],
-	other_details: ["locale", "python_version"],
-	peripherals_devices: ["peripherals"],
-};
+import { createElem, parseTime, snakeToTitleCase, titleToHyphenCase } from "./script.js";
 
 async function getHostData(uncached = false) {
 	setLoading(true);
 	try {
-		const data = await getHostDetails(hostId, uncached);
+		const { dataSource, ...data } = await getHostDetails(hostId, uncached);
 		populateHostData(data);
-		console.log(data.dataSource);
-		disableOptions(data.dataSource);
-		setLoading(false);
+		disableOptions(dataSource);
 	} catch (error) {
+		console.error("Error fetching host data:", error);
+	} finally {
 		setLoading(false);
 	}
+}
+
+function checkIfDevice(device) {
+	if (/mouse/gi.test(device)) return "Mouse";
+	if (/keyboard/gi.test(device)) return "Keyboard";
+	if (/cam/gi.test(device)) return "Camera";
+	return null;
+}
+
+function getPercentageUsed(used, total) {
+	if (!used || !total) return 0;
+	const usedValue = parseInt(used.match(/\d+/)?.[0] || 0);
+	const totalValue = parseInt(total.match(/\d+/)?.[0] || 1); // Prevent division by zero
+
+	return (usedValue / totalValue) * 100;
+}
+
+function populateHostData(data) {
+	const mainContainer = document.querySelector(".host-container");
+	mainContainer.innerHTML = "";
+
+	Object.entries(data).forEach(([key, value]) => {
+		const section = createElem("section", "", { class: `host-section ${titleToHyphenCase(key)}` });
+		const title = createElem("h4", key, { class: "section-title underline" });
+		const sectionData = createElem("div", "", { class: "section-data" });
+
+		if (key === "Peripheral Devices") {
+			const deviceCount = {
+				Mouse: 0,
+				Keyboard: 0,
+				Camera: 0,
+			};
+			value.forEach((device, index) => {
+				const deviceType = checkIfDevice(device);
+				if (deviceType) deviceCount[deviceType]++;
+				const div = createElem("div", device, {
+					class: `key-value-container peripheral-device-${index} ${deviceType || ""} custom-hover-highlight ${
+						deviceType ? "custom-highlight-text" : ""
+					} ${deviceType ? "tooltipped" : ""}`,
+					"data-position": "top",
+					"data-tooltip": deviceType ? `${deviceType}.` : "",
+				});
+				sectionData.append(div);
+			});
+
+			const deviceCountList = createElem("ul", "", { class: "device-count" });
+			Object.entries(deviceCount).forEach(([device, count]) => {
+				const li = createElem("li", `${device} Connected: ${count}`);
+				deviceCountList.append(li);
+			});
+			sectionData.append(deviceCountList);
+		} else if (key === "Storage And Memory") {
+			const storageMemoryContainer = createElem("div", "", { class: "storage-memory-container" });
+			const storage = createElem("div", "", { class: "storage" });
+			const memory = createElem("div", "", { class: "memory" });
+
+			const storageTitle = createElem("h5", "Storage", { class: "underline" });
+			const memoryTitle = createElem("h5", "Memory", { class: "underline" });
+
+			const storagePercentage = getPercentageUsed(value.Disk.Used, value.Disk.Total);
+			const maxStorage = createElem("div", "", { class: "storage-data total-container" });
+			const usedStorage = createElem("div", "", {
+				class: `storage-data used-container ${storagePercentage > 90 ? "danger" : ""}`,
+				style: `width: ${storagePercentage}%`,
+			});
+			const storageString = `<div>Total: <b>${value.Disk.Total}</b></div>
+									<div>Used: <b>${value.Disk.Used}</b></div>
+									<div>Available: <b>${value.Disk.Free}</b></div>`;
+			const stgStrContainer = createElem("span", storageString, { class: "storage-string-container" });
+
+			const memoryPercentage = getPercentageUsed(value.Memory.Used, value.Memory.Total);
+			const maxMemory = createElem("div", "", { class: "memory-total total-container" });
+			const usedMemory = createElem("div", "", {
+				class: `memory-used used-container ${memoryPercentage > 90 ? "danger" : ""}`,
+				style: `width: ${memoryPercentage}%`,
+			});
+			const memoryString = `<div>Total: <b>${value.Memory.Total}</b></div>
+									<div>Used: <b>${value.Memory.Used}</b></div>
+									<div>Available: <b>${value.Memory.Free}</b></div>`;
+			const memStrContainer = createElem("span", memoryString, { class: "memory-string-container" });
+
+			maxStorage.append(usedStorage);
+			storage.append(storageTitle, maxStorage, stgStrContainer);
+
+			maxMemory.append(usedMemory);
+			memory.append(memoryTitle, maxMemory, memStrContainer);
+
+			storageMemoryContainer.append(storage, memory);
+			sectionData.append(storageMemoryContainer);
+		} else {
+			Object.entries(value).forEach(([k, v]) => {
+				const div = createElem("div", "", {
+					class: `key-value-container ${titleToHyphenCase(k)} custom-hover-highlight`,
+				});
+				if (typeof v === "string" || typeof v === "number") {
+					const keyElem = createElem("span", snakeToTitleCase(k), { class: "key" });
+					const valueElem = createElem("span", k === "Uptime" ? parseTime(v) : v, { class: "value" });
+
+					div.append(keyElem, valueElem);
+				} else if (Array.isArray(v)) {
+					div.classList.add("list");
+					const keyElem = createElem("span", snakeToTitleCase(k), { class: "key" });
+					const ul = createElem("ul");
+					v.forEach((item) => {
+						const li = createElem("li", item);
+						ul.append(li);
+					});
+					div.append(keyElem, ul);
+				} else {
+					console.warn(`Unhandled data type for key: ${k}`, v);
+				}
+				sectionData.append(div);
+			});
+		}
+		section.append(title, sectionData);
+		mainContainer.append(section);
+	});
+
+	// Initialize tooltips after all elements are added to the DOM
+	const tooltipped = document.querySelectorAll(".tooltipped");
+	M.Tooltip.init(tooltipped, { enterDelay: 500, exitDelay: 100 });
 }
 
 function disableOptions(source) {
@@ -64,151 +167,6 @@ function setLoading(isLoading) {
 	}
 }
 
-function keyTextFormatter(key) {
-	const keyMappings = {
-		system: "OS",
-		ip_address: "IP Address",
-		network_interfaces: "Interface",
-		mac_addresses: "MAC Address",
-		ipv4_addresses: "IPv4 Address",
-		ipv6_addresses: "IPv6 Address",
-		dns_servers: "DNS Server",
-		cpus: "CPU",
-	};
-	return keyMappings[key] || snakeToTitleCase(key);
-}
-
-function populateHostData(data) {
-	const mainContainer = document.querySelector(".host-container");
-	mainContainer.innerHTML = "";
-
-	Object.entries(keys).forEach(([keySet, keysList]) => {
-		const section = createElem("section", "", { class: `host-section ${keySet}` });
-		const sectionTitle = createElem("h3", snakeToTitleCase(keySet), { class: "section-title underline" });
-		section.appendChild(sectionTitle);
-
-		const sectionData = createElem("div", "", { class: "section-data" });
-
-		if (keySet !== "peripherals_devices") {
-			keysList.forEach((key) => {
-				const value = data[key];
-				if (value) {
-					const div = createElem("div", "", { class: `key-value-container ${key} custom-hover-highlight` });
-					if (Array.isArray(value)) {
-						div.classList.add("list");
-						const listKey = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
-						div.appendChild(listKey);
-						const ul = createElem("ul");
-						value.forEach((item) => {
-							const listItem = createElem("li", key === "mac_addresses" ? item.toUpperCase() : item);
-							ul.appendChild(listItem);
-						});
-						div.appendChild(ul);
-					} else if (typeof value === "string" || typeof value === "number") {
-						const keySpan = createElem("span", `${keyTextFormatter(key)}:`, { class: "key" });
-						const valueSpan = createElem("span", value, { class: "value" });
-						div.appendChild(keySpan);
-						div.appendChild(valueSpan);
-					}
-					sectionData.appendChild(div);
-				}
-			});
-		} else {
-			const [all, deviceCount] = populatePeripheralDevices(data[keysList]);
-			sectionData.appendChild(all);
-			sectionData.appendChild(deviceCount);
-			section.appendChild(sectionData);
-		}
-
-		section.appendChild(sectionData);
-		mainContainer.appendChild(section);
-	});
-}
-
-function populatePeripheralDevices(peripherals) {
-	const ul = createElem("ul", "", { class: "collapsible" });
-	const li = createElem("li", "");
-	const header = createElem("div", "All Peripherals", { class: "collapsible-header" });
-	const body = createElem("div", "", { class: "collapsible-body" });
-	const bodyUl = createElem("ul");
-
-	const devices = {
-		Mouse: [],
-		Webcam: [],
-		Keyboard: [],
-	};
-
-	peripherals.forEach((device) => {
-		let highlightFlag = false;
-
-		if (/mouse/gi.test(device)) {
-			devices["Mouse"].push(device);
-			highlightFlag = true;
-		}
-		if (/cam/gi.test(device)) {
-			devices["Webcam"].push(device);
-			highlightFlag = true;
-		}
-		if (/keyboard/gi.test(device)) {
-			devices["Keyboard"].push(device);
-			highlightFlag = true;
-		}
-
-		const bodyLi = createElem("li", device, {
-			class: `${highlightFlag ? "custom-highlight-text" : ""} custom-hover-highlight`,
-		});
-		bodyUl.appendChild(bodyLi);
-	});
-
-	body.appendChild(bodyUl);
-	li.appendChild(header);
-	li.appendChild(body);
-	ul.appendChild(li);
-	M.Collapsible.init(ul, {});
-
-	const deviceCountDiv = populateDeviceCount(devices);
-
-	return [ul, deviceCountDiv];
-}
-
-function populateDeviceCount(devices) {
-	const ul = createElem("ul", "", { class: "collapsible expandable" });
-	Object.entries(devices).map(([label, list]) => {
-		const li = createElem("li", "", { class: `${list.length === 0 ? "disable" : ""}`, "data-device": label });
-		const header = createElem("div", "", { class: "collapsible-header" });
-
-		const headerLabel = createElem("div", label, { class: "label" });
-		const headerCount = createElem("span", list.length || "No", {
-			class: `new badge ${list.length === 0 ? "danger disable" : ""}`,
-			"data-badge-caption": `${list.length === 0 ? `${label} Connected` : `${label} Connected`}`,
-		});
-
-		header.appendChild(headerLabel);
-		header.appendChild(headerCount);
-
-		const body = createElem("div", "", { class: "collapsible-body" });
-
-		const bodyUl = createElem("ul");
-		list.map((item) => {
-			const bodyLi = createElem("li", item);
-			bodyUl.appendChild(bodyLi);
-		});
-		body.appendChild(bodyUl);
-		li.appendChild(header);
-		li.appendChild(body);
-		ul.appendChild(li);
-	});
-	M.Collapsible.init(ul, {
-		accordion: false,
-		onOpenStart: (elem) => {
-			const alertText = `No ${elem.dataset.device} Connected`;
-			if (elem.classList.contains("disable")) modalAlert(alertText);
-			throw alertText;
-		},
-	});
-	return ul;
-}
-
 document.addEventListener("DOMContentLoaded", () => {
 	getHostData();
 
@@ -226,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					const alertIcon = result[hostId]?.shutdown ? "info" : "error";
 					modalAlert(`${hostId} ${alertText}`);
 				} catch (err) {
-					console.error(err);
+					console.error("Error during shutdown:", err);
 					modalAlert("An error occurred while trying to switch off the host.");
 				}
 			}

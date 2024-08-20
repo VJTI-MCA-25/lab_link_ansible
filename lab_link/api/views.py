@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.core.cache import cache
 import api.utils.helper as helper
 import ansible_runner
@@ -8,16 +9,18 @@ from .models import App, SystemInfo
 from .serializers import SystemInfoSerializer
 from .exceptions import *
 from .decorators import cached_view, error_handler, generate_cache_key, cache_middleware
+from datetime import datetime
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):
     r = ansible_runner.run(
         private_data_dir='/home/aashay/lab_link_ansible/ansible',
         playbook=playbook,
-        limit=limit,
+        limit=limit,  # Limit to a specific host
         extravars=extravars,
-        rotate_artifacts=1,
-        # quiet=True
+        rotate_artifacts=1,  # Keep only the latest artifact
+        forks=10,  # Controls how many parallel processes are spawned
+        # quiet=True # Suppresses output
     )
 
     if not r.stats and (limit is not None and limit != 'all'):
@@ -33,6 +36,17 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
 @error_handler
 @cached_view(lambda *args, **kwargs: 'ping_hosts')
 def ping_hosts(request):
+    time_sync_cache_key = 'time_sync'
+    last_sync = cache.get(time_sync_cache_key)
+    current_time = datetime.now()
+
+    if not last_sync or (current_time - last_sync).total_seconds() > 3 * 3600:
+        time_sync_r = run_ansible_playbook('sync_time.yml')
+
+        # Check if the playbook ran successfully
+        if hasattr(time_sync_r, 'rc') and time_sync_r.rc == 0:
+            cache.set(time_sync_cache_key, current_time, timeout=3 * 3600)
+
     r = run_ansible_playbook('ping.yml')
     transformed_output = helper.transform_ping_output(r.stats)
     return Response(transformed_output, status=status.HTTP_200_OK)
@@ -50,15 +64,8 @@ def inventory(request):
 @error_handler
 @cache_middleware
 def host_details(request, host_id):
-
+    cache_key = f"host_details_{host_id}"
     try:
-        # Check if host is unreachable
-        is_unreachable = cache.get(f'unreachable_{host_id}')
-        if not request.uncache and is_unreachable:
-            raise HostUnreachable
-
-        cache_key = f"host_details_{host_id}"
-
         # Check for ping cache and handle host failure
         if not request.uncache:
             # Retrieve data from cache if available
@@ -68,51 +75,47 @@ def host_details(request, host_id):
                 response['X-Data-Source'] = 'CACHE'
                 return response
 
+        # Check if host is unreachable
+        is_unreachable = cache.get(f'unreachable_{host_id}')
+        if is_unreachable and not request.uncache:
+            raise HostUnreachable
+
         # Run Ansible playbook if no cache is found
-        r = run_ansible_playbook('sys_info.yml', limit=host_id)
-        transformed_data = helper.transform_sys_info(r.events)
+        try:
+            r = run_ansible_playbook('sys_info.yml', limit=host_id)
+            raw_data = helper.extract_sys_info_events(r.events)
+            transformed_data = helper.transform_sys_info(raw_data)
+        except Exception as e:
+            # Log or handle playbook execution errors
+            raise HostUnreachable(f"Error running playbook: {str(e)}")
 
         # Cache the transformed data for future requests
         cache.set(cache_key, transformed_data, 60 * 15)
 
-        # Update or create system info in the database
-        system_info, created = SystemInfo.objects.update_or_create(
-            host_id=host_id,
-            defaults=transformed_data
-        )
+        # Use update_or_create to create or update system info
+        with transaction.atomic():
+            SystemInfo.objects.update_or_create(
+                host_id=host_id,
+                defaults=raw_data
+            )
 
         return Response(transformed_data, status=status.HTTP_200_OK)
 
-    except HostUnreachable:
-        # Sets this so that the playbook doesn't need to run again
+    except HostUnreachable as e:
+        # Cache the unreachable status to avoid retrying too soon
         cache.set(f'unreachable_{host_id}', True, 60 * 60)
+
         # Handle unreachable host by retrieving data from the database
         system_info = SystemInfo.objects.filter(host_id=host_id).first()
         if system_info:
             serializer = SystemInfoSerializer(system_info)
-            response = Response(serializer.data, status=status.HTTP_200_OK)
+            transformed_data = helper.transform_sys_info(serializer.data)
+            response = Response(transformed_data, status=status.HTTP_200_OK)
             response['X-Data-Source'] = 'DATABASE'
             return response
         else:
-            return Response(
-                {'error': 'Host is unreachable and no cached data found.'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-    except Exception as e:
-        return Response(
-            {'error': str(e)},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
-
-
-@api_view(['GET'])
-@error_handler
-@cached_view(lambda *args, **kwargs: 'peripherals')
-def peripherals(request):
-    r = run_ansible_playbook('peripherals.yml')
-    transformed_data = helper.transform_peripherals_output(r.events)
-    return Response(transformed_data, status=status.HTTP_200_OK)
+            # Return a specific error response
+            raise Exception('Host details not found')
 
 
 @api_view(['GET'])
@@ -121,19 +124,6 @@ def shutdown(request, host_id='all'):
     r = run_ansible_playbook('shutdown.yml', limit=host_id)
     transformed_data = helper.transform_shutdown_output(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
-
-
-@api_view(['GET'])
-@error_handler
-def wol(request, host_id):
-    inventory = helper.get_inventory()
-    mac_address = inventory[host_id]['mac_address']
-    broadcast_address = helper.ip_to_broadcast(inventory[host_id]['ip'])
-    r = run_ansible_playbook('wol.yml', limit=host_id, extravars={
-        'mac_address': mac_address, 'broadcast_address': broadcast_address
-    })
-    events = [event['event'] for event in r.events]
-    return Response(events, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -166,8 +156,8 @@ def uninstall_app(request, host_id='all'):
 
 @api_view(['GET'])
 @error_handler
-def check_logs(request, host_id):
-    run_ansible_playbook('ipmi.yml', limit=host_id)
+def check_logs(request, host_id='all'):
+    r = run_ansible_playbook('collect_logs.yml', limit=host_id)
     return Response({}, status=status.HTTP_200_OK)
 
 
@@ -188,7 +178,7 @@ def get_applications_from_list(request):
     app_list = [{'command': command, 'package_name': package_name}
                 for command, package_name in apps]
     r = run_ansible_playbook('applications_from_list.yml', extravars={
-                             "app_list": app_list})
+        "app_list": app_list})
     transformed_data = helper.transform_applications_from_list(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
 

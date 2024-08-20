@@ -1,14 +1,61 @@
-- name: Install applications
+---
+- name: Attempt to install applications
   become: yes
   hosts: all
   tasks:
       - name: Gather facts about installed packages
         package_facts:
 
-      - name: Install apps
+      - name: Install apps using apt
         apt:
             name: "{{ item }}"
             state: present
         loop: "{{ app_list }}"
-        when: "item not in ansible_facts.packages"
+        when:
+            - ansible_facts.packages[item] is not defined
+            - "'apt' in ansible_facts.packages"
+        ignore_errors: yes
+
+      - name: Install apps using snap (non-classic)
+        snap:
+            name: "{{ item }}"
+            state: present
+        loop: "{{ app_list }}"
+        when:
+            - ansible_facts.packages[item] is not defined
+            - "'snap' in ansible_facts.packages"
+        register: snap_install_result
+        ignore_errors: yes
+
+      - name: Install apps using snap (classic)
+        snap:
+            name: "{{ item }}"
+            state: present
+            classic: yes
+        loop: "{{ app_list }}"
+        when:
+            - ansible_facts.packages[item] is not defined
+            - "'snap' in ansible_facts.packages"
+            - snap_install_result is failed
+        ignore_errors: yes
+
+      - name: Install apps using yum
+        yum:
+            name: "{{ item }}"
+            state: present
+        loop: "{{ app_list }}"
+        when:
+            - ansible_facts.packages[item] is not defined
+            - "'yum' in ansible_facts.packages"
+        ignore_errors: yes
+
+      - name: Install apps using dnf
+        dnf:
+            name: "{{ item }}"
+            state: present
+        loop: "{{ app_list }}"
+        when:
+            - ansible_facts.packages[item] is not defined
+            - "'dnf' in ansible_facts.packages"
+        ignore_errors: yes
 

@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class App(models.Model):
     name = models.CharField(max_length=200)
@@ -22,31 +20,36 @@ class App(models.Model):
 
 
 class SystemInfo(models.Model):
-    host_id = models.CharField(max_length=100, unique=True, primary_key=True)
+    host_id = models.CharField(
+        max_length=100, primary_key=True, unique=True, null=False, blank=False)
     system = models.CharField(max_length=100)
     release = models.CharField(max_length=100)
+    architecture = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     version = models.CharField(max_length=100)
     hostname = models.CharField(max_length=100)
-    architecture = models.CharField(max_length=100)
-    memory = models.CharField(max_length=100)
-    disk_usage = models.CharField(max_length=100)
-    ip_address = models.CharField(max_length=100)
-    users = models.CharField(max_length=100)
-    uptime = models.CharField(max_length=100)
+    uptime = models.BigIntegerField()
+    users = models.CharField(max_length=100, blank=True)
+    cpus = models.JSONField()
+    mem_total = models.CharField(max_length=50)
+    mem_free = models.CharField(max_length=50)
+    mem_used = models.CharField(max_length=50)
+    disk_total = models.CharField(max_length=100)
+    disk_used = models.CharField(max_length=100)
+    disk_free = models.CharField(max_length=100)
+    cores = models.IntegerField()
+    default_ip = models.CharField(max_length=50)
     network_interfaces = models.JSONField()
-    mac_addresses = models.JSONField()
+    mac_addresses = models.CharField(max_length=100)
     ipv4_addresses = models.JSONField()
     ipv6_addresses = models.JSONField()
     dns_servers = models.JSONField()
     gateway = models.CharField(max_length=100)
     domain = models.CharField(max_length=100, blank=True)
-    timezone = models.CharField(max_length=100)
-    locale = models.CharField(max_length=100)
-    python_version = models.CharField(max_length=100)
-    peripherals = models.JSONField()
-    cpus = models.JSONField()
-    cores = models.IntegerField()
+    timezone = models.CharField(max_length=50)
+    peripheral_devices = models.JSONField()
+    locale = models.CharField(max_length=50)
+    python_version = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.host_id} ({self.ip_address})"
+        return f"{self.host_id} ({self.system})"

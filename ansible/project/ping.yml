@@ -5,3 +5,4 @@
       - name: Ping all hosts
         ping:
         tags: ping
+

@@ -160,6 +160,10 @@ export function snakeToTitleCase(str) {
 	return str.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+export function titleToHyphenCase(str) {
+	return str.replace(/\s/g, "-").toLowerCase();
+}
+
 export function showMessage(message = "") {
 	const container = document.querySelector(".message-container");
 	if (message == "") {
@@ -211,6 +215,17 @@ export class ChipsAutocomplete {
 	get chipsData() {
 		return this._instance.chipsData.map((item) => item["tag"]);
 	}
+}
+
+export function parseTime(time /*inseconds*/) {
+	const hours = Math.floor(time / 3600);
+	const minutes = Math.floor((time % 3600) / 60);
+	const seconds = Math.floor(time % 60);
+	const timeString = ""
+		.concat(hours > 0 ? hours + "h " : "")
+		.concat(minutes > 0 ? minutes + "m " : "")
+		.concat(seconds > 0 ? seconds + "s " : "");
+	return timeString;
 }
 
 const alertModal = new AlertModal();

@@ -2,15 +2,8 @@
 ---
 - name: Collect system information from all hosts in the inventory
   hosts: all
+  gather_facts: yes
   tasks:
-      - name: Get IP address
-        shell: hostname -I | cut -d' ' -f1
-        register: ip_address
-
-      - name: Get system uptime
-        command: uptime
-        register: uptime_output
-
       - name: Get peripheral information
         include_tasks: peripherals_tasks.yml
 
@@ -19,27 +12,32 @@
             platform_info:
                 system: "{{ ansible_system }}"
                 release: "{{ ansible_distribution_release }}"
+                architecture: "{{ ansible_architecture }}"
                 type: "{{ ansible_machine }}"
                 version: "{{ ansible_distribution_version }}"
                 hostname: "{{ ansible_hostname }}"
-                architecture: "{{ ansible_architecture }}"
+                uptime: "{{ ansible_uptime_seconds }}"
+                users: "{{ ansible_user_id }}"
                 cpus: "{{ ansible_processor }}"
-                memory: "{{ ansible_memtotal_mb }} MB"
-                disk_usage: "{{ ansible_mounts[0].size_total | human_readable }}"
-                ip_address: "{{ ip_address.stdout }}"
-                users: "{{ ansible_user_id | default([]) }}"
-                uptime: "{{ uptime_output.stdout }}"
+                mem_total: "{{ (ansible_memory_mb.real.total | int * 1048576) | human_readable }}"
+                mem_used: "{{ (ansible_memory_mb.real.used | int * 1048576) | human_readable }}"
+                mem_free: "{{ (ansible_memory_mb.real.free | int * 1048576) | human_readable }}"
+                disk_total: "{{ ansible_mounts[0].size_total | human_readable }}"
+                disk_free: "{{ ansible_mounts[0].size_available | human_readable }}"
+                disk_used: "{{ (ansible_mounts[0].size_total - ansible_mounts[0].size_available) | int | human_readable }}"
+                cores: "{{ ansible_processor_nproc }}"
+                default_ip: "{{ ansible_default_ipv4.address | default('N/A') }}"
                 network_interfaces: "{{ ansible_interfaces }}"
-                mac_addresses: "{{ ansible_facts | dict2items | selectattr('value.macaddress', 'defined') | map(attribute='value.macaddress') | list }}"
+                mac_addresses: "{{ ansible_default_ipv4.macaddress | upper }}"
                 ipv4_addresses: "{{ ansible_all_ipv4_addresses }}"
                 ipv6_addresses: "{{ ansible_all_ipv6_addresses }}"
                 dns_servers: "{{ ansible_dns.nameservers }}"
                 gateway: "{{ ansible_default_ipv4.gateway }}"
                 domain: "{{ ansible_domain }}"
                 timezone: "{{ ansible_date_time.tz }}"
+                peripheral_devices: "{{ peripherals }}"
                 locale: "{{ ansible_env.LANG }}"
-                python_version: "{{ ansible_python.version }}"
-                peripherals: "{{ peripherals }}"
+                python_version: "{{ ansible_python_version }}"
 
       - name: Print collected information
         debug:

@@ -13,7 +13,6 @@
 	justify-content: center;
 	gap: 5px;
 	transition: transform 0.1s ease-out;
-	width: 100px;
 }
 
 .host-status {
@@ -45,3 +44,4 @@ i.host-status.success::before {
 i.host-status.failed::before {
 	background-color: var(--error);
 }
+

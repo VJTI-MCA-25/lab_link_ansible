@@ -1,0 +1,14 @@
+---
+- name: Sync time and ping remote hosts
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+      - name: Get the current time from the control machine
+        command: date +"%Y-%m-%d %H:%M:%S"
+        delegate_to: localhost
+        register: current_time
+
+      - name: Set the current time on the remote machines
+        command: date --set="{{ current_time.stdout }}"
+

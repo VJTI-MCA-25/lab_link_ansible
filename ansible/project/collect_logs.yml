@@ -1,10 +1,33 @@
-- name: Collect system logs
+---
+- name: Copy specific log files from remote machine to control machine
   hosts: all
-  become: yes
+  gather_facts: no
   tasks:
-      - name: Fetch logs
-        fetch:
-            src: /var/log/syslog
-            dest: /tmp/logs/{{ inventory_hostname }}/
-            flat: yes
+      - name: Ensure backup directory exists on control machine
+        delegate_to: localhost
+        file:
+            path: "/tmp/logs/{{ inventory_hostname }}/"
+            state: directory
 
+      - name: Check if log files are readable
+        stat:
+            path: "/var/log/{{ item }}"
+        register: log_file_status
+        with_items:
+            - boot.log
+            - syslog
+            - faillog
+            - wtmp
+            - lastlog
+            - dpkg.log
+            - kern.log
+
+      - name: Fetch the specified log files from /var/log
+        fetch:
+            src: "/var/log/{{ item.item }}"
+            dest: "/tmp/logs/{{ inventory_hostname }}/"
+            flat: yes
+            validate_checksum: no
+        loop: "{{ log_file_status.results }}"
+        loop_control:
+            loop_var: item

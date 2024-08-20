@@ -11,48 +11,54 @@ const uri = `ws://localhost:8000/ws/ssh/${hostId}/`;
 let terminalWindow = null;
 
 function createTerminalWindow() {
-	const terminal = new Terminal();
-	terminal.loadAddon(fitAddon);
-	terminal.loadAddon(webLinksAddon);
+	try {
+		const terminal = new Terminal();
+		terminal.loadAddon(fitAddon);
+		terminal.loadAddon(webLinksAddon);
 
-	const websocket = new WebSocket(uri);
-	websocket.onopen = () => {
-		const attachAddon = new AttachAddon(websocket);
-		terminal.loadAddon(attachAddon);
-		console.log("WebSocket connection opened.");
-	};
+		const websocket = new WebSocket(uri);
+		websocket.onopen = () => {
+			const attachAddon = new AttachAddon(websocket);
+			terminal.loadAddon(attachAddon);
+			console.log("WebSocket connection opened.");
+		};
 
-	websocket.onmessage = (event) => {
-		console.log("WebSocket message received:", event.data);
-	};
+		websocket.onmessage = (event) => {
+			console.log("WebSocket message received:", event.data);
+		};
 
-	websocket.onclose = () => {
-		console.log("WebSocket connection closed.");
-		terminalWindow.close();
-		terminal.dispose();
-		terminalWindow = null;
-	};
+		websocket.onclose = () => {
+			console.log("WebSocket connection closed.");
+			if (terminalWindow) terminalWindow.close();
+			terminal.dispose();
+			terminalWindow = null;
+		};
 
-	websocket.onerror = (error) => {
-		console.error("WebSocket error: ", error);
-		terminalWindow.close();
-		modalAlert("Something went wrong when connecting to the Remote Machine.");
-	};
+		websocket.onerror = (error) => {
+			console.error("WebSocket error: ", error);
+			if (terminalWindow) terminalWindow.close();
+			modalAlert("Something went wrong when connecting to the Remote Machine.");
+		};
 
-	terminalWindow = window.open("", "_blank", "width=800,height=600");
+		terminalWindow = window.open("", "_blank", "width=800,height=600");
 
-	terminalWindow.addEventListener("resize", () => {
-		fitAddon.fit();
-	});
+		terminalWindow.addEventListener("resize", () => {
+			fitAddon.fit();
+		});
 
-	terminalWindow.addEventListener("beforeunload", () => {
-		websocket.close();
-		terminal.reset();
-		terminal.dispose();
-		terminalWindow = null;
-	});
+		terminalWindow.addEventListener("beforeunload", () => {
+			websocket.close();
+			terminal.reset();
+			terminal.dispose();
+			terminalWindow = null;
+		});
 
-	setupTerminalWindow(terminal);
+		setupTerminalWindow(terminal);
+	} catch (error) {
+		console.error("Failed to initialize terminal: ", error);
+		if (terminalWindow) terminalWindow.close();
+		modalAlert("Failed to open terminal.");
+	}
 }
 
 function setupTerminalWindow(terminal) {
@@ -73,6 +79,7 @@ function setupTerminalWindow(terminal) {
 	terminal.open(terminalContainer);
 
 	terminalWindow.addEventListener("load", () => {
+		fitAddon.fit(); // Use the fitAddon to resize the terminal
 		terminal.focus();
 	});
 }
@@ -81,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.querySelector(".open-terminal").addEventListener("click", () => {
 		if (terminalWindow && !terminalWindow.closed) {
 			terminalWindow.focus();
+			return;
 		} else {
 			createTerminalWindow();
 		}
