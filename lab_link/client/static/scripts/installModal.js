@@ -13,7 +13,11 @@ export class InstallModal {
 		// Initialize the chips autocomplete
 		const chipsElem = this._modalElem.querySelector(".chips-autocomplete");
 		if (chipsElem) {
-			this._chipsInstance = new ChipsAutocomplete(chipsElem);
+			const autocompleteData = packagesList.reduce((acc, curr) => {
+				acc[curr] = null;
+				return acc;
+			}, {});
+			this._chipsInstance = new ChipsAutocomplete(chipsElem, autocompleteData);
 		} else {
 			throw new Error("Chips autocomplete element not found");
 		}

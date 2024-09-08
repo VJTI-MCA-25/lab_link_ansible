@@ -86,6 +86,7 @@
 {% endblock extra_css %}
 {% block extra_js %}
     <script>const hostId = "{{ host_id }}";</script>
+    <script>const packagesList = {{ packages | safe }};</script>
     <script src="{% static 'scripts/excel.js' %}" type="module"></script>
     <script src="{% static 'scripts/hostApplications.js' %}" type="module"></script>
     <script src="{% static 'scripts/installModal.js' %}" type="module"></script>

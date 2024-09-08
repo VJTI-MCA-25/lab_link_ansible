@@ -92,5 +92,24 @@ async function installPackages(hostId, list) {
 	});
 }
 
-export { pingHosts, getHostDetails, shutdownHost, getApplications, searchPackage, uninstallPackages, installPackages };
+async function getLogs(hostId) {
+	return fetchWithErrorHandler(`/api/logs/${hostId}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			"X-CSRFToken": window.CSRF_TOKEN,
+		},
+	});
+}
+
+export {
+	pingHosts,
+	getHostDetails,
+	shutdownHost,
+	getApplications,
+	searchPackage,
+	uninstallPackages,
+	installPackages,
+	getLogs,
+};
 

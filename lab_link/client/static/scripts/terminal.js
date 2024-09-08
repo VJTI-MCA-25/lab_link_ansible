@@ -12,11 +12,15 @@ let terminalWindow = null;
 
 function createTerminalWindow() {
 	try {
-		const terminal = new Terminal();
+		const terminal = new Terminal({
+			disableStdin: false, // Ensures input is handled
+			cursorBlink: true, // Optional: make cursor blink
+		});
 		terminal.loadAddon(fitAddon);
 		terminal.loadAddon(webLinksAddon);
 
 		const websocket = new WebSocket(uri);
+
 		websocket.onopen = () => {
 			const attachAddon = new AttachAddon(websocket);
 			terminal.loadAddon(attachAddon);
@@ -81,6 +85,14 @@ function setupTerminalWindow(terminal) {
 	terminalWindow.addEventListener("load", () => {
 		fitAddon.fit(); // Use the fitAddon to resize the terminal
 		terminal.focus();
+	});
+
+	// Prevent default behavior when terminal has focus to avoid double entry
+	terminal.onKey(({ domEvent }) => {
+		const printable = domEvent.key.length === 1;
+		if (printable && !domEvent.ctrlKey && !domEvent.altKey && !domEvent.metaKey) {
+			domEvent.preventDefault();
+		}
 	});
 }
 

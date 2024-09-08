@@ -20,7 +20,7 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
         extravars=extravars,
         rotate_artifacts=1,  # Keep only the latest artifact
         forks=10,  # Controls how many parallel processes are spawned
-        # quiet=True # Suppresses output
+        quiet=True  # Suppresses output
     )
 
     if not r.stats and (limit is not None and limit != 'all'):
@@ -156,9 +156,11 @@ def uninstall_app(request, host_id='all'):
 
 @api_view(['GET'])
 @error_handler
-def check_logs(request, host_id='all'):
+@cached_view(lambda *args, **kwargs: generate_cache_key('host_logs')(*args, **kwargs))
+def check_logs(request, host_id):
     r = run_ansible_playbook('collect_logs.yml', limit=host_id)
-    return Response({}, status=status.HTTP_200_OK)
+    transformed_data = helper.transform_logs(r.events)
+    return Response(transformed_data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

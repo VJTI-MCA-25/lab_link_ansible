@@ -1,0 +1,35 @@
+.logs-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.log {
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	cursor: pointer;
+	width: 200px;
+	height: auto !important;
+	line-height: initial !important;
+}
+
+.log i {
+	font-size: 3rem;
+}
+
+.content-container {
+	padding: 1rem;
+	border: 1px solid #ccc;
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+body {
+	margin-bottom: 5rem;
+}

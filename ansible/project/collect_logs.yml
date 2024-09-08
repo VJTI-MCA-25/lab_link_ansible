@@ -3,31 +3,43 @@
   hosts: all
   gather_facts: no
   tasks:
-      - name: Ensure backup directory exists on control machine
-        delegate_to: localhost
-        file:
-            path: "/tmp/logs/{{ inventory_hostname }}/"
-            state: directory
-
-      - name: Check if log files are readable
-        stat:
-            path: "/var/log/{{ item }}"
-        register: log_file_status
+      - name: Check if log files are readable and gather their content
+        command: cat /var/log/{{ item }}
+        register: log_file_contents
+        ignore_errors: yes
         with_items:
             - boot.log
             - syslog
-            - faillog
-            - wtmp
-            - lastlog
             - dpkg.log
             - kern.log
 
-      - name: Fetch the specified log files from /var/log
-        fetch:
-            src: "/var/log/{{ item.item }}"
-            dest: "/tmp/logs/{{ inventory_hostname }}/"
-            flat: yes
-            validate_checksum: no
-        loop: "{{ log_file_status.results }}"
-        loop_control:
-            loop_var: item
+      - name: Get lastlog command output
+        command: lastlog
+        register: lastlog_output
+        ignore_errors: yes
+
+      - name: Get faillog command output
+        command: faillog
+        register: faillog_output
+        ignore_errors: yes
+
+      - name: Create a map of log file contents
+        set_fact:
+            logs_map: "{{ logs_map | default({}) | combine({item.item: item.stdout}) }}"
+        with_items: "{{ log_file_contents.results }}"
+        when: item.stdout is defined and item.stdout != ""
+
+      - name: Add lastlog output to the map
+        set_fact:
+            logs_map: "{{ logs_map | combine({'lastlog': lastlog_output.stdout}) }}"
+        when: lastlog_output.stdout is defined and lastlog_output.stdout != ""
+
+      - name: Add faillog output to the map
+        set_fact:
+            logs_map: "{{ logs_map | combine({'faillog': faillog_output.stdout}) }}"
+        when: faillog_output.stdout is defined and faillog_output.stdout != ""
+
+      - name: Print all the logs
+        debug:
+            msg: "{{ logs_map }}"
+

@@ -70,6 +70,10 @@ To uninstall OpenSSH using Windows Settings:
 
 ### TODO List:
 
--   [ ] Need to make a virtual environment for the project and make a `requirements.txt` file
+-   [x] Need to make a virtual environment for the project and make a `requirements.txt` file
 -   [x] Schedule a cron job to update the Package model everynight
+-   [ ] Make ansible inventory dynamic
+-   [ ] Add the ability to add a new remote machine and remove an existing remote machine
+-   [ ] Add the ability to multiselect remote machines from the dashboard
+-   [ ] Serve frontend from the same app
 

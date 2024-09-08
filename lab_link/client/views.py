@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from api.models import App
 import json
+import os
+import subprocess
 
 
 @login_required
@@ -38,6 +40,9 @@ def host(request, host_id):
 @login_required
 def applications(request, host_id=None):
     if host_id:
+        output = subprocess.check_output(
+            "apt-cache search . | awk '{print $1}'", shell=True)
+        packages = output.decode('utf-8').split('\n')
         context = {
             'host_id': host_id,
             "breadcrumbs": [
@@ -54,6 +59,7 @@ def applications(request, host_id=None):
                     "link": f"/applications/{host_id}"
                 }
             ],
+            'packages': packages
         }
         return render(request, 'client/host_applications.djhtml', context)
     else:

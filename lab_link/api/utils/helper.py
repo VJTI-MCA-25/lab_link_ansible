@@ -138,7 +138,7 @@ def transform_sys_info(data):
     """
     cpus = data['cpus']
     cpus_str = ["{} {}".format(cpus[i+1], cpus[i+2])
-                for i in range(0, len(cpus), 3)]
+                for i in range(0, len(cpus) - 1, 3)]
     data['cpus'] = cpus_str
 
     grouped_data = {
@@ -344,6 +344,7 @@ def transform_uninstall_install(events):
     return packages
 
 
-def transform_logs(logs):
-    data = logs.splitlines()
-    return data
+def transform_logs(events):
+    for event in events:
+        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Print all the logs":
+            return event['event_data']['res']['msg']

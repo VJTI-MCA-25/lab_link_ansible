@@ -18,7 +18,6 @@ urlpatterns = [
     path('uninstall/<str:host_id>/', views.uninstall_app,
          name="api_host_uninstall_app"),
 
-    path('logs', views.check_logs, name="api_all_logs"),
     path('logs/<str:host_id>', views.check_logs, name="api_host_logs"),
 
     path('applications/<str:host_id>', views.get_host_applications,
