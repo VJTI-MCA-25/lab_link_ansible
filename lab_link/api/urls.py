@@ -24,6 +24,4 @@ urlpatterns = [
          name="api_host_applications"),
     path('applications/', views.get_applications_from_list,
          name="api_all_applications"),
-
-    path('search-package/', views.search_package, name="api_search_package")
 ]

@@ -13,9 +13,12 @@
         <div class="row">
             <div class="col s12 logs-container"></div>
         </div>
-        <div class="row">
-            <div class="col right">
-                <a class="waves-effect waves-light btn">Download Logs</a>
+        <div class="row right">
+            <div class="col">
+                <a class="download-logs waves-effect waves-light btn">Download Logs<i class="material-icons left">file_download</i></a>
+            </div>
+            <div class="col">
+                <a class="uncache-btn waves-effect waves-light btn">Uncache & Refresh<i class="material-icons left">refresh</i></a>
             </div>
         </div>
         <div class="row">
@@ -24,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12 content-container"></div>
+            <pre class="col s12 content-container"></pre>
         </div>
     </div>
 {% endblock content %}

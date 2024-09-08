@@ -1,5 +1,4 @@
 import fuzzysort from "https://cdn.jsdelivr.net/npm/fuzzysort@3.0.2/+esm";
-import { searchPackage } from "./fetch.js";
 
 class AlertModal {
 	constructor() {

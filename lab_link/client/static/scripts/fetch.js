@@ -64,10 +64,6 @@ async function getApplications(hostId, uncached = false) {
 	return fetchWithErrorHandler("/api/applications/", { params: { uncached } });
 }
 
-async function searchPackage(query) {
-	return fetchWithErrorHandler("/api/search-package", { params: { q: query, limit: 10 } });
-}
-
 async function uninstallPackages(hostId, list) {
 	const url = hostId ? `/api/uninstall/${hostId}/` : "/api/uninstall/";
 	return fetchWithErrorHandler(url, {
@@ -92,8 +88,9 @@ async function installPackages(hostId, list) {
 	});
 }
 
-async function getLogs(hostId) {
+async function getLogs(hostId, uncached = false) {
 	return fetchWithErrorHandler(`/api/logs/${hostId}`, {
+		params: { uncached },
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -102,14 +99,5 @@ async function getLogs(hostId) {
 	});
 }
 
-export {
-	pingHosts,
-	getHostDetails,
-	shutdownHost,
-	getApplications,
-	searchPackage,
-	uninstallPackages,
-	installPackages,
-	getLogs,
-};
+export { pingHosts, getHostDetails, shutdownHost, getApplications, uninstallPackages, installPackages, getLogs };
 
