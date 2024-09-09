@@ -1,4 +1,5 @@
-from ansible_runner import get_inventory as get_inventory_from_ansible_runner
+from api.models import Host
+from api.serializers import HostSerializer
 
 
 def transform_ping_output(output):
@@ -39,83 +40,17 @@ def transform_ping_output(output):
     inventory = get_inventory()
     for host in result:
         result[host] = {"status": result[host], "ip": inventory[host]
-                        ["ip"], "user": inventory[host]["user"]}
+                        ["ansible_host"], "user": inventory[host]["ansible_user"]}
     return result
 
 
-def transform_inventory_output(out):
-    """
-    Transforms the inventory output dictionary into a new dictionary format.
-
-    Args:
-        out (dict): The inventory output dictionary.
-
-    Returns:
-        dict: The transformed dictionary with host details.
-
-    Example:
-        >>> out = {
-        ...     "_meta": {
-        ...         "hostvars": {
-        ...             "host1": {
-        ...                 "ansible_host": "192.168.1.100",
-        ...                 "ansible_user": "admin",
-        ...                 "mac_address": "00:11:22:33:44:55"
-        ...             },
-        ...             "host2": {
-        ...                 "ansible_host": "192.168.1.101",
-        ...                 "ansible_user": "root"
-        ...             }
-        ...         }
-        ...     }
-        ... }
-        >>> transform_inventory_output(out)
-        {
-            "host1": {
-                "ip": "192.168.1.100",
-                "user": "admin",
-                "mac": "00:11:22:33:44:55"
-            },
-            "host2": {
-                "ip": "192.168.1.101",
-                "user": "root"
-            }
-        }
-    """
-    output = {}
-    hosts = out["_meta"]["hostvars"]
-    for host, details in hosts.items():
-        host_info = {"ip": details["ansible_host"],
-                     "user": details["ansible_user"]}
-        if "mac_address" in details:
-            host_info["mac_address"] = details["mac_address"]
-            host_info["broadcast_address"] = details["broadcast_address"]
-        output[host] = host_info
-    return output
-
-
 def get_inventory():
-    """
-    Retrieves the inventory from Ansible Runner.
-
-    Returns:
-        dict: The transformed output of the inventory.
-
-    Raises:
-        Exception: If there is an error retrieving the inventory.
-    """
-    out, err = get_inventory_from_ansible_runner(
-        action='list',
-        inventories=[
-            '/home/aashay/lab_link_ansible/ansible/inventory/hosts.yml'],
-        response_format='json',
-        quiet=True
-    )
-    if err:
-        raise Exception(err)
-    else:
-        transformed_output = transform_inventory_output(out)
-        return transformed_output
+    hosts = Host.objects.all()
+    serializer = HostSerializer(hosts, many=True)
+    hosts = dict()
+    for host_id, data in serializer.data:
+        hosts[host_id] = data
+    return hosts
 
 
 def extract_sys_info_events(events):

@@ -1,6 +1,19 @@
 from django.db import models
 
 
+class Host(models.Model):
+    host_id = models.CharField(max_length=100, unique=True)
+    ansible_connection = models.CharField(
+        max_length=100, blank=True, null=True)
+    ansible_host = models.GenericIPAddressField()
+    ansible_user = models.CharField(max_length=100)
+    ansible_become_password = models.CharField(max_length=100, blank=True)
+    tag = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.host_id
+
+
 class App(models.Model):
     name = models.CharField(max_length=200)
     package_name = models.CharField(max_length=200)

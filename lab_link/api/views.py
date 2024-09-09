@@ -5,16 +5,23 @@ import ansible_runner
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import App, SystemInfo
-from .serializers import SystemInfoSerializer
+from .models import App, SystemInfo, Host
+from .serializers import SystemInfoSerializer, HostSerializer
 from .exceptions import *
 from .decorators import cached_view, error_handler, generate_cache_key, cache_middleware
 from datetime import datetime
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):
+    hosts = helper.get_inventory()
+    inventory = {
+        'myhosts': {
+            "hosts": hosts
+        }
+    }
     r = ansible_runner.run(
         private_data_dir='/home/aashay/lab_link_ansible/ansible',
+        inventory=inventory,
         playbook=playbook,
         limit=limit,  # Limit to a specific host
         extravars=extravars,
