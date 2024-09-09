@@ -24,4 +24,5 @@ urlpatterns = [
          name="api_host_applications"),
     path('applications/', views.get_applications_from_list,
          name="api_all_applications"),
+    path('add-host', views.add_host, name="api_add_host"),
 ]

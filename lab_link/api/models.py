@@ -8,7 +8,21 @@ class Host(models.Model):
     ansible_host = models.GenericIPAddressField()
     ansible_user = models.CharField(max_length=100)
     ansible_become_password = models.CharField(max_length=100, blank=True)
-    tag = models.CharField(max_length=100, blank=True)
+    ssh_set = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.host_id or self.host_id == "":
+            last_host = Host.objects.filter(
+                host_id__startswith='host_').order_by('host_id').last()
+            if last_host:
+                try:
+                    last_id = int(last_host.host_id.split('_')[-1])
+                    self.host_id = f"host_{last_id + 1}"
+                except (ValueError, IndexError):
+                    self.host_id = "host_0"
+            else:
+                self.host_id = "host_0"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.host_id

@@ -10,7 +10,7 @@ class HostSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         host_dict = {key: value for key, value in data.items(
-        ) if value is not None and key != 'host_id' and key != 'id'}
+        ) if value is not None and key != 'host_id' and key != 'id' and key != 'ssh_set'}
         return (instance.host_id, host_dict)
 
 

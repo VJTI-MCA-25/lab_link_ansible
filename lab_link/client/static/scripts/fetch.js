@@ -99,5 +99,25 @@ async function getLogs(hostId, uncached = false) {
 	});
 }
 
-export { pingHosts, getHostDetails, shutdownHost, getApplications, uninstallPackages, installPackages, getLogs };
+async function addHost(data) {
+	return fetchWithErrorHandler("/api/add-host", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"X-CSRFToken": window.CSRF_TOKEN,
+		},
+		body: JSON.stringify(data),
+	});
+}
+
+export {
+	pingHosts,
+	getHostDetails,
+	shutdownHost,
+	getApplications,
+	uninstallPackages,
+	installPackages,
+	getLogs,
+	addHost,
+};
 

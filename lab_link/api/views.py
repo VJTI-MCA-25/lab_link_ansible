@@ -5,11 +5,13 @@ import ansible_runner
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
 from .models import App, SystemInfo, Host
 from .serializers import SystemInfoSerializer, HostSerializer
 from .exceptions import *
 from .decorators import cached_view, error_handler, generate_cache_key, cache_middleware
 from datetime import datetime
+import subprocess
 
 
 def run_ansible_playbook(playbook, limit=None, extravars=None):
@@ -39,20 +41,34 @@ def run_ansible_playbook(playbook, limit=None, extravars=None):
     return r
 
 
+def add_ssh_key(ip, user, password):
+    try:
+        output = subprocess.run(
+            ['sshpass', '-p', password, 'ssh-copy-id', '-i',
+             '/home/aashay/lab_link_ansible/.ssh/id_rsa.pub', f"{user}@{ip}"],
+            capture_output=True, text=True
+        )
+        return output.returncode == 0
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
+
+
 @api_view(['GET'])
 @error_handler
 @cached_view(lambda *args, **kwargs: 'ping_hosts')
 def ping_hosts(request):
-    time_sync_cache_key = 'time_sync'
-    last_sync = cache.get(time_sync_cache_key)
-    current_time = datetime.now()
+    unset_ssh_hosts = Host.objects.filter(ssh_set=False)
+    serialized_hosts = HostSerializer(unset_ssh_hosts, many=True)
 
-    if not last_sync or (current_time - last_sync).total_seconds() > 3 * 3600:
-        time_sync_r = run_ansible_playbook('sync_time.yml')
-
-        # Check if the playbook ran successfully
-        if hasattr(time_sync_r, 'rc') and time_sync_r.rc == 0:
-            cache.set(time_sync_cache_key, current_time, timeout=3 * 3600)
+    for host_id, host in serialized_hosts.data:
+        success = add_ssh_key(
+            host['ansible_host'], host['ansible_user'], host['ansible_become_password'])
+        if success:
+            Host.objects.filter(host_id=host_id).update(
+                ssh_set=True)
+        else:
+            print(f"Failed to add SSH key to {host['ansible_host']}")
 
     r = run_ansible_playbook('ping.yml')
     transformed_output = helper.transform_ping_output(r.stats)
@@ -190,3 +206,39 @@ def get_applications_from_list(request):
         "app_list": app_list})
     transformed_data = helper.transform_applications_from_list(r.events)
     return Response(transformed_data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@error_handler
+def add_host(request):
+    data = request.data
+
+    # Check if required fields are provided
+    required_fields = ['ip', 'user', 'password']
+    for field in required_fields:
+        if not data.get(field):
+            raise ValidationError(f"'{field}' field is required.")
+
+    # Check if host with given ID or IP already exists
+    if Host.objects.filter(host_id=data.get('name')).exists():
+        raise ValidationError('Host with this ID already exists.')
+    if Host.objects.filter(ansible_host=data.get('ip')).exists():
+        raise ValidationError('Host with this IP already exists.')
+
+    # Add SSH key to the host
+    ssh_success = add_ssh_key(
+        data.get('ip'), data.get('user'), data.get('password'))
+
+    # Create the Host instance
+    Host.objects.create(
+        host_id=data.get('name'),
+        ansible_host=data.get('ip'),
+        ansible_user=data.get('user'),
+        ansible_become_password=data.get('password'),
+        ssh_set=ssh_success
+    )
+
+    return Response({
+        'status': 'success',
+        'ssh_set': ssh_success
+    }, status=status.HTTP_200_OK)

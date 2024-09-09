@@ -4,6 +4,8 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
 
 .host {
@@ -43,5 +45,31 @@ i.host-status.success::before {
 
 i.host-status.failed::before {
 	background-color: var(--error);
+}
+
+.add-host-form {
+	margin-top: 2rem;
+}
+
+.modal {
+	max-width: 500px;
+	padding: 50px;
+}
+
+.add-host-form span.caption {
+	font-size: 12px;
+	text-rendering: optimizeLegibility;
+}
+
+.password-field {
+	position: relative;
+}
+
+.password-field > i {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
 }
 
