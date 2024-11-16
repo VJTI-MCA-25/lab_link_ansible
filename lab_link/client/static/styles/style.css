@@ -246,3 +246,21 @@ span.new.badge {
 input::placeholder {
 	color: var(--dark-highlight);
 }
+
+.error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+}
+
+.error .error-code {
+	font-size: 3rem;
+}
+
+.error .error-message {
+	font-size: 1.5rem;
+}
+

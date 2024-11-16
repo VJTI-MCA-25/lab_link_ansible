@@ -1,17 +1,28 @@
 import { getHostDetails, shutdownHost } from "./fetch.js";
-import { createElem, parseTime, snakeToTitleCase, titleToHyphenCase } from "./script.js";
+import { createElem, parseTime, snakeToTitleCase, titleToHyphenCase, Loading } from "./script.js";
+
+const mainContainer = document.querySelector(".host-container");
+const loading = new Loading(mainContainer);
 
 async function getHostData(uncached = false) {
-	setLoading(true);
 	try {
+		hideOptions(true);
+		loading.setLoading(true);
 		const { dataSource, ...data } = await getHostDetails(hostId, uncached);
+		loading.setLoading(false);
 		populateHostData(data);
-		disableOptions(dataSource);
+		hideOptions(false);
+		disableOptions(dataSource === "DATABASE");
 	} catch (error) {
-		console.error("Error fetching host data:", error);
-	} finally {
-		setLoading(false);
+		hideOptions(true);
+		loading.setError({ code: error.code, message: error.message });
+		modalAlert("Something went wrong while fetching the host details.");
 	}
+}
+
+function hideOptions(state) {
+	const options = document.querySelector(".options-container");
+	options.classList.toggle("hide", state);
 }
 
 function checkIfDevice(device) {
@@ -30,7 +41,6 @@ function getPercentageUsed(used, total) {
 }
 
 function populateHostData(data) {
-	const mainContainer = document.querySelector(".host-container");
 	mainContainer.innerHTML = "";
 
 	Object.entries(data).forEach(([key, value]) => {
@@ -135,36 +145,18 @@ function populateHostData(data) {
 	M.Tooltip.init(tooltipped, { enterDelay: 500, exitDelay: 100 });
 }
 
-function disableOptions(source) {
+function disableOptions(state) {
 	const manageApplicaionButton = document.querySelector(".applications-host");
 	const shutdownButton = document.querySelector(".shutdown-host");
 	const openTerminalButton = document.querySelector(".open-terminal");
 
 	[manageApplicaionButton, shutdownButton, openTerminalButton].forEach((button) => {
-		if (source === "DATABASE") {
+		if (state) {
 			button.classList.add("disabled");
 		} else {
 			button.classList.remove("disabled");
 		}
 	});
-}
-
-function setLoading(isLoading) {
-	const mainContainer = document.querySelector(".host-page");
-	const dataContainer = document.querySelector(".host-container");
-	const optionsContainer = document.querySelector(".options-container");
-
-	if (isLoading) {
-		dataContainer.innerHTML = "";
-		optionsContainer.classList.add("hide");
-		mainContainer.innerHTML += preloaderHtml;
-	} else {
-		const preloader = document.querySelector(".preloader");
-		if (preloader) {
-			preloader.remove();
-		}
-		optionsContainer.classList.remove("hide");
-	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {

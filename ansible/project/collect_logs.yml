@@ -39,7 +39,9 @@
             logs_map: "{{ logs_map | combine({'faillog': faillog_output.stdout}) }}"
         when: faillog_output.stdout is defined and faillog_output.stdout != ""
 
-      - name: Print all the logs
-        debug:
-            msg: "{{ logs_map }}"
+      - name: Save the logs map to a file
+        copy:
+            content: "{{ logs_map | to_nice_json }}"
+            dest: /tmp/logs_map.json
+        delegate_to: localhost
 

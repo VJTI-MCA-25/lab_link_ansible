@@ -11,10 +11,15 @@ const loading = new Loading(container);
 
 async function getHosts(uncached = false) {
 	loading.setLoading(true);
-	const data = await pingHosts(uncached);
-	const { params, ...hosts } = data;
-	loading.setLoading(false);
-	populateHosts(hosts);
+	try {
+		const data = await pingHosts(uncached);
+		const { params, ...hosts } = data;
+		loading.setLoading(false);
+		populateHosts(hosts);
+	} catch (err) {
+		loading.setError({ code: err.code, message: err.message });
+		modalAlert("Something went wrong while fetching the hosts.");
+	}
 }
 
 function populateHosts(data) {
@@ -43,11 +48,11 @@ async function shutdownAllHosts() {
 
 	if (modalConfirmRes) {
 		try {
-			const response = await shutdownHost();
+			await shutdownHost();
 			modalAlert("Shutdown signal sent. The list will refresh to reflect the new state.", getHosts);
 		} catch (err) {
 			console.error(err);
-			modalAlert("Something went wrong.");
+			modalAlert("Something went wrong. Cannot verify if the hosts are down.");
 		}
 	}
 }
@@ -59,8 +64,13 @@ async function addHostHandler(e) {
 	const user = e.target.querySelector("#host-user").value;
 	const password = e.target.querySelector("#host-password").value;
 
-	const res = await addHost({ name, ip, user, password });
-	console.log(res);
+	try {
+		const res = await addHost({ name, ip, user, password });
+		console.log(res);
+		modalAlert("Host added successfully, Please Refresh the list to reflect the changes.", () => getHosts(true));
+	} catch (err) {
+		modalAlert("Something went wrong. Could not add the host.");
+	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {

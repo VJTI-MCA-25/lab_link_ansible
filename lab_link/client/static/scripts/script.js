@@ -116,6 +116,14 @@ export class Loading {
 		}
 		this._status = state;
 	}
+
+	setError(err) {
+		this.setLoading(false);
+		this._container.innerHTML = `<div class="error">
+			<div class="error-code">${err.code || 500}</div>
+			<div class="error-message">${err.message || "Something went wrong."}</div>
+		</div>`;
+	}
 }
 
 export class FuzzySearch {

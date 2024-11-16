@@ -5,6 +5,7 @@ import logging
 from threading import Thread, Lock
 import time
 from queue import Queue, Empty
+# from api.utils.helper import get_inventory
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
@@ -25,7 +26,6 @@ class SSHConsumer(WebsocketConsumer):
             host = self.get_host_details(host_id)
             if not host:
                 raise Exception("Host not found in inventory")
-
             hostname = host.get("ansible_host")
             username = host.get("ansible_user")
             password = host.get("ansible_become_password")
@@ -80,7 +80,7 @@ class SSHConsumer(WebsocketConsumer):
         out, err = get_inventory(
             action='list',
             inventories=[
-                '/home/aashay/lab_link_ansible/ansible/inventory/hosts.yml'],
+                '/home/aashay/lab_link_ansible/ansible/inventory/hosts.json'],
             response_format='json',
             host=host_id,
             quiet=True,

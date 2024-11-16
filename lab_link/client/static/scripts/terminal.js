@@ -21,14 +21,20 @@ function createTerminalWindow() {
 
 		const websocket = new WebSocket(uri);
 
+		websocket.onmessage = (message) => {
+			if (message.data.startsWith("Error")) {
+				console.error("WebSocket error: ", message.data);
+				modalAlert(
+					"Something went wrong when establishing connection. Look at the console for more Information."
+				);
+				if (terminalWindow) terminalWindow.close();
+			}
+		};
+
 		websocket.onopen = () => {
 			const attachAddon = new AttachAddon(websocket);
 			terminal.loadAddon(attachAddon);
 			console.log("WebSocket connection opened.");
-		};
-
-		websocket.onmessage = (event) => {
-			console.log("WebSocket message received:", event.data);
 		};
 
 		websocket.onclose = () => {
@@ -36,12 +42,6 @@ function createTerminalWindow() {
 			if (terminalWindow) terminalWindow.close();
 			terminal.dispose();
 			terminalWindow = null;
-		};
-
-		websocket.onerror = (error) => {
-			console.error("WebSocket error: ", error);
-			if (terminalWindow) terminalWindow.close();
-			modalAlert("Something went wrong when connecting to the Remote Machine.");
 		};
 
 		terminalWindow = window.open("", "_blank", "width=800,height=600");
@@ -61,7 +61,6 @@ function createTerminalWindow() {
 	} catch (error) {
 		console.error("Failed to initialize terminal: ", error);
 		if (terminalWindow) terminalWindow.close();
-		modalAlert("Failed to open terminal.");
 	}
 }
 

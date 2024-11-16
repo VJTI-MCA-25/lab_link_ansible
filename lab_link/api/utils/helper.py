@@ -1,5 +1,6 @@
 from api.models import Host
 from api.serializers import HostSerializer
+import json
 
 
 def transform_ping_output(output):
@@ -75,6 +76,8 @@ def transform_sys_info(data):
     cpus_str = ["{} {}".format(cpus[i+1], cpus[i+2])
                 for i in range(0, len(cpus) - 1, 3)]
     data['cpus'] = cpus_str
+
+    # data['cpus'] = data['cpus']
 
     grouped_data = {
         'Storage And Memory': {
@@ -280,6 +283,6 @@ def transform_uninstall_install(events):
 
 
 def transform_logs(events):
-    for event in events:
-        if event['event'] == 'runner_on_ok' and event['event_data']['task'] == "Print all the logs":
-            return event['event_data']['res']['msg']
+    with open('/tmp/logs_map.json', 'r') as f:
+        logs_map = json.load(f)
+    return logs_map

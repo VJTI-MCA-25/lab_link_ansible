@@ -11,13 +11,18 @@ const loading = new Loading(container);
 var content = null;
 
 async function fetchData(uncached = false) {
-	loading.setLoading(true);
-	contentContainer.innerHTML = "";
-	fileTitle.innerHTML = "";
-	const data = await getLogs(hostId, uncached);
-	content = data;
-	loading.setLoading(false);
-	populateLogs(data);
+	try {
+		loading.setLoading(true);
+		contentContainer.innerHTML = "";
+		fileTitle.innerHTML = "";
+		const data = await getLogs(hostId, uncached);
+		content = data;
+		loading.setLoading(false);
+		populateLogs(data);
+	} catch (err) {
+		loading.setError({ code: err.code, message: err.message });
+		modalAlert("Something went wrong while fetching the logs.");
+	}
 }
 
 function setContent(key) {

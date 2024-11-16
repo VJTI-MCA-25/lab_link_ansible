@@ -17,7 +17,7 @@
                     <div class="terminal"></div>
                 </div>
                 <div class="col s2">
-                    <div class="options-container hide">
+                    <div class="options-container">
                         <h5 class="options-title left-align underline">Options</h5>
                         <a class="open-terminal waves-effect btn">Open a terminal
                             <i class="material-icons left">web_asset</i>

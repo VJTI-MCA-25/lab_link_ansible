@@ -10,7 +10,6 @@ from .models import App, SystemInfo, Host
 from .serializers import SystemInfoSerializer, HostSerializer
 from .exceptions import *
 from .decorators import cached_view, error_handler, generate_cache_key, cache_middleware
-from datetime import datetime
 import subprocess
 
 
@@ -98,10 +97,10 @@ def host_details(request, host_id):
                 response['X-Data-Source'] = 'CACHE'
                 return response
 
-        # Check if host is unreachable
-        is_unreachable = cache.get(f'unreachable_{host_id}')
-        if is_unreachable and not request.uncache:
-            raise HostUnreachable
+        # # Check if host is unreachable
+        # is_unreachable = cache.get(f'unreachable_{host_id}')
+        # if is_unreachable and not request.uncache:
+        #     raise HostUnreachable
 
         # Run Ansible playbook if no cache is found
         try:
@@ -125,6 +124,7 @@ def host_details(request, host_id):
         return Response(transformed_data, status=status.HTTP_200_OK)
 
     except HostUnreachable as e:
+        print(e)
         # Cache the unreachable status to avoid retrying too soon
         cache.set(f'unreachable_{host_id}', True, 60 * 60)
 

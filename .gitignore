@@ -3,7 +3,7 @@ ansible/artifacts/
 ssh_key
 *.pub
 .ssh/
-ansible/inventory/
+ansible/inventory
 # Django project ignore entries
 *.pyc
 *.pyo

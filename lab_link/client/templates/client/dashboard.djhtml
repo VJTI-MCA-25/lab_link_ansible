@@ -43,7 +43,13 @@
                     <span class="caption">Leave the field blank to set the name automatically</span>
                 </div>
                 <div class="input-field">
-                    <input id="host-ip" type="text">
+                    <input id="host-ip"
+                           class="validate"
+                           type="text"
+                           minlength="7"
+                           maxlength="15"
+                           size="15"
+                           pattern="^(?>(\d|[1-9]\d{2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?1)$">
                     <label for="host-ip">Host IP</label>
                 </div>
                 <div class="input-field">

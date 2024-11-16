@@ -13,11 +13,11 @@ async function getApps(uncached = false) {
 	try {
 		loading.setLoading(true);
 		appsData = await getApplications(false, uncached);
+		loading.setLoading(false);
 		populateAllAppsTable(appsData);
 	} catch (error) {
-		console.error("Failed to fetch applications:", error);
-	} finally {
-		loading.setLoading(false);
+		loading.setError({ code: error.code, message: error.message });
+		modalAlert("Something went wrong while fetching the applications.");
 	}
 }
 

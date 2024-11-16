@@ -27,14 +27,14 @@ async function getApps(uncached = false) {
 		tbody.innerHTML = "";
 		toggleOptions(false);
 		const data = await getApplications(hostId, uncached);
+		loading.setLoading(false);
 		populateHostAppsTable(data);
 		toggleOptions(true);
 		fuzzy.list = data;
 		appData = data;
 	} catch (error) {
-		console.error("Failed to fetch applications:", error);
-	} finally {
-		loading.setLoading(false);
+		loading.setError({ code: error.code, message: error.message });
+		modalAlert("Something went wrong while fetching the applications.");
 	}
 }
 
