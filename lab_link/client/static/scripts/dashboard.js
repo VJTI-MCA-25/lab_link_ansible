@@ -1,9 +1,10 @@
-import { addHost, pingHosts, shutdownHost } from "./fetch.js";
+import { addHost, pingHosts, shutdownHost, deleteHost } from "./fetch.js";
 import { Loading } from "./script.js";
 
 const container = document.querySelector(".hosts-container");
 const addHostModal = document.querySelector("#add-host-modal");
 const addHostForm = document.querySelector("#add-host-form");
+const deleteHostButton = document.querySelector(".delete-host-button");
 const refreshButton = document.querySelector(".refresh-list-button");
 const shutdownAllButton = document.querySelector(".shutdown-all-hosts");
 const showPassword = document.querySelector(".password-field>i");
@@ -11,6 +12,7 @@ const loading = new Loading(container);
 
 async function getHosts(uncached = false) {
 	loading.setLoading(true);
+	container.classList.remove("delete-mode");
 	try {
 		const data = await pingHosts(uncached);
 		const { params, ...hosts } = data;
@@ -31,16 +33,38 @@ function populateHosts(data) {
 			let div = document.createElement("div");
 			div.classList.add("host", "col", "s1");
 			div.innerHTML = `
-			<i class="${data[host].status} host-status material-icons">desktop_windows</i>
-			<div class=	"host-name">${host}</div>
-			<div class="host-ip">${data[host].ip}</div>
+			<i class="material-icons delete-host-icon" data-delete-host-name="${host}">clear</i>
+			<a class="host-link" href="/host/${host}">
+				<i class="${data[host].status} host-status material-icons">desktop_windows</i>
+				<div class=	"host-name">${host}</div>
+				<div class="host-ip">${data[host].ip}</div>
+			</a>
             `;
-			let a = document.createElement("a");
-			a.href = `/host/${host}`;
-			a.classList.add("host-link");
-			a.appendChild(div);
-			container.appendChild(a);
+			container.appendChild(div);
 		});
+
+	document.querySelectorAll(".delete-host-icon").forEach((icon) => {
+		icon.addEventListener("click", deleteHostHandler);
+	});
+}
+
+async function deleteHostHandler(e) {
+	const hostName = e.target.dataset.deleteHostName;
+	const modalConfirmRes = await modalStrictConfirm(`Are you sure you want to delete ${hostName}?`);
+
+	if (modalConfirmRes) {
+		try {
+			const res = await deleteHost(hostName);
+			if (res.status === "success") {
+				modalAlert("Host deleted successfully. The list will refresh to reflect the changes.", () =>
+					getHosts(true)
+				);
+			}
+		} catch (err) {
+			console.error(err);
+			modalAlert("Something went wrong. Could not delete the host.");
+		}
+	}
 }
 
 async function shutdownAllHosts() {
@@ -91,6 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (addHostForm) {
 		addHostForm.addEventListener("submit", addHostHandler);
 	}
+
+	if (deleteHostButton) {
+		deleteHostButton.addEventListener("click", () => {
+			container.classList.toggle("delete-mode");
+		});
+	}
+
 	getHosts();
 });
 

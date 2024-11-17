@@ -25,4 +25,5 @@ urlpatterns = [
     path('applications/', views.get_applications_from_list,
          name="api_all_applications"),
     path('add-host', views.add_host, name="api_add_host"),
+    path('delete-host', views.delete_host, name="api_delete_host"),
 ]

@@ -126,7 +126,7 @@ def host_details(request, host_id):
     except HostUnreachable as e:
         print(e)
         # Cache the unreachable status to avoid retrying too soon
-        cache.set(f'unreachable_{host_id}', True, 60 * 60)
+        # cache.set(f'unreachable_{host_id}', True, 60 * 60)
 
         # Handle unreachable host by retrieving data from the database
         system_info = SystemInfo.objects.filter(host_id=host_id).first()
@@ -242,3 +242,14 @@ def add_host(request):
         'status': 'success',
         'ssh_set': ssh_success
     }, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@error_handler
+def delete_host(request):
+    host_id = request.data
+    if not host_id:
+        raise ValidationError('Host ID is required.')
+    print(f"Deleting host with ID: {host_id}")
+    Host.objects.filter(host_id=host_id).delete()
+    return Response({'status': 'success'}, status=status.HTTP_200_OK)

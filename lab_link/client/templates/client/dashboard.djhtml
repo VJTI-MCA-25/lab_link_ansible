@@ -13,6 +13,9 @@
                 <h3>Dashboard</h3>
             </div>
             <div class="col right">
+                <button class="waves-effect waves-light btn danger right delete-host-button">Delete Host</button>
+            </div>
+            <div class="col right">
                 <button data-target="add-host-modal"
                         class="waves-effect waves-light btn modal-trigger right">Add Host</button>
             </div>

@@ -110,6 +110,17 @@ async function addHost(data) {
 	});
 }
 
+async function deleteHost(data) {
+	return fetchWithErrorHandler("/api/delete-host", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"X-CSRFToken": window.CSRF_TOKEN,
+		},
+		body: JSON.stringify(data),
+	});
+}
+
 export {
 	pingHosts,
 	getHostDetails,
@@ -119,5 +130,6 @@ export {
 	installPackages,
 	getLogs,
 	addHost,
+	deleteHost,
 };
 
